@@ -45,6 +45,10 @@ opts = OptionParser.new do |opts|
     options[:channel_template] = file
   end
 
+  opts.on("--verbose", "Verbose mode - display additional diagnostic information") do |file|
+    options[:verbose] = true
+  end
+
   opts.on("--version", "Display current version") do
     puts "#{File.basename(__FILE__)} " + Dropcaster::VERSION
     exit 0
@@ -57,6 +61,7 @@ begin
   options.merge! YAML.load_file(channel_file)
 rescue
   STDERR.puts "Error: Could not find channel definition."
+  STDERR.puts $!.backtrace if options[:verbose]
   puts usage
   exit 1
 end
@@ -70,7 +75,8 @@ end
 begin
   puts Dropcaster::Channel.new(src_dir, options).to_rss
 rescue
-  puts "Error: #{$!.message}"
-  puts usage
+  STDERR.puts "Error: #{$!.message}"
+  STDERR.puts $!.backtrace if options[:verbose]
+  STDERR.puts usage
   exit(1)
 end

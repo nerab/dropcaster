@@ -9,7 +9,7 @@ module Dropcaster
       super(Hash.new)
 
       # Assert mandatory options
-      [:title, :url, :description].each{|attr|
+      [:title, :url, :description, :enclosure_base].each{|attr|
         raise MissingAttributeError.new(attr) if options[attr].blank?
       }
       
@@ -42,10 +42,9 @@ module Dropcaster
         item.tag.artist = self.author if item.artist.blank?
         item.image_url = self.image_url if item.image_url.blank?
         
-        # Construct absolute URL, based on the channel's enclosure_base attribute
-        item.url = enclosure_base || ''
-        item.url << '/' unless item.url =~ /\/$/
-        item.url += URI.escape(item.file_name, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+        # construct absolute URL, based on the channel's enclosure_base attribute
+        enclosure_base << '/' unless enclosure_base =~ /\/$/
+        item.url = URI.join(URI.escape(enclosure_base), URI.escape(item.file_name))
         
         all_items << item
       }

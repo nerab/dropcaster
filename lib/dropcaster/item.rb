@@ -9,7 +9,7 @@ module Dropcaster
       super(Hash.new)
 
       Mp3Info.open(file_path){|mp3info|
-        self[:file_name] = Pathname.new(file_path).cleanpath.to_s
+        self[:file_name] = Pathname.new(File.expand_path(file_path)).relative_path_from(Pathname.new(Dir.pwd)).cleanpath.to_s
         self[:tag] = mp3info.tag
         self[:tag2] = mp3info.tag2
         self[:duration] = mp3info.length
