@@ -21,6 +21,8 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{Dropcaster is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other hoster.}
   gem.email = "nerab@gmx.at"
   gem.authors = ["nerab"]
+  gem.executables << 'dropcaster'
+  gem.executables << 'lstags'
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
