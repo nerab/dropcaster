@@ -1,4 +1,5 @@
 * Allow operation without a channel definition file by passing the channel's title, description and URL on the command line
+* Add verbose mode that logs warnings to STDERR for all the opinionated decisions and fallbacks that Dropcaster takes
 * Allow overriding the path to the ERB template (and document the available template variables)
 * Support a tree of iTunes categories: <itunes:category text="Technology"><itunes:category text="Gadgets"/></itunes:category>
 * If an index.html.erb is present, generate an index.html from it

@@ -108,13 +108,6 @@ Include Episodes From Two Subdirectories Into a Single Feed
 
 Advanced features
 =================
-
-Episode Identifier (uuid)
--------------------------
-Dropcaster uses a rather simple approach to uniquely identify the episodes. It simply generates a SHA1 hash of the mp3 file. If it changes, for whatever reason (even if only a tag was changes), the episode will get a new UUID, and any podcatcher will fetch the episode again (which is what you want, in most cases).
-
-Modifying the sidecar file does not change the UUID, because it only affects the feed and not the episode itself.
-
 Sidecar files
 -------------
 You may override the meta data for any episode by providing a YAML file with the same name as the mp3 file, but with an extension of yml or yaml (ususally refered to as [sidecar file](http://en.wikipedia.org/wiki/Sidecar_file)). Any attributes specified in this file override the ID tags in the mp3 file.
@@ -128,6 +121,12 @@ The generated XML file contains all elements required for iTunes. However, Dropc
 Using Dropcaster Without Dropbox
 --------------------------------
 The whole concept of Dropcaster works perfectly fine without Dropbox. Just run the Dropcaster script in a directory of mp3 files and upload the files as well as the generated index.rss to a web server. Leave the relative position of the index and mp3 files as is, otherwise the path to the mp3 files in index.rss will become invalid.
+
+Episode Identifier (uuid)
+-------------------------
+Dropcaster uses a rather simple approach to uniquely identify the episodes. It simply generates a SHA1 hash of the mp3 file. If it changes, for whatever reason (even if only a tag was changes), the episode will get a new UUID, and any podcatcher will fetch the episode again (which is what you want, in most cases).
+
+Modifying the sidecar file does not change the UUID, because it only affects the feed and not the episode itself.
 
 Contributing to Dropcaster
 ==========================
