@@ -82,7 +82,7 @@ Publish Your Feed
 
 Generate a Podcast Feed for a Subset of the Available MP3 Files
 ---------------------------------------------------------------
-Dropcaster accepts any number of files or directories as episodes. For directories, all files ending in .mp3 will be included. For advanced filtering, you can use regular shell patterns to further specify which files will be included.
+Dropcaster accepts any number of files or directories as episodes. For directories, all files ending in .mp3 will be included. For advanced filtering, you can use regular shell patterns to further specify which files will be included. These patterns will be resolved by the shell itself (e.g. bash), and not by Dropcaster.
 
 For example, in order to generate a feed that only publishes MP3 files where the name starts with 'A', call Dropcaster like this:
 
