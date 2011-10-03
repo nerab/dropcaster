@@ -34,7 +34,7 @@ Use Cases
 Publish a New Episode
 ---------------------
 
-1. Drop the mp3 file into the Dropbox Public folder (e.g. ~/Dropbox/Public), and then run
+1. Drop the mp3 file into the Dropbox Public folder (e.g. ~/Dropbox/Public), and then run the following command in the directory where the mp3 files reside:
 
         $ dropcaster > index.rss
 
@@ -43,25 +43,25 @@ Publish a New Episode
 Delete an Episode
 -----------------
 
-Remove the mp3 you want to delete from the Dropbox Public folder, and then run
+Remove the mp3 you want to delete from the Dropbox Public folder, and then run the following command in the directory where the remaining mp3 files reside:
 
 	  $ dropcaster > index.rss
 
 Replace an Episode With an Updated File
 ---------------------------------------
 
-In the Dropbox Public folder, replace the mp3 you want to update with a new version, and then run
+In the Dropbox Public folder, replace the mp3 you want to update with a new version, and then run the following command in the directory where the mp3 files reside:
 
 	  $ dropcaster > index.rss
 
 Publish Your Feed
 -----------------
 
-1. Re-generate the feed to make sure the it is up to date:
+1. Re-generate the feed to make sure the it is up to date (see above):
 
         $ dropcaster > index.rss
 	
-1. In your Dropbox Public folder, right-click the index.rss and select Dropbox / Copy public link. This copies the public, HTTP-addressable link to your podcast into the clipboard.
+1. In your Dropbox Public folder, right-click the index.rss and select "Dropbox / Copy public link". This copies the public, HTTP-addressable link to your podcast into the clipboard.
 1. Publish this link and tell people to subscribe to it.
 
 Publish More than One Feed
