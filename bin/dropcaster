@@ -17,9 +17,9 @@ Basic Usage:
                                specified as argument. The channel definition
                                is read from the current directory.
 
-  dropcaster [<dir>...]        Prints a podcast feed document for the files 
-                               specified as argument. The channel definition is
-                               read from the current directory.
+  dropcaster [<dir>...]        Prints a podcast feed document for the files in
+                               the directory specified as argument. The channel
+                               definition is read from the current directory.
 
 Options:                               
 HELP
