@@ -1,0 +1,77 @@
+#
+# A sample RSS channel definition
+#
+# This file is read by Dropcaster
+# http://github.com/nerab/dropcaster
+#
+# It defines the properties of your podcast channel.
+#
+
+#
+# Title (name) of the podcast
+#
+:title: 'All About Everything'
+
+#
+# Short description of the podcast (a few words)
+#
+:subtitle: 'A show about everything'
+
+#
+# URL to the podcast. 
+#
+:url: 'http://www.example.com/podcasts/everything/index.html'
+
+#
+# Base URL for enclosure links
+#
+:enclosure_base: 'http://www.example.com/podcasts/everything'
+
+#
+# Language of the podcast - ISO 639-1 Alpha-2 list (two-letter language codes, some with possible modifiers, such as "en-us").
+#
+:language: 'en-us'
+
+#
+# Not visible in iTunes, but useful as a statement in the feed
+#
+:copyright: '© 2011 John Doe & Family'
+
+#
+# Author / creator of the podcast. In iTunes, it is displayed in the artist column.
+#
+:author: 'John Doe'
+
+#
+# Longer description of the podcast
+#
+:description: 'All About Everything is a show about everything. Each week we dive into any subject known to man and talk about it as much as we can. Look for our Podcast in the iTunes Store!'
+
+#
+# Contact information of the owner of the podcast. Not be publicly displayed in iTunes.
+#
+:owner:
+  :name: 'John Doe'
+  :email: 'john.doe@example.com'
+
+#
+# iTunes prefers square .jpg images that are at least 600 x 600 pixels
+#
+:image_url: 'http://example.com/podcasts/everything/AllAboutEverything.jpg'
+
+#
+# Category / categories of the podcast
+#
+# For iTunes, see http://www.apple.com/itunes/podcasts/specs.html#categories for applicable values
+#
+# Examples:
+#   :categories: 'Technology'
+#   :categories: ['Technology', 'Gadgets']
+#   :categories: ['TV &amp; Film', ['Technology', 'Gadgets']]
+
+:categories: ['Technology', 'Gadgets']
+
+#
+# Yes, No or Clean, see http://www.apple.com/itunes/podcasts/specs.html#explicit
+#
+:explicit: 'No'

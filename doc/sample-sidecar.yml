@@ -1,0 +1,19 @@
+#
+# Sample sidecar file
+#
+# If this file is present side-by-side with an mp3 file, and if it has the same name as the mp3 (but with
+# an extension of yml or yaml), then any setting made in this file will be used instead of the value from the mp3.
+#
+:title: 'Title of the episode'
+:author: 'Author of the episode'
+:subtitle: 'Subtitle of the episode'
+:description: 'Desciption and summary of the episode'
+:image_url: 'URL to an image specific for this episode'
+:enclosure:
+  :url: 'URL where this episode can be downloaded'
+  :length: 42 # length of the episode in milliseconds
+  :type: 'usually audio/mp3'
+:guid: 'Globally unique id of the episode'
+:pubDate: 'Date as per RFC 2822; e.g. Wed, 15 Jun 2005 19:00:00 GMT'
+:duration: 'Either HH:MM:SS, H:MM:SS, MM:SS, M:SS, or SS'
+:keywords: ['ruby', 'rails', 'podcast'] # up to 12 text keywords
