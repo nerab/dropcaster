@@ -1,12 +1,9 @@
-Dropcaster
-==========
-Simple Podcast Publishing with Dropbox
---------------------------------------
-Author: Nicolas E. Rabenau <nerab@gmx.at>
+Dropcaster - Simple Podcast Publishing with Dropbox
+===================================================
 
-Description
------------
 Dropcaster is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other hoster.
+
+Author: Nicolas E. Rabenau <nerab@gmx.at>
 
 What is the problem Dropcaster is trying to solve?
 ==================================================
