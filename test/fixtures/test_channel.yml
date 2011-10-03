@@ -1,0 +1,14 @@
+:title: 'All About Everything'
+:subtitle: 'A show about everything'
+:url: 'http://www.example.com/podcasts/everything/index.html'
+:enclosure_base: 'http://www.example.com/podcasts/everything'
+:language: 'en-us'
+:copyright: '© 2011 John Doe and Family'
+:author: 'John Doe'
+:description: 'All About Everything is a show about everything. Each week we dive into any subject known to man and talk about it as much as we can. Look for our Podcast in the iTunes Store!'
+:owner:
+  :name: 'John Doe'
+  :email: 'john.doe@example.com'
+:image_url: 'http://example.com/podcasts/everything/AllAboutEverything.jpg'
+:categories: ['Technology', 'Gadgets']
+:explicit: 'No'

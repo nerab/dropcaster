@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+
+unless ARGV.size == 1
+  STDERR.puts "#{File.basename(__FILE__)}: Missing required parameter for the mp3 file to process"
+  exit(1)
+end
+
+require 'rubygems'
+require 'mp3info'
+
+begin
+  Mp3Info.open(ARGV.first) do |mp3info|
+    puts 'ID3v1 tags:'
+    mp3info.tag.keys.each{|key|
+      puts "  #{key} => #{mp3info.tag.send(key)}"
+    }
+    puts
+    puts 'ID3v2 tags:'
+    mp3info.tag2.keys.each{|key|
+      case key
+        when 'PIC'
+        when 'APIC'
+          # picture - do not print binary data
+        when 'ULT'
+          print "  ULT => "
+          block_counter = 0
+          mp3info.tag2.ULT.bytes{|b| 
+            print "0x%02x " % b.to_i
+            print b > 31 ? " '#{b.chr}' " : " " * 5
+            if (block_counter += 1) > 7 # display in blocks of 8 bytes
+              puts
+              print " " * 9
+              block_counter = 0
+            end
+          }
+          puts
+        else
+          puts "  #{key} => #{mp3info.tag2.send(key)}"
+      end
+    }
+  end
+rescue
+  puts "Error: #{$!.message}"
+  exit(1)
+end

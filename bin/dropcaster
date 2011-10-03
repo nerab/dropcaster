@@ -1,0 +1,76 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require 'rubygems'
+require 'yaml'
+
+help = <<HELP
+Dropcaster is a podcast feed generator for the command line.
+
+Basic Usage:
+  dropcaster                   Prints a podcast feed document for the mp3 files
+                               in the current directory. The channel definition
+                               is read from the current directory.
+                               
+  dropcaster [<file>...]       Prints a podcast feed documentfor the files
+                               specified as argument. The channel definition
+                               is read from the current directory.
+
+  dropcaster [<dir>...]        Prints a podcast feed document for the files 
+                               specified as argument. The channel definition is
+                               read from the current directory.
+
+Options:                               
+HELP
+
+def usage
+  "Run '#{File.basename(__FILE__)} --help' for further help."
+end
+
+require 'optparse'
+require 'dropcaster'
+
+channel_file = 'channel.yml'
+
+options = {}
+opts = OptionParser.new do |opts|
+  opts.banner = help
+
+  opts.on("--channel FILE", "Read the channel information from FILE") do |file|
+    channel_file = file
+  end
+
+  opts.on("--channel-template FILE", "Use FILE as template for the channel") do |file|
+    options[:channel_template] = file
+  end
+
+  opts.on("--version", "Display current version") do
+    puts "#{File.basename(__FILE__)} " + Dropcaster::VERSION
+    exit 0
+  end
+end
+
+opts.parse!
+
+begin
+  options.merge! YAML.load_file(channel_file)
+rescue
+  STDERR.puts "Error: Could not find channel definition."
+  puts usage
+  exit 1
+end
+
+if ARGV.empty?
+  src_dir = '.'
+else
+  src_dir = ARGV
+end
+
+begin
+  puts Dropcaster::Channel.new(src_dir, options).to_rss
+rescue
+  puts "Error: #{$!.message}"
+  puts usage
+  exit(1)
+end
