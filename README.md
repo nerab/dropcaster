@@ -34,36 +34,44 @@ Use Cases
 Publish a New Episode
 ---------------------
 
-	  # Drop the mp3 file into the Dropbox Public folder (e.g. ~/Dropbox/Public)
-	  $ dropcaster > index.rss
-	  # Dropbox will sync the updated index.rss file to its web server and any podcast client
-	  # will download the new episode as soon as it has loaded the updated index.rss.
+1. Drop the mp3 file into the Dropbox Public folder (e.g. ~/Dropbox/Public), and then run
+
+        $ dropcaster > index.rss
+
+1. Dropbox will sync the updated index.rss file to its web server and any podcast client will download the new episode as soon as it has loaded the updated index.rss.
 
 Delete an Episode
 -----------------
 
-	  # Remove the mp3 you want to delete from the Dropbox Public folder
+Remove the mp3 you want to delete from the Dropbox Public folder, and then run
+
 	  $ dropcaster > index.rss
 
 Replace an Episode With an Updated File
 ---------------------------------------
 
-	  # In the Dropbox Public folder, replace the mp3 you want to update with a new version
+In the Dropbox Public folder, replace the mp3 you want to update with a new version, and then run
+
 	  $ dropcaster > index.rss
 
 Publish Your Feed
 -----------------
 
-	  $ dropcaster > index.rss # to make sure the index.rss is up to date
-	  # In your Dropbox Public folder, right-click the index.rss and select Dropbox / Copy public link. This copies the public, HTTP-addressable link to your podcast into the clipboard.
-	  # Publish this link and tell people to subscribe to it.
+1. Re-generate the feed to make sure the it is up to date:
+
+        $ dropcaster > index.rss
+	
+1. In your Dropbox Public folder, right-click the index.rss and select Dropbox / Copy public link. This copies the public, HTTP-addressable link to your podcast into the clipboard.
+1. Publish this link and tell people to subscribe to it.
 
 Publish More than One Feed
 --------------------------
 
 	  $ dropcaster project1 > project1.rss
 	  $ dropcaster project2 > project2.rss
-	  # or
+
+or
+
 	  $ cd project1
 	  $ dropcaster > index.rss
 	  $ cd ../project2
