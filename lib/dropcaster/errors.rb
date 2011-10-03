@@ -6,6 +6,6 @@ end
 
 class MissingAttributeError < ConfigurationError
   def initialize(missingAttribute)
-    super("#{missingAttribute} is a mantadory attribute, but it is missing.")
+    super("#{missingAttribute} is a mandatory attribute, but it is missing.")
   end
 end

@@ -14,7 +14,7 @@ class TestChannel < Test::Unit::TestCase
     assert_equal('77bf84447c0f69ce4a33a18b0ae1e030b82010de', @channel.items.first.uuid)
   end
   
-  def test_attributes_mantadory
+  def test_attributes_mandatory
     channel = XML::Document.string(@channel.to_rss).find("//rss/channel").first
     assert_equal('Test Channel', channel.find('title').first.content)
     assert_equal('http://www.example.com/podcast.rss', channel.find('link').first.content)

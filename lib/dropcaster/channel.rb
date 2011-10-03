@@ -8,7 +8,7 @@ module Dropcaster
     def initialize(sources, options)
       super(Hash.new)
 
-      # Assert mantadory options
+      # Assert mandatory options
       [:title, :url, :description].each{|attr|
         raise MissingAttributeError.new(attr) if options[attr].blank?
       }
