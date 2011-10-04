@@ -31,22 +31,35 @@ end
 require 'optparse'
 require 'dropcaster'
 
-channel_file = 'channel.yml'
-
-options = {}
 opts = OptionParser.new do |opts|
   opts.banner = help
 
   opts.on("--channel FILE", "Read the channel information from FILE") do |file|
-    channel_file = file
+    parm_channel_file = file
   end
 
+  opts.on("--title STRING", "Channel title") do |title|
+    parm_channel_title = title
+  end
+
+  opts.on("--url URL", "Channel url") do |url|
+    parm_channel_url = url
+  end
+
+  opts.on("--description STRING", "Channel description") do |description|
+    parm_channel_description = description
+  end
+
+  opts.on("--enclosure_base URL", "Base URL for enclosures") do |enclosure_base|
+    parm_channel_enclosure_base = enclosure_base
+  end
+  
   opts.on("--channel-template FILE", "Use FILE as template for the channel") do |file|
-    options[:channel_template] = file
+    parm_channel_template = file
   end
 
-  opts.on("--verbose", "Verbose mode - display additional diagnostic information") do |file|
-    options[:verbose] = true
+  opts.on("--verbose", "Verbose mode - displays additional diagnostic information") do |file|
+    parm_verbose = true
   end
 
   opts.on("--version", "Display current version") do
@@ -56,24 +69,52 @@ opts = OptionParser.new do |opts|
 end
 
 opts.parse!
+sources = ARGV || '.'
 
-begin
-  options.merge! YAML.load_file(channel_file)
-rescue
-  STDERR.puts "Error: Could not find channel definition."
-  STDERR.puts $!.backtrace if options[:verbose]
-  puts usage
-  exit 1
-end
+options = {}
 
-if ARGV.empty?
-  src_dir = '.'
+# TODO Move this logic to ChannelFileLocator or ChannelFileLoader
+if parm_channel_file
+  begin
+    options[:channel] = YAML.load_file(parm_channel_file)
+  rescue
+    STDERR.puts "Error loading channel definition from #{parm_channel_file}"
+    STDERR.puts $!.backtrace if options[:verbose]
+    exit(1)
+  end
 else
-  src_dir = ARGV
+  # No override, try to load channel.yml from sources
+  channel_source_dir = nil
+  
+  if sources.respond_to?(:at)
+    # More than one source given. Check that they are all in the same directory.
+    distinct_dirs = sources.collect{|source| File.directory(source)}.uniq
+
+    if 1 < distinct_dirs.size
+      # If all are the in same directory, use that as source directory where channel.yml is expected.
+      channel_source_dir = distinct_dirs.first
+    else
+      # Since no channel_file was specified at the command line, throw and quit
+      throw AmbiguousSourcesError.new(sources)
+    end
+  else    
+      # If a single file or directory is given, use that as source directory where channel.yml is expected.
+      channel_source_dir = File.directory(sources)
+  end
+  
+  channel_file = File.join(channel_source_dir, 'channel.yml')
+  options[:channel] = YAML.load_file(channel_file) if File.exists?(channel_file) # ok if it does not exist
 end
 
+# Command line options, if set, always override settings from a channel file (even if it was passed explicitely)
+options[:channel][:title]          = parm_channel_title          if parm_channel_title
+options[:channel][:url]            = parm_channel_url            if parm_channel_url
+options[:channel][:description]    = parm_channel_description    if parm_channel_description
+options[:channel][:enclosure_base] = parm_channel_enclosure_base if parm_channel_enclosure_base
+options[:verbose]                  = parm_verbose                if parm_verbose
+
 begin
-  puts Dropcaster::Channel.new(src_dir, options).to_rss
+  puts Dropcaster::Channel.new(sources, options).to_rss
 rescue
   STDERR.puts "Error: #{$!.message}"
   STDERR.puts $!.backtrace if options[:verbose]
