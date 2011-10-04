@@ -8,13 +8,13 @@ What is the problem Dropcaster is trying to solve?
 ==================================================
 You have a number of podcast episodes that you would like to publish as a feed. Nothing else - no fancy website, no stats, nothing but the pure podcast.
 
-With Dropcaster, you simply put the mp3 files into the Public folder of your [Dropbox](http://www.dropbox.com/). Then run the Dropcaster script that generates the feed, writing it to a file in your Dropbox, e.g. index.rss. All mp3 files in the Public folder of your Dropbox are already accessible via HTTP, and so will the RSS file. You can then take the RSS file's URL and publish it (again, this is because any file in the Public folder of my Dropbox automatically gets a public, HTTP-accessible URL).
+With Dropcaster, you simply put the mp3 files into the Public folder of your [Dropbox](http://www.dropbox.com/). Then run the Dropcaster script that generates the feed, writing it to a file in your Dropbox, e.g. index.rss. All mp3 files in the Public folder of your Dropbox are already accessible via HTTP, and so will the RSS file. You can then take the RSS file's URL and publish it (again, this is because any file in the Public folder of a Dropbox automatically gets a public, HTTP-accessible URL).
 
-The feed URL can be consumed my any podcatcher, e.g. [iTunes](http://www.apple.com/itunes/) or [Juice](http://juicereceiver.sourceforge.net/).
+The feed URL can be consumed by any podcatcher, e.g. [iTunes](http://www.apple.com/itunes/) or [Juice](http://juicereceiver.sourceforge.net/).
 
 Installation
 ============
-To get started, use RubyGems to install Dropcaster: 
+To get started, use RubyGems to install Dropcaster:
 
     $ gem install dropcaster
 
@@ -34,7 +34,7 @@ The simplest channel file looks like this:
 
 Store this file as channel.yml in the same directory where the mp3 files of your podcast reside. The channel definition is expected to be present in the current working directory as channel.yml, but this can be overridden using a command line switch. You can find a [more elaborate example](http://github.com/nerab/dropcaster/blob/master/doc/sample-channel.yml) for the channel definition in the doc folder of the Dropcaster gem. You can find it by running `gem open dropcaster`.
 
-Now that we have the podcast channel defined, we need at least one episode (an audio file) in it. From Dropcaster's perspective, it does not matter how the episode was produced, but the critical information is the meta data in the mp3 file, because that is the authoritative source for the episode information. Almost all audio editors can write metadata, usually called ID3 tags. Dropcaster reads these tags from the mp3 files and fills the item element in the feed (that's how an episode is defined, technically) from it. 
+Now that we have the podcast channel defined, we need at least one episode (an audio file) in it. From Dropcaster's perspective, it does not matter how the episode was produced, but the critical information is the meta data in the mp3 file, because that is the authoritative source for the episode information. Almost all audio editors can write metadata, usually called ID3 tags. Dropcaster reads these tags from the mp3 files and fills the item element in the feed (that's how an episode is defined, technically) from it.
 
 With all required pieces in place, we could generate the podcast feed. Just before we do that, we will inspect the feed by running the following commands:
 
@@ -76,7 +76,7 @@ Publish Your Feed
 1. Re-generate the feed to make sure the it is up to date (see above):
 
         $ dropcaster > index.rss
-	
+
 1. In your Dropbox Public folder, right-click the index.rss and select "Dropbox / Copy public link". This copies the public, HTTP-addressable link to your podcast into the clipboard.
 1. Publish this link and tell people to subscribe to it.
 
