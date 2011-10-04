@@ -130,6 +130,8 @@ Modifying the sidecar file does not change the UUID, because it only affects the
 
 Contributing to Dropcaster
 ==========================
+Dropcaster is hosted at [Github](http://github.com/nerab/dropcaster):
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
