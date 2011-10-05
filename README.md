@@ -32,7 +32,9 @@ The simplest channel file looks like this:
 		:subtitle: 'A show about everything'
 		:url: 'http://www.example.com/podcasts/everything/index.html'
 
-Store this file as channel.yml in the same directory where the mp3 files of your podcast reside. The channel definition is expected to be present in the current working directory as channel.yml, but this can be overridden using a command line switch. You can find a [more elaborate example](http://github.com/nerab/dropcaster/blob/master/doc/sample-channel.yml) for the channel definition in the doc folder of the Dropcaster gem. You can find it by running `gem open dropcaster`.
+Store this file as channel.yml in the same directory where the mp3 files of your podcast reside. The channel definition is expected to be present in the same directory as your mp3 files, but this can be overridden using a command line switch. You can find a [more elaborate example](http://github.com/nerab/dropcaster/blob/master/doc/sample-channel.yml) for the channel definition in the doc folder of the Dropcaster gem. You can find it by running `gem open dropcaster`. Instead of writing these title, subtitle, etc. to the channel.yml, you may also spedify them on the command line. For details, just run
+
+    $ dropcaster --help
 
 Now that we have the podcast channel defined, we need at least one episode (an audio file) in it. From Dropcaster's perspective, it does not matter how the episode was produced, but the critical information is the meta data in the mp3 file, because that is the authoritative source for the episode information. Almost all audio editors can write metadata, usually called ID3 tags. Dropcaster reads these tags from the mp3 files and fills the item element in the feed (that's how an episode is defined, technically) from it.
 
