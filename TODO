@@ -7,7 +7,7 @@
 * Print warnings when one of the specs from http://www.apple.com/itunes/podcasts/specs.html is violated
 * Allow muting of the iTunes warnings (see above) using a commandline switch
 * Implement sidecar files
-* Support other file types than mp3
+* Support other file types than mp3 (e.g. ogg or pdf)
 * Treat lyrics as plain text for the episode page, and with an optional command line switch we could also support markdown etc.
 * Potential optimization for large numbers of mp3 files: If there is an existing index.rss file, do not re-read the information from those files that are still there and still have the same hash value.
 * It feels pretty awkward to refer to the ID3v2 frame names all the time. After all, this is an implementation detail. Maybe we can wrap the frames with a nicer name, but still allow access to the underlying mp3info library? Maybe all we need is some aliasing and / or delegation?
