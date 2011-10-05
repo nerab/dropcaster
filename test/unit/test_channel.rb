@@ -55,7 +55,7 @@ class TestChannel < Test::Unit::TestCase
   end
 
   def test_attributes_complete
-    options = YAML.load_file(File.join(FIXTURES_DIR, 'test_channel.yml'))
+    options = YAML.load_file(File.join(FIXTURES_DIR, 'channel.yml'))
     channel = XML::Document.string(Dropcaster::Channel.new(FIXTURES_DIR, options).to_rss).find("//rss/channel").first
     assert_equal(options[:title], channel.find('title').first.content)
     assert_equal(options[:url], channel.find('link').first.content)
