@@ -9,19 +9,19 @@ help = <<HELP
 Dropcaster is a podcast feed generator for the command line.
 
 Basic Usage:
-  dropcaster                   Prints a podcast feed document for the mp3 files
-                               in the current directory. The channel definition
-                               is read from the current directory.
-                               
-  dropcaster [<file>...]       Prints a podcast feed documentfor the files
-                               specified as argument. The channel definition
-                               is read from the current directory.
+  dropcaster            Prints a podcast feed document for the mp3 files
+                        in the current directory. The channel definition
+                        is read from the current directory.
 
-  dropcaster [<dir>...]        Prints a podcast feed document for the files in
-                               the directory specified as argument. The channel
-                               definition is read from the current directory.
+  dropcaster [FILE]...  Prints a podcast feed documentfor the files
+                        specified as argument. The channel definition
+                        is read from the current directory.
 
-Options:                               
+  dropcaster [DIR]...   Prints a podcast feed document for the files in
+                        the directory specified as argument. The channel
+                        definition is read from the current directory.
+
+Options:
 HELP
 
 def usage
@@ -31,8 +31,21 @@ end
 require 'optparse'
 require 'dropcaster'
 
+options = Hash.new
+options[:verbose] = false
+options[:channel] = Hash.new
+parm_channel_file = false
+parm_channel_title = false
+parm_channel_url = false
+parm_channel_description = false
+parm_channel_enclosure_base = false
+
 opts = OptionParser.new do |opts|
   opts.banner = help
+
+  opts.on("--verbose", "Verbose mode - displays additional diagnostic information") do |file|
+    options[:verbose] = true
+  end
 
   opts.on("--channel FILE", "Read the channel information from FILE") do |file|
     parm_channel_file = file
@@ -53,13 +66,9 @@ opts = OptionParser.new do |opts|
   opts.on("--enclosure_base URL", "Base URL for enclosures") do |enclosure_base|
     parm_channel_enclosure_base = enclosure_base
   end
-  
+
   opts.on("--channel-template FILE", "Use FILE as template for the channel") do |file|
     parm_channel_template = file
-  end
-
-  opts.on("--verbose", "Verbose mode - displays additional diagnostic information") do |file|
-    parm_verbose = true
   end
 
   opts.on("--version", "Display current version") do
@@ -69,55 +78,56 @@ opts = OptionParser.new do |opts|
 end
 
 opts.parse!
-sources = ARGV || '.'
+sources = ARGV.blank? ? '.' : ARGV
 
-options = {}
-
-# TODO Move this logic to ChannelFileLocator or ChannelFileLoader
 if parm_channel_file
   begin
+    STDERR.puts "Reading channel information from #{parm_channel_file}" if options[:verbose]
     options[:channel] = YAML.load_file(parm_channel_file)
   rescue
-    STDERR.puts "Error loading channel definition from #{parm_channel_file}"
+    STDERR.puts "Error loading channel definition from #{parm_channel_file}:"
+    STDERR.puts $!.message
     STDERR.puts $!.backtrace if options[:verbose]
     exit(1)
   end
 else
   # No override, try to load channel.yml from sources
-  channel_source_dir = nil
-  
-  if sources.respond_to?(:at)
-    # More than one source given. Check that they are all in the same directory.
-    distinct_dirs = sources.collect{|source| File.directory(source)}.uniq
-
-    if 1 < distinct_dirs.size
-      # If all are the in same directory, use that as source directory where channel.yml is expected.
-      channel_source_dir = distinct_dirs.first
-    else
-      # Since no channel_file was specified at the command line, throw and quit
-      throw AmbiguousSourcesError.new(sources)
-    end
-  else    
-      # If a single file or directory is given, use that as source directory where channel.yml is expected.
-      channel_source_dir = File.directory(sources)
+  channel_file = Dropcaster::ChannelFileLocator.locate(sources)
+  STDERR.puts "Auto-detecting channel file at #{channel_file}" if options[:verbose]
+  if File.exists?(channel_file)
+    options[:channel] = YAML.load_file(channel_file)
+  else
+    STDERR.puts "No #{channel_file} found." if options[:verbose]
+    # exit(1) # TODO Can we continue in any way from here?
   end
-  
-  channel_file = File.join(channel_source_dir, 'channel.yml')
-  options[:channel] = YAML.load_file(channel_file) if File.exists?(channel_file) # ok if it does not exist
 end
 
 # Command line options, if set, always override settings from a channel file (even if it was passed explicitely)
-options[:channel][:title]          = parm_channel_title          if parm_channel_title
-options[:channel][:url]            = parm_channel_url            if parm_channel_url
-options[:channel][:description]    = parm_channel_description    if parm_channel_description
-options[:channel][:enclosure_base] = parm_channel_enclosure_base if parm_channel_enclosure_base
-options[:verbose]                  = parm_verbose                if parm_verbose
+if parm_channel_title
+  STDERR.puts "Setting channel title to '#{parm_channel_title}' via command line" if options[:verbose]
+  options[:channel][:title] = parm_channel_title
+end
+
+if parm_channel_url
+  STDERR.puts "Setting channel URL to '#{parm_channel_url}' via command line" if options[:verbose]
+  options[:channel][:url] = parm_channel_url
+end
+
+if parm_channel_description
+  STDERR.puts "Setting channel description to '#{parm_channel_description}' via command line" if options[:verbose]
+  options[:channel][:description] = parm_channel_description
+end
+
+if parm_channel_enclosure_base
+  STDERR.puts "Setting enclosure base to '#{parm_channel_enclosure_base}' via command line" if options[:verbose]
+  options[:channel][:enclosure_base] = parm_channel_enclosure_base
+end
 
 begin
-  puts Dropcaster::Channel.new(sources, options).to_rss
+  puts Dropcaster::Channel.new(sources, options[:channel]).to_rss
 rescue
-  STDERR.puts "Error: #{$!.message}"
-  STDERR.puts $!.backtrace if options[:verbose]
+  STDERR.puts "Error generating the channel feed: #{$!.message}"
   STDERR.puts usage
+  STDERR.puts $!.backtrace if options[:verbose]
   exit(1)
 end

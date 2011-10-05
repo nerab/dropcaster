@@ -10,6 +10,7 @@ require 'dropcaster/errors'
 require 'dropcaster/hashkeys'
 require 'dropcaster/channel'
 require 'dropcaster/item'
+require 'dropcaster/channel_file_locator'
 
 module Dropcaster
   VERSION = File.read(File.join(File.dirname(__FILE__), *%w[.. VERSION]))
