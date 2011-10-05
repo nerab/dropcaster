@@ -15,7 +15,7 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "dropcaster"
-  gem.homepage = "http://github.com/nerab/dropcaster"
+  gem.homepage = "http://nerab.github.com/dropcaster"
   gem.license = "MIT"
   gem.summary = %Q{Simple Podcast Publishing with Dropbox}
   gem.description = %Q{Dropcaster is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other hoster.}
