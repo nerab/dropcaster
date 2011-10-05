@@ -1,6 +1,7 @@
 require 'helper'
 require 'test_channel_xml'
 require 'xml/libxml'
+require 'open3'
 
 #
 # End-to-end test
@@ -34,6 +35,25 @@ class TestApp < TestChannelXML
     assert_equal(test_description, channel.find('itunes:summary', NS_ITUNES).first.content)
   end
   
+  def test_no_channel_file
+    Open3.popen3('bin/dropcaster'){|stdin, stdout, stderr|
+      assert(stderr.read =~ /No \.\/channel.yml found/)
+    }
+  end
+
+  def test_overwrite_all
+      test_title = 'Bob and Alice in Wonderland'
+      test_link = 'http://www.example.com/bar/foot'
+      test_description = 'Testing commandline apps is really not that hard.'
+
+      channel = XML::Document.string(%x[bin/dropcaster test/fixtures/iTunes.mp3 --title '#{test_title}' --url '#{test_link}' --description '#{test_description}']).find("//rss/channel").first
+
+      assert_equal(test_title, channel.find('title').first.content)
+      assert_equal(test_link, channel.find('link').first.content)
+      assert_equal(test_description, channel.find('description').first.content)
+      assert_equal(test_description, channel.find('itunes:summary', NS_ITUNES).first.content)
+  end
+
   # TODO --enclosure_base
   # TODO --channel
 end
