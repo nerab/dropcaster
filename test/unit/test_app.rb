@@ -37,7 +37,7 @@ class TestApp < TestChannelXML
   
   def test_no_channel_file
     Open3.popen3('bin/dropcaster'){|stdin, stdout, stderr|
-      assert(stderr.read =~ /No \.\/channel.yml found/)
+      assert_match(/No \.\/channel.yml found/, stderr.read)
     }
   end
 
@@ -52,6 +52,12 @@ class TestApp < TestChannelXML
       assert_equal(test_link, channel.find('link').first.content)
       assert_equal(test_description, channel.find('description').first.content)
       assert_equal(test_description, channel.find('itunes:summary', NS_ITUNES).first.content)
+  end
+  
+  def test_channel_template_not_found
+    Open3.popen3('bin/dropcaster test/fixtures/iTunes.mp3 --channel-template foo/bar/42'){|stdin, stdout, stderr|
+      assert_match(/Unable to load template file/, stderr.read)
+    }
   end
 
   # TODO --enclosure_base

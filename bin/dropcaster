@@ -72,7 +72,8 @@ opts = OptionParser.new do |opts|
   end
 
   opts.on("--channel-template FILE", "Use FILE as template for generating the channel feed. Overrides the default that comes with Dropcaster.") do |file|
-    options[:template] = file
+    STDERR.puts "Using'#{file}' as channel template file" if options[:verbose]
+    options[:channel_template] = file
   end
 
   opts.on("--version", "Display current version") do
@@ -104,7 +105,7 @@ STDERR.puts "Generating the channel with these options: #{options.inspect}" if o
 begin
   puts Dropcaster::Channel.new(sources, options).to_rss
 rescue
-  STDERR.puts "Error generating the channel feed: #{$!.message}"
+  STDERR.puts $!.message
   STDERR.puts usage
   STDERR.puts $!.backtrace if options[:verbose]
   exit(1)

@@ -40,7 +40,13 @@ module Dropcaster
         add_files(src)
       end
 
-      @index_template = ERB.new(File.new(File.join(File.dirname(__FILE__), '..', '..', 'templates', 'channel.rss.erb')), 0, "%<>")
+      channel_template = self.channel_template || File.join(File.dirname(__FILE__), '..', '..', 'templates', 'iTunes.rss.erb')
+      
+      begin
+        @erb_template = ERB.new(File.new(channel_template), 0, "%<>")
+      rescue Errno::ENOENT => e
+        raise TemplateNotFoundError.new(e.message)
+      end
     end
 
     #
@@ -49,7 +55,7 @@ module Dropcaster
     # to channel.rb.
     #
     def to_rss
-      @index_template.result(binding)
+      @erb_template.result(binding)
     end
 
     #

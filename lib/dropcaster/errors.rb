@@ -16,4 +16,10 @@ module Dropcaster
       super("The list of sources is ambiguous. Can't derive common directory from these: #{ambiguousSources.inspect}")
     end
   end
+
+  class TemplateNotFoundError < ConfigurationError
+    def initialize(message)
+      super("Unable to load template file: #{message}")
+    end
+  end
 end
