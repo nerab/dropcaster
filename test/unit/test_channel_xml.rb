@@ -2,11 +2,10 @@ require 'helper'
 require 'xml/libxml'
 
 class TestChannelXML < Test::Unit::TestCase
-  FIXTURES_DIR = File.join(File.dirname(__FILE__), '..', 'fixtures')
-  NS_ITUNES = "itunes:http://www.itunes.com/dtds/podcast-1.0.dtd"
+  include DropcasterTest
 
   def setup
-    @options = YAML.load_file(File.join(FIXTURES_DIR, 'channel.yml'))
+    @options = YAML.load_file(File.join(FIXTURES_DIR, Dropcaster::CHANNEL_YML))
     @channel = XML::Document.string(Dropcaster::Channel.new(FIXTURES_DIR, @options).to_rss).find("//rss/channel").first
   end
 

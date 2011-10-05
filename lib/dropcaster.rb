@@ -14,4 +14,5 @@ require 'dropcaster/channel_file_locator'
 
 module Dropcaster
   VERSION = File.read(File.join(File.dirname(__FILE__), *%w[.. VERSION]))
+  CHANNEL_YML = 'channel.yml'
 end

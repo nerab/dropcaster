@@ -1,10 +1,10 @@
 require 'helper'
 
 class TestChannel < Test::Unit::TestCase
-  FIXTURES_DIR = File.join(File.dirname(__FILE__), '..', 'fixtures')
+  include DropcasterTest
 
   def setup
-    @options = YAML.load_file(File.join(FIXTURES_DIR, 'channel.yml'))
+    @options = YAML.load_file(File.join(FIXTURES_DIR, Dropcaster::CHANNEL_YML))
     @channel = Dropcaster::Channel.new(FIXTURES_DIR, @options)
   end
 

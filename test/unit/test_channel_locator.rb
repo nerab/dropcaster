@@ -2,7 +2,7 @@ require 'helper'
 require 'tmpdir'
 
 class TestChannelLocator < Test::Unit::TestCase
-  CHANNEL_YML = 'channel.yml'
+  include DropcasterTest
 
   class << self
     attr_reader :temp_dir
@@ -86,6 +86,6 @@ class TestChannelLocator < Test::Unit::TestCase
 
   def assert_location(sources)
     channel_file = Dropcaster::ChannelFileLocator.locate(sources)
-    assert_equal(File.join(TestChannelLocator.temp_dir, CHANNEL_YML), channel_file)
+    assert_equal(File.join(TestChannelLocator.temp_dir, Dropcaster::CHANNEL_YML), channel_file)
   end
 end

@@ -41,7 +41,7 @@ module Dropcaster
           channel_source_dir = File.dirname(sources)
         end
 
-        File.join(channel_source_dir, 'channel.yml')
+        File.join(channel_source_dir, CHANNEL_YML)
       end
     end
   end
