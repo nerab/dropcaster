@@ -8,20 +8,17 @@ require 'yaml'
 help = <<HELP
 Dropcaster is a podcast feed generator for the command line.
 
+Author: Nicolas E. Rabenau nerab@gmx.at
+Homepage: http://nerab.github.com/dropcaster/
+
 Basic Usage:
-  dropcaster            Prints a podcast feed document for the mp3 files
-                        in the current directory. The channel definition
-                        is read from the current directory.
 
-  dropcaster [FILE]...  Prints a podcast feed documentfor the files
-                        specified as argument. The channel definition
-                        is read from the current directory.
-
-  dropcaster [DIR]...   Prints a podcast feed document for the files in
-                        the directory specified as argument. The channel
-                        definition is read from the current directory.
+  dropcaster            Prints a podcast feed document for the mp3 files in the current directory.
+  dropcaster [FILE]...  Prints a podcast feed document for FILES
+  dropcaster [DIR]...   Prints a podcast feed document for the mp3 files in DIR
 
 Options:
+
 HELP
 
 def usage
@@ -33,12 +30,7 @@ require 'dropcaster'
 
 options = Hash.new
 options[:verbose] = false
-options[:channel] = Hash.new
-parm_channel_file = false
-parm_channel_title = false
-parm_channel_url = false
-parm_channel_description = false
-parm_channel_enclosure_base = false
+options[:auto_detect_channel_file] = true
 
 opts = OptionParser.new do |opts|
   opts.banner = help
@@ -47,28 +39,40 @@ opts = OptionParser.new do |opts|
     options[:verbose] = true
   end
 
-  opts.on("--channel FILE", "Read the channel information from FILE") do |file|
-    parm_channel_file = file
+  opts.on("--channel FILE", "Read the channel definition from FILE instead of channel.yml in the current directory.") do |file|
+    begin
+      STDERR.puts "Reading channel definition from #{file}" if options[:verbose]
+      options = YAML.load_file(file).merge(options)
+      options[:auto_detect_channel_file] = false
+    rescue
+      STDERR.puts "Error loading channel definition: #{$!.message}"
+      STDERR.puts $!.backtrace if options[:verbose]
+      exit(1)
+    end
   end
 
-  opts.on("--title STRING", "Channel title") do |title|
-    parm_channel_title = title
+  opts.on("--title STRING", "Use STRING as the channel's title. Overrides settings read from channel definition file.") do |title|
+    STDERR.puts "Setting channel title to '#{title}' via command line" if options[:verbose]
+    options[:title] = title
   end
 
-  opts.on("--url URL", "Channel url") do |url|
-    parm_channel_url = url
+  opts.on("--url URL", "Use URL as the channel's url. Overrides settings read from channel definition file.") do |url|
+    STDERR.puts "Setting channel URL to '#{url}' via command line" if options[:verbose]
+    options[:url] = url
   end
 
-  opts.on("--description STRING", "Channel description") do |description|
-    parm_channel_description = description
+  opts.on("--description STRING", "Use STRING as the channel's description. Overrides settings read from channel definition file.") do |description|
+    STDERR.puts "Setting channel description to '#{description}' via command line" if options[:verbose]
+    options[:description] = description
   end
 
-  opts.on("--enclosure_base URL", "Base URL for enclosures") do |enclosure_base|
-    parm_channel_enclosure_base = enclosure_base
+  opts.on("--enclosure_base URL", "Use URL as base URL for the channel's enclosures. Overrides settings read from channel definition file.") do |enclosure_base|
+    STDERR.puts "Setting enclosure base to '#{enclosure_base}' via command line" if options[:verbose]
+    options[:enclosure_base] = enclosure_base
   end
 
-  opts.on("--channel-template FILE", "Use FILE as template for the channel") do |file|
-    parm_channel_template = file
+  opts.on("--channel-template FILE", "Use FILE as template for generating the channel feed. Overrides the default that comes with Dropcaster.") do |file|
+    options[:template] = file
   end
 
   opts.on("--version", "Display current version") do
@@ -80,51 +84,25 @@ end
 opts.parse!
 sources = ARGV.blank? ? '.' : ARGV
 
-if parm_channel_file
-  begin
-    STDERR.puts "Reading channel information from #{parm_channel_file}" if options[:verbose]
-    options[:channel] = YAML.load_file(parm_channel_file)
-  rescue
-    STDERR.puts "Error loading channel definition from #{parm_channel_file}:"
-    STDERR.puts $!.message
-    STDERR.puts $!.backtrace if options[:verbose]
-    exit(1)
-  end
-else
-  # No override, try to load channel.yml from sources
+if options[:auto_detect_channel_file]
+  # There was no channel file specified, so we try to load channel.yml from sources dir
   channel_file = Dropcaster::ChannelFileLocator.locate(sources)
-  STDERR.puts "Auto-detecting channel file at #{channel_file}" if options[:verbose]
+
   if File.exists?(channel_file)
-    options[:channel] = YAML.load_file(channel_file)
+    STDERR.puts "Auto-detected channel file at #{channel_file}" if options[:verbose]
+    options_from_yaml = YAML.load_file(channel_file)
+    options = options_from_yaml.merge(options)
   else
-    STDERR.puts "No #{channel_file} found." if options[:verbose]
-    # exit(1) # TODO Can we continue in any way from here?
+    STDERR.puts "No #{channel_file} found."
+    STDERR.puts usage
+    exit(1) # No way to continue without a channel definition
   end
 end
 
-# Command line options, if set, always override settings from a channel file (even if it was passed explicitely)
-if parm_channel_title
-  STDERR.puts "Setting channel title to '#{parm_channel_title}' via command line" if options[:verbose]
-  options[:channel][:title] = parm_channel_title
-end
-
-if parm_channel_url
-  STDERR.puts "Setting channel URL to '#{parm_channel_url}' via command line" if options[:verbose]
-  options[:channel][:url] = parm_channel_url
-end
-
-if parm_channel_description
-  STDERR.puts "Setting channel description to '#{parm_channel_description}' via command line" if options[:verbose]
-  options[:channel][:description] = parm_channel_description
-end
-
-if parm_channel_enclosure_base
-  STDERR.puts "Setting enclosure base to '#{parm_channel_enclosure_base}' via command line" if options[:verbose]
-  options[:channel][:enclosure_base] = parm_channel_enclosure_base
-end
+STDERR.puts "Generating the channel with these options: #{options.inspect}" if options[:verbose]
 
 begin
-  puts Dropcaster::Channel.new(sources, options[:channel]).to_rss
+  puts Dropcaster::Channel.new(sources, options).to_rss
 rescue
   STDERR.puts "Error generating the channel feed: #{$!.message}"
   STDERR.puts usage
