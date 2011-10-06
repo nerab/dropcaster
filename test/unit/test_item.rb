@@ -1,8 +1,10 @@
 require 'helper'
 
 class TestItem < Test::Unit::TestCase
+  include DropcasterTest
+
   def setup
-    @item = Dropcaster::Item.new(File.join(File.dirname(__FILE__), '..', 'fixtures', 'iTunes.mp3'))
+    @item = Dropcaster::Item.new(FIXTURE_ITUNES_MP3)
   end
 
   def test_basics
@@ -12,7 +14,7 @@ class TestItem < Test::Unit::TestCase
     assert_equal(1317470900, @item.pub_date.to_i)
     assert_equal('test/fixtures/iTunes.mp3', @item.file_name)
   end
-  
+
   def test_tag
     assert_equal('iTunes Artist', @item.tag.artist)
     assert_equal('iTunes Genre', @item.tag.genre_s)
@@ -37,23 +39,23 @@ class TestItem < Test::Unit::TestCase
     assert_equal('iTunes Description (Video Pane)', @item.tag2.TT3)
     assert_equal('iTunes Composer', @item.tag2.TCM)
   end
-  
+
   def test_lyrics
     assert_equal(1, @item.lyrics.size)
     assert_equal("iTunes Lyrics Line 1\niTunes Lyrics Line 2", @item.lyrics['eng'])
   end
-  
+
   def test_comment_remove_itunes_crap
-    item = Dropcaster::Item.new(File.join(File.dirname(__FILE__), '..', 'fixtures', 'iTunes.mp3'), {:strip_itunes_private => true})
+    item = Dropcaster::Item.new(FIXTURE_ITUNES_MP3, {:strip_itunes_private => true})
     assert_equal('iTunes Comments (Info Pane)', item.tag2.COM[0])
   end
-  
+
   def test_comment_leave_itunes_crap
-    item = Dropcaster::Item.new(File.join(File.dirname(__FILE__), '..', 'fixtures', 'iTunes.mp3'), {:strip_itunes_private => false})
+    item = Dropcaster::Item.new(FIXTURE_ITUNES_MP3, {:strip_itunes_private => false})
     assert_equal(' 00007032 00006EA2 0000A049 00009735 00000559 0000096E 00008000 00008000 00000017 00000017', item.tag2.COM[0])
     assert_equal('iTunes Comments (Info Pane)', item.tag2.COM[1])
   end
-  
+
   def test_tag2_comment
     assert_equal(' 00007032 00006EA2 0000A049 00009735 00000559 0000096E 00008000 00008000 00000017 00000017', @item.tag2.COM[0])
     assert_equal('iTunes Comments (Info Pane)', @item.tag2.COM[1])

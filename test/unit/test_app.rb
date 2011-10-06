@@ -1,6 +1,5 @@
 require 'helper'
 require 'test_channel_xml'
-require 'xml/libxml'
 require 'open3'
 
 #
@@ -10,35 +9,35 @@ require 'open3'
 #
 class TestApp < TestChannelXML
   include DropcasterTest
-  
-  def setup
-    @options = YAML.load_file(File.join(FIXTURES_DIR, Dropcaster::CHANNEL_YML))
-    @channel = XML::Document.string(%x[bin/dropcaster test/fixtures/iTunes.mp3]).find("//rss/channel").first
+  APP_SCRIPT = 'ruby bin/dropcaster'
+
+  def channel_rss
+    %x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3}]
   end
-  
+
   def test_overwrite_title
     test_title = 'Alice and Bob in Wonderland'
-    channel = XML::Document.string(%x[bin/dropcaster test/fixtures/iTunes.mp3 --title '#{test_title}']).find("//rss/channel").first
+    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --title '#{test_title}'])
     assert_equal(test_title, channel.find('title').first.content)
   end
-  
+
   def test_overwrite_link
     test_link = 'http://www.example.com/foo/bar'
-    channel = XML::Document.string(%x[bin/dropcaster test/fixtures/iTunes.mp3 --url '#{test_link}']).find("//rss/channel").first
+    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --url '#{test_link}'])
     assert_equal(test_link, channel.find('link').first.content)
   end
-  
+
   def test_overwrite_description
     test_description = 'Testing commandline apps is not that hard.'
-    channel = XML::Document.string(%x[bin/dropcaster test/fixtures/iTunes.mp3 --description '#{test_description}']).find("//rss/channel").first
+    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --description '#{test_description}'])
     assert_equal(test_description, channel.find('description').first.content)
     assert_equal(test_description, channel.find('itunes:summary', NS_ITUNES).first.content)
   end
-  
+
   def test_no_channel_file
-    Open3.popen3('bin/dropcaster'){|stdin, stdout, stderr|
+    Open3.popen3(APP_SCRIPT){|stdin, stdout, stderr|
       assert_match(/No \.\/channel.yml found/, stderr.read)
-    }
+    } unless Kernel.is_windows?
   end
 
   def test_overwrite_all
@@ -46,18 +45,18 @@ class TestApp < TestChannelXML
       test_link = 'http://www.example.com/bar/foot'
       test_description = 'Testing commandline apps is really not that hard.'
 
-      channel = XML::Document.string(%x[bin/dropcaster test/fixtures/iTunes.mp3 --title '#{test_title}' --url '#{test_link}' --description '#{test_description}']).find("//rss/channel").first
+      channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --title '#{test_title}' --url '#{test_link}' --description '#{test_description}'])
 
       assert_equal(test_title, channel.find('title').first.content)
       assert_equal(test_link, channel.find('link').first.content)
       assert_equal(test_description, channel.find('description').first.content)
       assert_equal(test_description, channel.find('itunes:summary', NS_ITUNES).first.content)
   end
-  
+
   def test_channel_template_not_found
-    Open3.popen3('bin/dropcaster test/fixtures/iTunes.mp3 --channel-template foo/bar/42'){|stdin, stdout, stderr|
+    Open3.popen3("#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --channel-template foo/bar/42"){|stdin, stdout, stderr|
       assert_match(/Unable to load template file/, stderr.read)
-    }
+    } unless Kernel.is_windows?
   end
 
   # TODO --enclosure_base

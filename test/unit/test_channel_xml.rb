@@ -6,7 +6,24 @@ class TestChannelXML < Test::Unit::TestCase
 
   def setup
     @options = YAML.load_file(File.join(FIXTURES_DIR, Dropcaster::CHANNEL_YML))
-    @channel = XML::Document.string(Dropcaster::Channel.new(FIXTURES_DIR, @options).to_rss).find("//rss/channel").first
+    @channel = channel_node(channel_rss)
+  end
+
+  #
+  # Returnes the XML node for the channel passed as XML string
+  #
+  def channel_node(rss)
+    XML::Document.string(rss).find("//rss/channel").first
+  end
+
+  #
+  # Returnes the channel under test as XML string
+  #
+  # Subclasses may overwrite this method in order to re-use the tests in this class, while
+  # constructing the XML string in a different way
+  #
+  def channel_rss
+    Dropcaster::Channel.new(FIXTURES_DIR, @options).to_rss
   end
 
   def test_item
@@ -43,10 +60,11 @@ class TestChannelXML < Test::Unit::TestCase
                :description => 'A test channel',
                :enclosure_base => 'http://www.example.com/foo/bar',
               }
-    @channel = XML::Document.string(Dropcaster::Channel.new(FIXTURES_DIR, options).to_rss).find("//rss/channel").first    
-    assert_equal('Test Channel', @channel.find('title').first.content)
-    assert_equal('http://www.example.com/', @channel.find('link').first.content)
-    assert_equal('A test channel', @channel.find('description').first.content)
+
+    channel = channel_node(Dropcaster::Channel.new(FIXTURES_DIR, options).to_rss)
+    assert_equal('Test Channel', channel.find('title').first.content)
+    assert_equal('http://www.example.com/', channel.find('link').first.content)
+    assert_equal('A test channel', channel.find('description').first.content)
   end
 
   def test_attributes_complete
