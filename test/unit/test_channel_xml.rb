@@ -33,7 +33,7 @@ class TestChannelXML < Test::Unit::TestCase
     assert_equal('iTunes Name', item.find('title').first.content)
     assert_equal('iTunes Artist', item.find('itunes:author', NS_ITUNES).first.content)
     assert_equal('iTunes Description (Video Pane)', item.find('itunes:summary', NS_ITUNES).first.content)
-    assert_equal('http://example.com/podcasts/everything/AllAboutEverything.jpg', item.find('itunes:image', NS_ITUNES).first['href'])
+    assert_equal('http://www.example.com/podcasts/everything/AllAboutEverything.jpg', item.find('itunes:image', NS_ITUNES).first['href'])
 
     enclosure = item.find('enclosure').first
     assert(enclosure)
@@ -58,7 +58,7 @@ class TestChannelXML < Test::Unit::TestCase
     options = {:title => 'Test Channel',
                :url => 'http://www.example.com/',
                :description => 'A test channel',
-               :enclosure_base => 'http://www.example.com/foo/bar',
+               :enclosures_url => 'http://www.example.com/foo/bar',
               }
 
     channel = channel_node(Dropcaster::Channel.new(FIXTURES_DIR, options).to_rss)
@@ -79,8 +79,8 @@ class TestChannelXML < Test::Unit::TestCase
     owner = @channel.find('itunes:owner', NS_ITUNES).first
     assert_equal(@options[:owner][:name], owner.find('itunes:name', NS_ITUNES).first.content)
     assert_equal(@options[:owner][:email], owner.find('itunes:email', NS_ITUNES).first.content)
+    assert_equal(URI.join(@options[:url], @options[:image_url]).to_s, @channel.find('itunes:image', NS_ITUNES).first['href'])
 
-    assert_equal(@options[:image_url], @channel.find('itunes:image', NS_ITUNES).first['href'])
     # TODO :categories: ['Technology', 'Gadgets']
     assert_equal(@options[:explicit], @channel.find('itunes:explicit', NS_ITUNES).first.content)
   end

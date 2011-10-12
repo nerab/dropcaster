@@ -18,14 +18,14 @@
 :subtitle: 'A show about everything'
 
 #
-# URL to the podcast. 
+# URL to the podcast.
 #
-:url: 'http://www.example.com/podcasts/everything/index.html'
+:url: 'http://www.example.com/podcasts/everything/'
 
 #
-# Base URL for enclosure links
+# Optional base URL for enclosure links
 #
-:enclosure_base: 'http://www.example.com/podcasts/everything'
+:enclosures_url: 'http://www.example.com/podcasts/everything/episodes'
 
 #
 # Language of the podcast - ISO 639-1 Alpha-2 list (two-letter language codes, some with possible modifiers, such as "en-us").
@@ -57,7 +57,9 @@
 #
 # iTunes prefers square .jpg images that are at least 600 x 600 pixels
 #
-:image_url: 'http://example.com/podcasts/everything/AllAboutEverything.jpg'
+# If the URL does not start with http: or https:, it will be prefixed with the channel url.
+#
+:image_url: 'AllAboutEverything.jpg'
 
 #
 # Category / categories of the podcast

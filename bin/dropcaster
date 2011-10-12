@@ -66,9 +66,14 @@ opts = OptionParser.new do |opts|
     options[:description] = description
   end
 
-  opts.on("--enclosure_base URL", "Use URL as base URL for the channel's enclosures. Overrides settings read from channel definition file.") do |enclosure_base|
-    STDERR.puts "Setting enclosure base to '#{enclosure_base}' via command line" if options[:verbose]
-    options[:enclosure_base] = enclosure_base
+  opts.on("--enclosures URL", "Use URL as the base URL for the channel's enclosures. Overrides settings read from channel definition file.") do |enclosures_url|
+    STDERR.puts "Setting enclosures base URL to '#{enclosures_url}' via command line" if options[:verbose]
+    options[:enclosures_url] = enclosures_url
+  end
+
+  opts.on("--image URL", "Use URL as the channel's image URL. Overrides settings read from channel definition file.") do |image_url|
+    STDERR.puts "Setting image URL to '#{image_url}' via command line" if options[:verbose]
+    options[:image_url] = image_url
   end
 
   opts.on("--channel-template FILE", "Use FILE as template for generating the channel feed. Overrides the default that comes with Dropcaster.") do |file|

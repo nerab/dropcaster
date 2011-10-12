@@ -20,12 +20,12 @@ class TestChannel < Test::Unit::TestCase
     assert_equal(@options[:language], @channel.language)
     assert_equal(@options[:copyright], @channel.copyright)
     assert_equal(@options[:author], @channel.author)
-  
+
     owner = @channel.owner
     assert_equal(@options[:owner][:name], owner[:name])
     assert_equal(@options[:owner][:email], owner[:email])
-  
-    assert_equal(@options[:image_url], @channel.image_url)
+
+    assert_equal(URI.join(@options[:url], @options[:image_url]).to_s, @channel.image_url)
     # TODO :categories: ['Technology', 'Gadgets']
     assert_equal(@options[:explicit], @channel.explicit)
   end

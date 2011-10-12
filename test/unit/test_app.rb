@@ -1,6 +1,7 @@
 require 'helper'
 require 'test_channel_xml'
 require 'open3'
+require 'uri'
 
 #
 # End-to-end test
@@ -25,6 +26,26 @@ class TestApp < TestChannelXML
     test_link = 'http://www.example.com/foo/bar'
     channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --url '#{test_link}'])
     assert_equal(test_link, channel.find('link').first.content)
+  end
+
+  def test_overwrite_enclosures_url
+    test_enclosures_url = 'http://www.example.com/foo/bar/episodes/'
+    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --enclosures '#{test_enclosures_url}'])
+    item = channel.find("item").first
+    assert(item)
+    enclosure = item.find('enclosure').first
+    assert(enclosure)
+    assert_equal(URI.join(test_enclosures_url, FIXTURE_ITUNES_MP3).to_s, enclosure['url'])
+  end
+
+  def test_overwrite_image_url_channel
+    test_image_url = 'http://www.example.com/foo/bar/override.gif'
+    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --image '#{test_image_url}'])
+    assert_equal(test_image_url, channel.find('itunes:image').first['href'])
+  end
+
+  def test_overwrite_image_url_enclosure
+    # TODO Implement test
   end
 
   def test_overwrite_description
@@ -59,6 +80,5 @@ class TestApp < TestChannelXML
     } unless Kernel.is_windows?
   end
 
-  # TODO --enclosure_base
   # TODO --channel
 end
