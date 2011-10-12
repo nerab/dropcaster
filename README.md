@@ -32,9 +32,7 @@ The simplest channel file looks like this:
 		:subtitle: 'A show about everything'
 		:url: 'http://www.example.com/podcasts/everything/index.html'
 
-Store this file as channel.yml in the same directory where the mp3 files of your podcast reside. The channel definition is expected to be present in the same directory as your mp3 files, but this can be overridden using a command line switch. You can find a [more elaborate example](http://github.com/nerab/dropcaster/blob/master/doc/sample-channel.yml) for the channel definition in the doc folder of the Dropcaster gem. You can find it by running `gem open dropcaster`. Instead of writing these title, subtitle, etc. to the channel.yml, you may also spedify them on the command line. For details, just run
-
-    $ dropcaster --help
+Store this file as channel.yml in the same directory where the mp3 files of your podcast reside. The channel definition is expected to be present in the same directory as your mp3 files, but this can be overridden using a command line switch. You can find a [more elaborate example](http://github.com/nerab/dropcaster/blob/master/doc/sample-channel.yml) for the channel definition in the doc folder of the Dropcaster gem. You can find it by running `gem open dropcaster`.
 
 Now that we have the podcast channel defined, we need at least one episode (an audio file) in it. From Dropcaster's perspective, it does not matter how the episode was produced, but the critical information is the meta data in the mp3 file, because that is the authoritative source for the episode information. Almost all audio editors can write metadata, usually called ID3 tags. Dropcaster reads these tags from the mp3 files and fills the item element in the feed (that's how an episode is defined, technically) from it.
 
@@ -110,6 +108,16 @@ Include Episodes From Two Subdirectories Into a Single Feed
 
 Advanced features
 =================
+Overriding defaults
+-------------------
+Dropcaster is opinionated software. That means, it makes a number of assumptions about names, files, and directory strictures. Dropcaster will be most easy to use if these assumptions and opinions apply to your way of using the program.
+
+However, it is still possible to override Dropcaster's behavior in many ways. You can, for instance, host your episode files on a different URL than the channel. Instead of writing title, subtitle, etc. to a channel.yml, you may also spedify them on the command line.
+
+In order to find out about all the options, simply run
+
+        $ dropcaster --help
+
 Sidecar files
 -------------
 You may override the meta data for any episode by providing a YAML file with the same name as the mp3 file, but with an extension of yml or yaml (ususally refered to as [sidecar file](http://en.wikipedia.org/wiki/Sidecar_file)). Any attributes specified in this file override the ID tags in the mp3 file.
