@@ -11,22 +11,22 @@ module Dropcaster
     # Instantiate a new Channel object. +sources+ must be present and can be a String or Array
     # of Strings, pointing to a one or more directories or MP3 files.
     #
-    # +options+ is a hash with all attributes for the channel. The following attributes are
+    # +attributes+ is a hash with all attributes for the channel. The following attributes are
     # mandatory when a new channel is created:
     #
     # * <tt>:title</tt> - Title (name) of the podcast
     # * <tt>:url</tt> - URL to the podcast
     # * <tt>:description</tt> - Short description of the podcast (a few words)
     #
-    def initialize(sources, options)
+    def initialize(sources, attributes)
       super(Hash.new)
 
-      # Assert mandatory options
+      # Assert mandatory attributes
       [:title, :url, :description].each{|attr|
-        raise MissingAttributeError.new(attr) if options[attr].blank?
+        raise MissingAttributeError.new(attr) if attributes[attr].blank?
       }
 
-      self.merge!(options)
+      self.merge!(attributes)
       self.categories = Array.new
       @source_files = Array.new
 
