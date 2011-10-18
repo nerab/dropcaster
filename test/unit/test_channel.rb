@@ -29,4 +29,22 @@ class TestChannel < Test::Unit::TestCase
     # TODO :categories: ['Technology', 'Gadgets']
     assert_equal(@options[:explicit], @channel.explicit)
   end
+
+  def test_raise_on_missing_title
+    assert_raises Dropcaster::MissingAttributeError do
+      Dropcaster::Channel.new(FIXTURES_DIR, {:url => 'bar', :description => 'foobar'})
+    end
+  end
+
+  def test_raise_on_missing_url
+    assert_raises Dropcaster::MissingAttributeError do
+      Dropcaster::Channel.new(FIXTURES_DIR, {:title => 'foo', :description => 'foobar'})
+    end
+  end
+
+  def test_raise_on_missing_description
+    assert_raises Dropcaster::MissingAttributeError do
+      Dropcaster::Channel.new(FIXTURES_DIR, {:title => 'foo', :url => 'bar'})
+    end
+  end
 end
