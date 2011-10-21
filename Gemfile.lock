@@ -9,7 +9,7 @@ GEM
       rake
     libxml-ruby (2.2.1)
     libxml-ruby (2.2.1-x86-mingw32)
-    rake (0.9.2)
+    rake (0.8.7)
     rdoc (3.9.3)
     ruby-mp3info (0.6.15)
 
@@ -22,5 +22,6 @@ DEPENDENCIES
   bundler (~> 1.0.0)
   jeweler (~> 1.6.4)
   libxml-ruby
+  rake (= 0.8.7)
   rdoc
   ruby-mp3info
