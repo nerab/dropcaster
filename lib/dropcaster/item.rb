@@ -18,16 +18,20 @@ module Dropcaster
       self[:file_size] = File.new(self.file_name).stat.size
       self[:uuid] = Digest::SHA1.hexdigest(File.read(self.file_name))
       
-      if self.tag2.TDR.blank?
-        self[:pub_date] = DateTime.parse(File.new(self.file_name).mtime.to_s)
-      else
+      unless self.tag2.TDR.blank?
         self[:pub_date] = DateTime.parse(self.tag2.TDR)
+      else
+        Dropcaster.logger.info("#{file_path} has no pub date set, using the file's modification time")
+        self[:pub_date] = DateTime.parse(File.new(self.file_name).mtime.to_s)
       end
       
       # Remove iTunes normalization crap (if configured)
-      self.tag2.COM.delete_if{|comment|
-        comment =~ /^( [0-9A-F]{8}){10}$/
-      } if options && options[:strip_itunes_private]
+      if options && options[:strip_itunes_private]
+        Dropcaster.logger.info("Removing iTunes' private normalization information from comments")
+        self.tag2.COM.delete_if{|comment|
+          comment =~ /^( [0-9A-F]{8}){10}$/
+        } 
+      end
       
       # Convert lyrics frame into a hash, keyed by the three-letter language code
       if tag2.ULT

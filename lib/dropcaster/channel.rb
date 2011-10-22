@@ -40,8 +40,17 @@ module Dropcaster
       end
 
       # Prepend the image URL with the channel's base to make an absolute URL
-      self.image_url = URI.join(self.url, self.image_url).to_s unless self.image_url.blank? || self.image_url =~ /^https?:/
-
+      unless self.image_url.blank? || self.image_url =~ /^https?:/
+        Dropcaster.logger.info("Channel image URL '#{self.image_url}' is relative, so we prepend it with the channel URL '#{self.url}'")
+        self.image_url = URI.join(self.url, self.image_url).to_s
+      end
+      
+      # If enclosures_url is not given, take the channel URL as a base.
+      if self.enclosures_url.blank?
+        Dropcaster.logger.info("No enclosure URL given, using the channel's enclosure URL")
+        self.enclosures_url = self.url 
+      end
+      
       channel_template = self.channel_template || File.join(File.dirname(__FILE__), '..', '..', 'templates', 'iTunes.rss.erb')
 
       begin
@@ -68,13 +77,20 @@ module Dropcaster
       @source_files.each{|src|
         item = Item.new(src)
 
-        # set author and image_url from channel if empty
-        item.tag.artist = self.author if item.artist.blank?
-        item.image_url = self.image_url if item.image_url.blank?
+        Dropcaster.logger.debug("Adding new item from file #{src}")
 
+        # set author and image_url from channel if empty
+        if item.artist.blank?
+          Dropcaster.logger.info("#{src} has no artist, using the channel's author")
+          item.tag.artist = self.author 
+        end
+        
+        if item.image_url.blank?
+          Dropcaster.logger.info("#{src} has no image URL set, using the channel's image URL")
+          item.image_url = self.image_url 
+        end
+        
         # construct absolute URL, based on the channel's enclosures_url attribute
-        # If enclosures_url is not given, take the channel URL as a base.
-        self.enclosures_url = self.url if self.enclosures_url.blank?
         self.enclosures_url << '/' unless self.enclosures_url =~ /\/$/
         item.url = URI.join(URI.escape(self.enclosures_url), URI.escape(item.file_name))
 

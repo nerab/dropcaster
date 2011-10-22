@@ -57,7 +57,7 @@ class TestApp < TestChannelXML
 
   def test_no_channel_file
     Open3.popen3(APP_SCRIPT){|stdin, stdout, stderr|
-      assert_match(/No \.\/channel.yml found/, stderr.read)
+      assert_match(/Error: No channel file found/, stderr.read)
     } unless Kernel.is_windows?
   end
 
