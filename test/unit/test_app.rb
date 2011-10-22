@@ -2,6 +2,7 @@ require 'helper'
 require 'test_channel_xml'
 require 'open3'
 require 'uri'
+require 'json'
 
 #
 # End-to-end test
@@ -67,22 +68,31 @@ class TestApp < TestChannelXML
   end
 
   def test_overwrite_all
-      test_title = 'Bob and Alice in Wonderland'
-      test_link = 'http://www.example.com/bar/foot'
-      test_description = 'Testing commandline apps is really not that hard.'
+    test_title = 'Bob and Alice in Wonderland'
+    test_link = 'http://www.example.com/bar/foot'
+    test_description = 'Testing commandline apps is really not that hard.'
 
-      channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --title '#{test_title}' --url '#{test_link}' --description '#{test_description}'])
+    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --title '#{test_title}' --url '#{test_link}' --description '#{test_description}'])
 
-      assert_equal(test_title, channel.find('title').first.content)
-      assert_equal(test_link, channel.find('link').first.content)
-      assert_equal(test_description, channel.find('description').first.content)
-      assert_equal(test_description, channel.find('itunes:summary', NS_ITUNES).first.content)
+    assert_equal(test_title, channel.find('title').first.content)
+    assert_equal(test_link, channel.find('link').first.content)
+    assert_equal(test_description, channel.find('description').first.content)
+    assert_equal(test_description, channel.find('itunes:summary', NS_ITUNES).first.content)
   end
 
   def test_channel_template_not_found
     Open3.popen3("#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --channel-template foo/bar/42"){|stdin, stdout, stderr|
       assert_match(/Unable to load template file/, stderr.read)
     } unless Kernel.is_windows?
+  end
+
+  #
+  # We supply an alternative channel template that produces JSON, parse it back and make some basic assertions on the results
+  #
+  def test_overwrite_channel_template
+    channel_template = File.join(FIXTURES_DIR, 'test_template.json.erb')
+    channel = JSON.parse(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --channel-template #{channel_template}])
+    assert_equal("All About Everything", channel['channel']['title'])
   end
 
   # TODO --channel

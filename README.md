@@ -118,6 +118,10 @@ In order to find out about all the options, simply run
 
         $ dropcaster --help
 
+Using custom channel templates
+------------------------------
+Dropcaster generates a feed that is suitable for most podcast clients, especially iTunes. It is also possible to customize the channel by supplying an alternative channel template on the command line. Start your own template by copying the default template, or look at the test directory of the dropcaster gem. You can get there by running `gem open dropcaster`.
+
 Sidecar files
 -------------
 You may override the meta data for any episode by providing a YAML file with the same name as the mp3 file, but with an extension of yml or yaml (ususally refered to as [sidecar file](http://en.wikipedia.org/wiki/Sidecar_file)). Any attributes specified in this file override the ID tags in the mp3 file.

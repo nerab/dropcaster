@@ -9,4 +9,5 @@ group :development do
   gem "jeweler", "~> 1.6.4"
   gem 'libxml-ruby'
   gem 'rdoc'
+  gem 'json'
 end
