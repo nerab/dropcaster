@@ -1,3 +1,4 @@
+* When called as 'bin/dropcaster test/fixtures', the channel definition is wrongely expected in test. Instead, it should be expected in test/fuxtures (as it correctly is the case when called as 'bin/dropcaster test/fixtures/*.mp3'). We may have to check whether the last path component is a directory.
 * Handle channel URLs not ending with a slash (may be required for hosts not discovering an index.html, like Dropbox)
 * Allow overriding the path to the ERB template (and document the available template variables)
 * Support a tree of iTunes categories: <itunes:category text="Technology"><itunes:category text="Gadgets"/></itunes:category>
@@ -11,3 +12,4 @@
 * Potential optimization for large numbers of mp3 files: If there is an existing index.rss file, do not re-read the information from those files that are still there and still have the same hash value.
 * It feels pretty awkward to refer to the ID3v2 frame names all the time. After all, this is an implementation detail. Maybe we can wrap the frames with a nicer name, but still allow access to the underlying mp3info library? Maybe all we need is some aliasing and / or delegation?
 * Potentially replace the ERB template with Builder::XmlMarkup, see http://builder.rubyforge.org/ (the same that Rails uses)
+* Expose strip_itunes_private as commandline parameter
