@@ -27,7 +27,7 @@ module Dropcaster
 
         if sources.respond_to?(:at)
           # More than one source given. Check that they are all in the same directory.
-          distinct_dirs = sources.collect{|source| File.dirname(source)}.uniq
+          distinct_dirs = sources.collect{|source| dir_or_self(source)}.uniq
 
           if 1 == distinct_dirs.size
             # If all are the in same directory, use that as source directory where channel.yml is expected.
@@ -38,10 +38,19 @@ module Dropcaster
           end
         else
           # If a single file or directory is given, use that as source directory where channel.yml is expected.
-          channel_source_dir = File.dirname(sources)
+          channel_source_dir = dir_or_self(sources)
         end
-
+        
         File.join(channel_source_dir, CHANNEL_YML)
+      end
+    
+    private
+      def dir_or_self(source)
+        if File.directory?(source)
+          source
+        else
+          File.dirname(source)
+        end
       end
     end
   end

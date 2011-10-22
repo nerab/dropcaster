@@ -28,6 +28,11 @@ class TestApp < TestChannelXML
     assert_equal(test_link, channel.find('link').first.content)
   end
 
+  def test_dir_only
+    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURES_DIR}])
+    assert_equal(1, channel.find('item').size)
+  end
+
   def test_overwrite_enclosures_url
     test_enclosures_url = 'http://www.example.com/foo/bar/episodes/'
     channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --enclosures '#{test_enclosures_url}'])
