@@ -52,7 +52,7 @@ module Dropcaster
         self.enclosures_url = self.url 
       end
       
-      channel_template = self.channel_template || File.join(File.dirname(__FILE__), '..', '..', 'templates', 'iTunes.rss.erb')
+      channel_template = self.channel_template || File.join(File.dirname(__FILE__), '..', '..', 'templates', 'channel.rss.erb')
 
       begin
         @erb_template = ERB.new(File.new(channel_template), 0, "%<>")
