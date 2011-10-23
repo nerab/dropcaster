@@ -1,5 +1,6 @@
 * Handle channel URLs not ending with a slash (may be required for hosts not discovering an index.html, like Dropbox)
 * Support a tree of iTunes categories: <itunes:category text="Technology"><itunes:category text="Gadgets"/></itunes:category>
+* Support subtitle and keywords in channel and items
 * If an index.html.erb is present, generate an index.html from it
   ** In addition to that, if an item.html.erb is present, generate individual html for each item from it and link to it from the index.html
 * Print warnings when one of the specs from http://www.apple.com/itunes/podcasts/specs.html is violated
