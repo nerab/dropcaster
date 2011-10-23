@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="<%= h(language) %>">
+<head>
+	<meta charset="utf-8"/>
+	<title><%= h(title) %></title>
+	<meta name="generator" content="Dropcaster <%= Dropcaster::VERSION%>"/>
+  <% unless copyright.blank? %>
+	<meta name="copyright" content="<%= h(copyright) %>"/>
+  <% end %>
+  <link rel="canonical" href="<%= h(url) %>"/>
+</head>
+
+<body id="home">
+	<h1><%= h(title) %></h1>
+	<% unless subtitle.blank? %>
+  <h2><%= h(subtitle) %></h2>
+  <% end %>
+  
+  <% unless image_url.blank? %>
+  <img src="<%= image_url %>"/>
+  <% end %>
+  <p><%= h(description) %></p>
+
+  <h1>Episodes</h1>
+  <% items.each{|item| %>
+    <div class="item" id="<%= h(item.uuid) %>">
+      <h1><%= item.tag.title || item.tag2.TIT2%></h1>
+    <% unless item.tag2.SUBTITLE.blank? %>
+      <h2><%= h(item.tag2.SUBTITLE) %></h2>
+    <% end %>
+    <% unless item.tag2.TT3.blank? %>
+      <p><%= h(item.tag2.TT3) %></p>
+    <% end %>
+      <img src="<%= item.image_url %>"/>
+      <p>Download: <a href="<%= item.url %>">MP3</a> (<%= humanize_time(item.duration.to_i) %>, <%= humanize_size(item.file_size) %>)</p>
+      <p>Published <%= h(item.pub_date.to_formatted_s(:rfc822)) %></p>
+    <% unless item.keywords.blank? %>
+      <p><%= h(item.keywords) %></p>
+    <% end %>
+    </div>
+  <% } %>
+</body>
+</html>
