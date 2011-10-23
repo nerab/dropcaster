@@ -142,6 +142,18 @@ Dropcaster uses a rather simple approach to uniquely identify the episodes. It s
 
 Modifying the sidecar file does not change the UUID, because it only affects the feed and not the episode itself.
 
+I Don't Like the Output Format that Dropcaster produces
+-------------------------------------------------------
+Dropcaster uses an ERB template to generate the XML feed. The template was written so that it is easy to understand, but not necessarily in a way that would make the output rather nice-looking. That should not be an issue, as long as the XML is correct.
+
+It you prefer a more aesthetically pleasing output, just pipe the output of Dropcaster through `xmllint`, which is part of [libxml](http://xmlsoft.org/), which in turn is one of the prerequisites of the Dropcaster gem, and, as such, installed with Dropcaster):
+
+    dropcaster | xmllint --format -
+
+For writing the output to a file, just redirect the ouput of the above command:
+
+    dropcaster | xmllint --format - > index.rss
+
 Contributing to Dropcaster
 ==========================
 Dropcaster is hosted at [Github](http://github.com/nerab/dropcaster):
