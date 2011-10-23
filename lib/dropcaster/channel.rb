@@ -6,6 +6,7 @@ module Dropcaster
   # Represents a podcast feed in the RSS 2.0 format
   #
   class Channel < DelegateClass(Hash)
+    include ERB::Util # for h() in the ERB template
     include HashKeys
 
     # Instantiate a new Channel object. +sources+ must be present and can be a String or Array
@@ -27,7 +28,7 @@ module Dropcaster
       }
 
       self.merge!(options)
-      self.categories = Array.new
+      self.explicit = yes_no_or_input(options[:explicit])
       @source_files = Array.new
 
       if (sources.respond_to?(:each)) # array
@@ -106,6 +107,19 @@ module Dropcaster
         @source_files.concat(Dir.glob(File.join(src, '*.mp3')))
       else
         @source_files << src
+      end
+    end
+    
+    #
+    # Deal with Ruby's autoboxing of Yes, No, true, etc values in YAML
+    #
+    def yes_no_or_input(flag)
+      case flag
+        when nil   : nil
+        when true  : 'Yes'
+        when false : 'No'
+      else
+        flag
       end
     end
   end

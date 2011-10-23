@@ -35,7 +35,7 @@
       <itunes:category text="<%= h(category.last) %>"/>
     </itunes:category>
     <% end %>
-  <% } %>
+  <% } unless categories.blank? %>
   <% unless explicit.blank? %>
     <itunes:explicit><%= h(explicit) %></itunes:explicit>
   <% end %>
