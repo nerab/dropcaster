@@ -39,6 +39,7 @@
   <% unless explicit.blank? %>
     <itunes:explicit><%= h(explicit) %></itunes:explicit>
   <% end %>
+	<generator>Dropcaster <%= Dropcaster::VERSION%></generator>
   <% items.each{|item| %>
     <item>
       <title><%= item.tag.title || item.tag2.TIT2%></title>
