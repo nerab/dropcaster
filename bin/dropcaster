@@ -18,7 +18,6 @@ Basic Usage:
   dropcaster [DIR]...   Prints a podcast feed document for the mp3 files in DIR
 
 Options:
-
 HELP
 
 def usage
