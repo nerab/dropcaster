@@ -30,7 +30,7 @@ module Dropcaster
       }
 
       self.merge!(attributes)
-      self.explicit = yes_no_or_input(options[:explicit])
+      self.explicit = yes_no_or_input(attributes[:explicit])
       @source_files = Array.new
 
       if (sources.respond_to?(:each)) # array
