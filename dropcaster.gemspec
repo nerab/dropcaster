@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{dropcaster}
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nerab"]
-  s.date = %q{2011-10-13}
+  s.date = %q{2011-10-24}
   s.description = %q{Dropcaster is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other hoster.}
   s.email = %q{nerab@gmx.at}
   s.executables = ["lstags", "dropcaster", "dropcaster", "lstags"]
@@ -41,10 +41,13 @@ Gem::Specification.new do |s|
     "lib/dropcaster/errors.rb",
     "lib/dropcaster/hashkeys.rb",
     "lib/dropcaster/item.rb",
-    "templates/iTunes.rss.erb",
+    "lib/dropcaster/log_formatter.rb",
+    "templates/channel.html.erb",
+    "templates/channel.rss.erb",
     "test/extensions/windows.rb",
     "test/fixtures/channel.yml",
     "test/fixtures/iTunes.mp3",
+    "test/fixtures/test_template.json.erb",
     "test/helper.rb",
     "test/unit/test_app.rb",
     "test/unit/test_channel.rb",
@@ -64,25 +67,31 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<ruby-mp3info>, [">= 0"])
       s.add_runtime_dependency(%q<activesupport>, [">= 0"])
+      s.add_development_dependency(%q<rake>, ["= 0.8.7"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_development_dependency(%q<libxml-ruby>, [">= 0"])
       s.add_development_dependency(%q<rdoc>, [">= 0"])
+      s.add_development_dependency(%q<json>, [">= 0"])
     else
       s.add_dependency(%q<ruby-mp3info>, [">= 0"])
       s.add_dependency(%q<activesupport>, [">= 0"])
+      s.add_dependency(%q<rake>, ["= 0.8.7"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<libxml-ruby>, [">= 0"])
       s.add_dependency(%q<rdoc>, [">= 0"])
+      s.add_dependency(%q<json>, [">= 0"])
     end
   else
     s.add_dependency(%q<ruby-mp3info>, [">= 0"])
     s.add_dependency(%q<activesupport>, [">= 0"])
+    s.add_dependency(%q<rake>, ["= 0.8.7"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<libxml-ruby>, [">= 0"])
     s.add_dependency(%q<rdoc>, [">= 0"])
+    s.add_dependency(%q<json>, [">= 0"])
   end
 end
 
