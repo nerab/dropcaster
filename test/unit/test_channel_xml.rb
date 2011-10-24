@@ -46,12 +46,8 @@ class TestChannelXML < Test::Unit::TestCase
     assert_equal('false', guid['isPermaLink'])
     assert_equal('77bf84447c0f69ce4a33a18b0ae1e030b82010de', guid.content)
 
-    assert_equal('Sat, 01 Oct 2011 14:08:20 +0200', item.find('pubDate').first.content)
+    assert_equal('Wed, 05 Oct 2011 21:32:26 +0200', item.find('pubDate').first.content)
     assert_equal('3', item.find('itunes:duration', NS_ITUNES).first.content)
-
-    # Not used in our fixture yet
-    # assert_equal('', item.find('itunes:subtitle', NS_ITUNES).first.content)
-    # assert_equal('', item.find('itunes:keywords', NS_ITUNES).first.content)
   end
 
   def test_attributes_mandatory
@@ -81,7 +77,13 @@ class TestChannelXML < Test::Unit::TestCase
     assert_equal(@options[:owner][:email], owner.find('itunes:email', NS_ITUNES).first.content)
     assert_equal(URI.join(@options[:url], @options[:image_url]).to_s, @channel.find('itunes:image', NS_ITUNES).first['href'])
 
-    # TODO :categories: ['Technology', 'Gadgets']
-    assert_equal(@options[:explicit], @channel.find('itunes:explicit', NS_ITUNES).first.content)
+    categories = @channel.find('itunes:category', NS_ITUNES)
+    assert_not_nil(categories)
+    assert_equal(2, categories.size)
+    assert_equal('Technology', categories.first['text'])
+    assert_equal('Gadgets', categories.first.find('itunes:category', NS_ITUNES).first['text'])
+    assert_equal('TV & Film', categories.last['text'])
+    
+    assert_equal(@options[:explicit] ? 'Yes' : 'No', @channel.find('itunes:explicit', NS_ITUNES).first.content)
   end
 end

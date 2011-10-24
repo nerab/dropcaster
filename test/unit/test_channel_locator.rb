@@ -36,12 +36,14 @@ class TestChannelLocator < Test::Unit::TestCase
 
   def test_current_directory
     sources = File.join(TestChannelLocator.temp_dir, '.')
-    assert_location(sources)
+    assert_location(Pathname.new(sources).cleanpath) # Cleanup path before we compare
   end
 
   def test_single_directory
-    sources = File.join(TestChannelLocator.temp_dir, 'single_dir')
-    assert_location(sources)
+    source_dir = File.join(TestChannelLocator.temp_dir, 'single_dir')
+    Dir.mkdir(source_dir)
+    expected = File.join(TestChannelLocator.temp_dir, 'single_dir', Dropcaster::CHANNEL_YML)
+    assert_equal(expected, Dropcaster::ChannelFileLocator.locate(source_dir))
   end
 
   def test_array_of_files_same_dir

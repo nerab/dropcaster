@@ -110,13 +110,17 @@ Advanced features
 =================
 Overriding defaults
 -------------------
-Dropcaster is opinionated software. That means, it makes a number of assumptions about names, files, and directory strictures. Dropcaster will be most easy to use if these assumptions and opinions apply to your way of using the program.
+Dropcaster is opinionated software. That means, it makes a number of assumptions about names, files, and directory structures. Dropcaster will be most simple to use if these assumptions and opinions apply to your way of using the program.
 
 However, it is still possible to override Dropcaster's behavior in many ways. You can, for instance, host your episode files on a different URL than the channel. Instead of writing title, subtitle, etc. to a channel.yml, you may also spedify them on the command line.
 
 In order to find out about all the options, simply run
 
         $ dropcaster --help
+
+Using custom channel templates
+------------------------------
+Dropcaster generates a feed that is suitable for most podcast clients, especially iTunes. It is also possible to customize the channel by supplying an alternative channel template on the command line. Start your own template by copying the default template, or look at the test directory of the dropcaster gem. You can get there by running `gem open dropcaster`.
 
 Sidecar files
 -------------
@@ -134,9 +138,21 @@ The whole concept of Dropcaster works perfectly fine without Dropbox. Just run t
 
 Episode Identifier (uuid)
 -------------------------
-Dropcaster uses a rather simple approach to uniquely identify the episodes. It simply generates a SHA1 hash of the mp3 file. If it changes, for whatever reason (even if only a tag was changes), the episode will get a new UUID, and any podcatcher will fetch the episode again (which is what you want, in most cases).
+Dropcaster uses a rather simple approach to uniquely identify the episodes. It simply generates a SHA1 hash of the mp3 file. If it changes, for whatever reason (even if only a tag was changed), the episode will get a new UUID, and any podcatcher will fetch the episode again (which is what you want, in most cases).
 
 Modifying the sidecar file does not change the UUID, because it only affects the feed and not the episode itself.
+
+I Don't Like the Output Format that Dropcaster produces
+-------------------------------------------------------
+Dropcaster uses an ERB template to generate the XML feed. The template was written so that it is easy to understand, but not necessarily in a way that would make the output rather nice-looking. That should not be an issue, as long as the XML is correct.
+
+It you prefer a more aesthetically pleasing output, just pipe the output of Dropcaster through `xmllint`, which is part of [libxml](http://xmlsoft.org/), which in turn is one of the prerequisites of the Dropcaster gem, and, as such, installed with Dropcaster):
+
+    dropcaster | xmllint --format -
+
+For writing the output to a file, just redirect the ouput of the above command:
+
+    dropcaster | xmllint --format - > index.rss
 
 Contributing to Dropcaster
 ==========================

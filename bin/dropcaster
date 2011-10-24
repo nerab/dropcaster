@@ -18,7 +18,6 @@ Basic Usage:
   dropcaster [DIR]...   Prints a podcast feed document for the mp3 files in DIR
 
 Options:
-
 HELP
 
 def usage
@@ -29,55 +28,56 @@ require 'optparse'
 require 'dropcaster'
 
 options = Hash.new
-options[:verbose] = false
 options[:auto_detect_channel_file] = true
 
 opts = OptionParser.new do |opts|
   opts.banner = help
 
   opts.on("--verbose", "Verbose mode - displays additional diagnostic information") do |file|
-    options[:verbose] = true
+    Dropcaster.logger = Logger.new(STDERR)
+    Dropcaster.logger.formatter = Dropcaster::LogFormatter.new
+    Dropcaster.logger.level = Logger::INFO
   end
 
   opts.on("--channel FILE", "Read the channel definition from FILE instead of channel.yml in the current directory.") do |file|
     begin
-      STDERR.puts "Reading channel definition from #{file}" if options[:verbose]
+      Dropcaster.logger.info "Reading channel definition from #{file}"
       options = YAML.load_file(file).merge(options)
       options[:auto_detect_channel_file] = false
     rescue
-      STDERR.puts "Error loading channel definition: #{$!.message}"
-      STDERR.puts $!.backtrace if options[:verbose]
+      Dropcaster.logger.error "Could not load channel definition. #{$!.message}"
+      Dropcaster.logger.info $!.backtrace
       exit(1)
     end
   end
 
   opts.on("--title STRING", "Use STRING as the channel's title. Overrides settings read from channel definition file.") do |title|
-    STDERR.puts "Setting channel title to '#{title}' via command line" if options[:verbose]
+    Dropcaster.logger.info "Setting channel title to '#{title}' via command line"
     options[:title] = title
   end
 
   opts.on("--url URL", "Use URL as the channel's url. Overrides settings read from channel definition file.") do |url|
-    STDERR.puts "Setting channel URL to '#{url}' via command line" if options[:verbose]
+    Dropcaster.logger.info "Setting channel URL to '#{url}' via command line"
     options[:url] = url
   end
 
   opts.on("--description STRING", "Use STRING as the channel's description. Overrides settings read from channel definition file.") do |description|
-    STDERR.puts "Setting channel description to '#{description}' via command line" if options[:verbose]
+    Dropcaster.logger.info "Setting channel description to '#{description}' via command line"
     options[:description] = description
   end
 
   opts.on("--enclosures URL", "Use URL as the base URL for the channel's enclosures. Overrides settings read from channel definition file.") do |enclosures_url|
-    STDERR.puts "Setting enclosures base URL to '#{enclosures_url}' via command line" if options[:verbose]
+    Dropcaster.logger.info "Setting enclosures base URL to '#{enclosures_url}' via command line"
     options[:enclosures_url] = enclosures_url
   end
 
   opts.on("--image URL", "Use URL as the channel's image URL. Overrides settings read from channel definition file.") do |image_url|
-    STDERR.puts "Setting image URL to '#{image_url}' via command line" if options[:verbose]
+    Dropcaster.logger.info "Setting image URL to '#{image_url}' via command line"
     options[:image_url] = image_url
   end
 
   opts.on("--channel-template FILE", "Use FILE as template for generating the channel feed. Overrides the default that comes with Dropcaster.") do |file|
-    STDERR.puts "Using'#{file}' as channel template file" if options[:verbose]
+    Dropcaster.logger.info "Using'#{file}' as channel template file"
     options[:channel_template] = file
   end
 
@@ -95,23 +95,23 @@ if options[:auto_detect_channel_file]
   channel_file = Dropcaster::ChannelFileLocator.locate(sources)
 
   if File.exists?(channel_file)
-    STDERR.puts "Auto-detected channel file at #{channel_file}" if options[:verbose]
+    Dropcaster.logger.info "Auto-detected channel file at #{channel_file}"
     options_from_yaml = YAML.load_file(channel_file)
     options = options_from_yaml.merge(options)
   else
-    STDERR.puts "No #{channel_file} found."
-    STDERR.puts usage
+    Dropcaster.logger.error "No channel file found at #{channel_file})"
+    Dropcaster.logger.info usage
     exit(1) # No way to continue without a channel definition
   end
 end
 
-STDERR.puts "Generating the channel with these options: #{options.inspect}" if options[:verbose]
+Dropcaster.logger.info "Generating the channel with these options: #{options.inspect}"
 
 begin
   puts Dropcaster::Channel.new(sources, options).to_rss
 rescue
-  STDERR.puts $!.message
-  STDERR.puts usage
-  STDERR.puts $!.backtrace if options[:verbose]
+  Dropcaster.logger.error $!.message
+  Dropcaster.logger.debug $!.backtrace
+  Dropcaster.logger.info usage
   exit(1)
 end
