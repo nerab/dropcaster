@@ -124,6 +124,18 @@ Dropcaster generates a feed that is suitable for most podcast clients, especiall
 
 It is also possible to customize the channel by supplying an alternative channel template on the command line. Start your own template by copying the default template, or look at the test directory of the dropcaster gem. You can get there by running `gem open dropcaster`.
 
+Generate a HTML page for your podcast
+-------------------------------------
+Besides generating an RSS feed, dropcaster can also generate HTML that can be used as a home page for your podcast. The template directory contains a sample template that can be used to get started:
+
+        $ dropcaster --channel-template templates/channel.html.erb
+        
+As discussed above, the output of this command can be written to a file, too:
+
+        $ dropcaster --channel-template templates/channel.html.erb > ~/Dropbox/Public/allabouteverything.html
+
+Dropcaster works exactly the same, whether it generates an RSS feed or a HTML page. Therefore, all options discussed before also apply when generating HTML.
+
 Sidecar files
 -------------
 You may override the meta data for any episode by providing a YAML file with the same name as the mp3 file, but with an extension of yml or yaml (ususally refered to as [sidecar file](http://en.wikipedia.org/wiki/Sidecar_file)). Any attributes specified in this file override the ID tags in the mp3 file.
