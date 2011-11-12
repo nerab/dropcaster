@@ -9,6 +9,7 @@
   :name: John Doe
   :email: john.doe@example.com
 :image_url: AllAboutEverything.jpg
+:keywords: [bumm, zack, return] 
 :categories: 
   - [Technology, Gadgets]
   - TV & Film

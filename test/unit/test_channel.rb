@@ -20,6 +20,7 @@ class TestChannel < Test::Unit::TestCase
     assert_equal(@options[:language], @channel.language)
     assert_equal(@options[:copyright], @channel.copyright)
     assert_equal(@options[:author], @channel.author)
+    assert_equal(@options[:keywords], @channel.keywords)
 
     owner = @channel.owner
     assert_equal(@options[:owner][:name], owner[:name])

@@ -1,4 +1,3 @@
-* Support keywords in channel and items
 * Write up some documentation on how the mapping between ID3 tags, iTunes and channel / item attributes works
 * If the option for the item template is present (e.g. --item-template templates/item.html.erb), generate individual html pages for each item from it and link to it from the index.html. Leave it off by default.
 * Print warnings when one of the specs from http://www.apple.com/itunes/podcasts/specs.html is violated

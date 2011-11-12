@@ -10,6 +10,7 @@ module Dropcaster
     include HashKeys
 
     STORAGE_UNITS = %w(Byte KB MB GB TB)
+    MAX_KEYWORD_COUNT = 12
 
     # Instantiate a new Channel object. +sources+ must be present and can be a String or Array
     # of Strings, pointing to a one or more directories or MP3 files.
@@ -54,6 +55,9 @@ module Dropcaster
         self.enclosures_url = self.url
       end
 
+      # Warn if keyword count is larger than recommended
+      assert_keyword_count(self.keywords)
+    
       channel_template = self.channel_template || File.join(File.dirname(__FILE__), '..', '..', 'templates', 'channel.rss.erb')
 
       begin
@@ -95,6 +99,9 @@ module Dropcaster
 
         # construct absolute URL, based on the channel's enclosures_url attribute
         item.url = (URI.parse(enclosures_url) + item.file_name)
+
+        # Warn if keyword count is larger than recommended
+        assert_keyword_count(item.keywords)
 
         all_items << item
       }
@@ -168,5 +175,9 @@ module Dropcaster
     		string
     	end
     end    
+
+    def assert_keyword_count(keywords)
+      Dropcaster.logger.info("The list of keywords has #{keywords.size} entries, which exceeds the recommended maximum of #{MAX_KEYWORD_COUNT}.") if keywords && MAX_KEYWORD_COUNT < keywords.size
+    end
   end
 end

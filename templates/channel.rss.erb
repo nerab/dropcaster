@@ -40,6 +40,9 @@
     <itunes:explicit><%= h(explicit) %></itunes:explicit>
   <% end %>
 	<generator>Dropcaster <%= Dropcaster::VERSION%></generator>
+	<% unless keywords.blank? %>
+    <itunes:keywords><%= keywords.map{|k| h(k)}.join(',') %></itunes:keywords>
+  <% end %>  
   <% items.each{|item| %>
     <item>
       <title><%= item.tag.title || item.tag2.TIT2%></title>
@@ -54,7 +57,7 @@
       <pubDate><%= h(item.pub_date.to_formatted_s(:rfc822)) %></pubDate>
       <itunes:duration><%= item.duration.to_i %></itunes:duration>
     <% unless item.keywords.blank? %>
-      <itunes:keywords><%= h(item.keywords) %></itunes:keywords>
+      <itunes:keywords><%= item.keywords.map{|k| h(k)}.join(',') %></itunes:keywords>
     <% end %>
     </item>
   <% } %>
