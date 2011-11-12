@@ -67,14 +67,15 @@ class TestApp < TestChannelXML
     assert_equal(URI.join(test_enclosures_url, FIXTURE_ITUNES_MP3).to_s, enclosure['url'])
   end
 
-  def test_overwrite_image_url_channel
+  def test_overwrite_image_url
     test_image_url = 'http://www.example.com/foo/bar/override.gif'
     channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --image '#{test_image_url}'])
     assert_equal(test_image_url, channel.find('itunes:image').first['href'])
-  end
 
-  def test_overwrite_image_url_item
-    # TODO Implement test
+    # Make sure the items pick up this URL, too
+    item = channel.find("item").first
+    assert(item)
+    assert_equal(test_image_url, item.find('itunes:image').first['href'])
   end
 
   def test_overwrite_description
