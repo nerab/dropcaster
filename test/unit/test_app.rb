@@ -23,6 +23,12 @@ class TestApp < TestChannelXML
     assert_equal(test_title, channel.find('title').first.content)
   end
 
+  def test_overwrite_subtitle
+    test_subtitle = 'Tales from another world that is upside down'
+    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --subtitle '#{test_subtitle}'])
+    assert_equal(test_subtitle, channel.find('itunes:subtitle').first.content)
+  end
+
   def test_overwrite_link
     test_link = 'http://www.example.com/foo/bar'
     channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --url '#{test_link}'])

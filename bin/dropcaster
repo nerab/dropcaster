@@ -56,6 +56,11 @@ opts = OptionParser.new do |opts|
     options[:title] = title
   end
 
+  opts.on("--subtitle STRING", "Use STRING as the channel's subtitle. Overrides settings read from channel definition file.") do |subtitle|
+    Dropcaster.logger.info "Setting channel subtitle to '#{subtitle}' via command line"
+    options[:subtitle] = subtitle
+  end
+
   opts.on("--url URL", "Use URL as the channel's url. Overrides settings read from channel definition file.") do |url|
     Dropcaster.logger.info "Setting channel URL to '#{url}' via command line"
     options[:url] = url
