@@ -120,7 +120,9 @@ In order to find out about all the options, simply run
 
 Using custom channel templates
 ------------------------------
-Dropcaster generates a feed that is suitable for most podcast clients, especially iTunes. It is also possible to customize the channel by supplying an alternative channel template on the command line. Start your own template by copying the default template, or look at the test directory of the dropcaster gem. You can get there by running `gem open dropcaster`.
+Dropcaster generates a feed that is suitable for most podcast clients, especially iTunes. By default, dropcaster follows [Apple's podcast specs / recommendations](http://www.apple.com/itunes/podcasts/specs.html).
+
+It is also possible to customize the channel by supplying an alternative channel template on the command line. Start your own template by copying the default template, or look at the test directory of the dropcaster gem. You can get there by running `gem open dropcaster`.
 
 Sidecar files
 -------------
