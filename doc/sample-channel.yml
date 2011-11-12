@@ -79,3 +79,10 @@
 # Yes, No or Clean, see http://www.apple.com/itunes/podcasts/specs.html#explicit
 #
 :explicit: No
+
+#
+# Keywords
+#
+# Apple recommends to use not more than 12 keywords
+#
+:keywords: [salt, pepper, shaker, exciting]
