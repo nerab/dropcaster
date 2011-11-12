@@ -4,6 +4,7 @@
 	<meta charset="utf-8"/>
 	<title><%= h(title) %></title>
 	<meta name="generator" content="Dropcaster <%= Dropcaster::VERSION%>"/>
+	<meta name="keywords" content="<%= keywords.map{|k| h(k)}.join(', ') %>"/>
   <% unless copyright.blank? %>
 	<meta name="copyright" content="<%= h(copyright) %>"/>
   <% end %>
@@ -35,7 +36,7 @@
       <p>Download: <a href="<%= item.url %>">MP3</a> (<%= humanize_time(item.duration.to_i) %>, <%= humanize_size(item.file_size) %>)</p>
       <p>Published <%= h(item.pub_date.to_formatted_s(:rfc822)) %></p>
     <% unless item.keywords.blank? %>
-      <p><%= h(item.keywords) %></p>
+      <p><%= item.keywords.map{|k| h(k)}.join(',') %></p>
     <% end %>
     </div>
   <% } %>
