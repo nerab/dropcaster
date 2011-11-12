@@ -6,6 +6,7 @@ require 'yaml'
 require 'active_support/core_ext/date_time/conversions'
 require 'active_support/core_ext/object/blank'
 require 'active_support/core_ext/module/attribute_accessors'
+
 require 'logger'
 require 'active_support/core_ext/logger'
 
