@@ -1,4 +1,5 @@
 * Support subtitle and keywords in channel and items
+* Write up some documentation on how the mapping between ID3 tags, iTunes and channel / item attributes works
 * If the option for the item template is present (e.g. --item-template templates/item.html.erb), generate individual html pages for each item from it and link to it from the index.html. Leave it off by default.
 * Print warnings when one of the specs from http://www.apple.com/itunes/podcasts/specs.html is violated
 * Allow muting of the iTunes warnings (see above) using a commandline switch
@@ -8,4 +9,6 @@
 * Potential optimization for large numbers of mp3 files: If there is an existing index.rss file, do not re-read the information from those files that are still there and still have the same hash value.
 * It feels pretty awkward to refer to the ID3v2 frame names all the time. After all, this is an implementation detail. Maybe we can wrap the frames with a nicer name, but still allow access to the underlying mp3info library? Maybe all we need is some aliasing and / or delegation?
 * Potentially replace the ERB template with Builder::XmlMarkup, see http://builder.rubyforge.org/ (the same that Rails uses)
+* Improve handling of iTunes' normalization data. ```id3info test/fixtures/iTunes.mp3``` shows that comments do have a key, and we want to skip iTunNORM.
 * Expose strip_itunes_private as commandline parameter
+* Write up a man page so that [gem man](http://defunkt.io/gem-man/) can pick it up
