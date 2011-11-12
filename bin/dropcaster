@@ -9,7 +9,7 @@ help = <<HELP
 Dropcaster is a podcast feed generator for the command line.
 
 Author: Nicolas E. Rabenau nerab@gmx.at
-Homepage: http://nerab.github.com/dropcaster/
+Homepage: http://rubydoc.info/gems/dropcaster/file/README.md
 
 Basic Usage:
 
