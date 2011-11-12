@@ -30,6 +30,12 @@ class TestChannel < Test::Unit::TestCase
     categories = @channel.categories
     assert_equal(@options[:categories], categories)
   end
+
+  def test_channel_url_without_slash
+    @options[:url] << 'index.html'
+    @channel = Dropcaster::Channel.new(FIXTURES_DIR, @options)
+    assert_equal(@options[:url], @channel.url)
+  end
   
   def test_channel_explicit_yes
     assert_channel_explicit('Yes', true)

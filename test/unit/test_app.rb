@@ -29,6 +29,29 @@ class TestApp < TestChannelXML
     assert_equal(test_link, channel.find('link').first.content)
   end
 
+  def test_overwrite_link_without_ending_slash
+    test_link_base = 'http://www.dropbox.com/foo/bar/'
+    test_link_file = 'index.html'
+    test_link = "#{test_link_base}#{test_link_file}"
+    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --url '#{test_link}'])
+    assert_equal(test_link, channel.find('link').first.content)
+
+    options = YAML.load_file(File.join(FIXTURES_DIR, Dropcaster::CHANNEL_YML))
+    assert_equal(URI.join(test_link_base, options[:image_url]).to_s, channel.find('itunes:image').first['href'])
+
+    # check that the item URLs are correct, too
+    item = channel.find("item").first
+    assert(item)
+
+    # enclosure
+    enclosure = item.find('enclosure').first
+    assert(enclosure)
+    assert_equal(URI.join(test_link_base, FIXTURE_ITUNES_MP3).to_s, enclosure['url'])
+
+    # item image
+    assert_equal(URI.join(test_link_base, options[:image_url]).to_s, item.find('itunes:image').first['href'])
+  end
+
   def test_dir_only
     channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURES_DIR}])
     assert_equal(1, channel.find('item').size)
@@ -50,7 +73,7 @@ class TestApp < TestChannelXML
     assert_equal(test_image_url, channel.find('itunes:image').first['href'])
   end
 
-  def test_overwrite_image_url_enclosure
+  def test_overwrite_image_url_item
     # TODO Implement test
   end
 

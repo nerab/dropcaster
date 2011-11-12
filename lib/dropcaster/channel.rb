@@ -42,10 +42,10 @@ module Dropcaster
         add_files(src)
       end
 
-      # Prepend the image URL with the channel's base to make an absolute URL
+      # If not absolute, prepend the image URL with the channel's base to make an absolute URL
       unless self.image_url.blank? || self.image_url =~ /^https?:/
         Dropcaster.logger.info("Channel image URL '#{self.image_url}' is relative, so we prepend it with the channel URL '#{self.url}'")
-        self.image_url = URI.join(self.url, self.image_url).to_s
+        self.image_url = (URI.parse(self.url) + self.image_url).to_s
       end
 
       # If enclosures_url is not given, take the channel URL as a base.
@@ -94,8 +94,7 @@ module Dropcaster
         end
 
         # construct absolute URL, based on the channel's enclosures_url attribute
-        self.enclosures_url << '/' unless self.enclosures_url =~ /\/$/
-        item.url = URI.join(URI.escape(self.enclosures_url), URI.escape(item.file_name))
+        item.url = (URI.parse(enclosures_url) + item.file_name)
 
         all_items << item
       }
