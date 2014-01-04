@@ -34,13 +34,14 @@ module Dropcaster
       self.explicit = yes_no_or_input(attributes[:explicit])
       @source_files = Array.new
 
-      if (sources.respond_to?(:each)) # array
-        sources.each{|src|
+      # if (sources.respond_to?(:each)) # array
+      if sources.is_a? Array
+        sources.each do |src|
           add_files(src)
-        }
+        end
       else
         # single file or directory
-        add_files(src)
+        add_files(sources)
       end
 
       # If not absolute, prepend the image URL with the channel's base to make an absolute URL
@@ -57,7 +58,7 @@ module Dropcaster
 
       # Warn if keyword count is larger than recommended
       assert_keyword_count(self.keywords)
-    
+
       channel_template = self.channel_template || File.join(File.dirname(__FILE__), '..', '..', 'templates', 'channel.rss.erb')
 
       begin
@@ -154,9 +155,12 @@ module Dropcaster
     #
     def yes_no_or_input(flag)
       case flag
-        when nil   : nil
-        when true  : 'Yes'
-        when false : 'No'
+        when nil
+          nil
+        when true
+          'Yes'
+        when false
+          'No'
       else
         flag
       end
@@ -166,15 +170,15 @@ module Dropcaster
     # http://snippets.dzone.com/posts/show/4578
     #
     def truncate(string, count = 30)
-    	if string.length >= count 
+    	if string.length >= count
     		shortened = string[0, count]
     		splitted = shortened.split(/\s/)
     		words = splitted.length
-    		splitted[0, words - 1].join(' ') + '…'
+    		splitted[0, words - 1].join(' ') + '...'
     	else
     		string
     	end
-    end    
+    end
 
     def assert_keyword_count(keywords)
       Dropcaster.logger.info("The list of keywords has #{keywords.size} entries, which exceeds the recommended maximum of #{MAX_KEYWORD_COUNT}.") if keywords && MAX_KEYWORD_COUNT < keywords.size

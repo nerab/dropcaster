@@ -1,5 +1,6 @@
 require 'helper'
 require 'xml/libxml'
+require 'pry'
 
 class TestChannelXML < Test::Unit::TestCase
   include DropcasterTest
@@ -83,7 +84,7 @@ class TestChannelXML < Test::Unit::TestCase
     assert_equal('Technology', categories.first['text'])
     assert_equal('Gadgets', categories.first.find('itunes:category', NS_ITUNES).first['text'])
     assert_equal('TV & Film', categories.last['text'])
-    
+
     assert_equal(@options[:explicit] ? 'Yes' : 'No', @channel.find('itunes:explicit', NS_ITUNES).first.content)
   end
 end
