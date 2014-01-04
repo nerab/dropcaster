@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'ruby-mp3info'
-gem 'activesupport'
+gem 'activesupport', '~> 3.0.10'
 
 group :development do
   gem "rake", "0.8.7" # http://stackoverflow.com/questions/6085610
