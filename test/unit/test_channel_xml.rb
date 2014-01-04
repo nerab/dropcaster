@@ -47,7 +47,7 @@ class TestChannelXML < Test::Unit::TestCase
     assert_equal('false', guid['isPermaLink'])
     assert_equal('77bf84447c0f69ce4a33a18b0ae1e030b82010de', guid.content)
 
-    assert_equal('Wed, 05 Oct 2011 21:32:26 +0200', item.find('pubDate').first.content)
+    assert_equal('Wed, 05 Oct 2011 13:32:26 -0600', item.find('pubDate').first.content)
     assert_equal('3', item.find('itunes:duration', NS_ITUNES).first.content)
   end
 
