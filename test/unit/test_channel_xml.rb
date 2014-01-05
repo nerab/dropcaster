@@ -1,5 +1,6 @@
 require 'helper'
 require 'xml/libxml'
+require 'pry'
 
 class TestChannelXML < Test::Unit::TestCase
   include DropcasterTest
@@ -46,7 +47,7 @@ class TestChannelXML < Test::Unit::TestCase
     assert_equal('false', guid['isPermaLink'])
     assert_equal('77bf84447c0f69ce4a33a18b0ae1e030b82010de', guid.content)
 
-    assert_equal('Wed, 05 Oct 2011 21:32:26 +0200', item.find('pubDate').first.content)
+    assert_equal('Wed, 05 Oct 2011 13:32:26 -0600', item.find('pubDate').first.content)
     assert_equal('3', item.find('itunes:duration', NS_ITUNES).first.content)
   end
 
@@ -83,7 +84,7 @@ class TestChannelXML < Test::Unit::TestCase
     assert_equal('Technology', categories.first['text'])
     assert_equal('Gadgets', categories.first.find('itunes:category', NS_ITUNES).first['text'])
     assert_equal('TV & Film', categories.last['text'])
-    
+
     assert_equal(@options[:explicit] ? 'Yes' : 'No', @channel.find('itunes:explicit', NS_ITUNES).first.content)
   end
 end

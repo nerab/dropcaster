@@ -52,7 +52,7 @@ class TestApp < TestChannelXML
     # enclosure
     enclosure = item.find('enclosure').first
     assert(enclosure)
-    assert_equal(URI.join(test_link_base, FIXTURE_ITUNES_MP3).to_s, enclosure['url'])
+    assert_equal(URI.join(test_link_base, 'test/fixtures/iTunes.mp3').to_s, enclosure['url'])
 
     # item image
     assert_equal(URI.join(test_link_base, options[:image_url]).to_s, item.find('itunes:image').first['href'])
@@ -70,7 +70,7 @@ class TestApp < TestChannelXML
     assert(item)
     enclosure = item.find('enclosure').first
     assert(enclosure)
-    assert_equal(URI.join(test_enclosures_url, FIXTURE_ITUNES_MP3).to_s, enclosure['url'])
+    assert_equal(URI.join(test_enclosures_url,'test/fixtures/iTunes.mp3').to_s, enclosure['url'])
   end
 
   def test_overwrite_image_url

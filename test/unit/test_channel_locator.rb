@@ -1,65 +1,48 @@
 require 'helper'
 require 'tmpdir'
+require 'pry'
 
 class TestChannelLocator < Test::Unit::TestCase
   include DropcasterTest
 
-  class << self
-    attr_reader :temp_dir
-
-    def startup
-      @temp_dir = Dir.mktmpdir
-    end
-
-    def shutdown
-      FileUtils.remove_entry_secure(@temp_dir)
-    end
-
-    def suite
-      # from http://stackoverflow.com/questions/255969#778701
-      _suite = super
-
-      def _suite.run(*args)
-        TestChannelLocator.startup()
-        super
-        TestChannelLocator.shutdown()
-      end
-
-      _suite
-    end
+  def setup
+    @temp_dir = Dir.mktmpdir
+  end
+  def teardown
+    FileUtils.remove_entry_secure(@temp_dir)
   end
 
   def test_single_file
-    sources = File.join(TestChannelLocator.temp_dir, 'single_file.mp3')
+    sources = File.join(@temp_dir, 'single_file.mp3')
     assert_location(sources)
   end
 
   def test_current_directory
-    sources = File.join(TestChannelLocator.temp_dir, '.')
+    sources = File.join(@temp_dir, '.')
     assert_location(Pathname.new(sources).cleanpath) # Cleanup path before we compare
   end
 
   def test_single_directory
-    source_dir = File.join(TestChannelLocator.temp_dir, 'single_dir')
+    source_dir = File.join(@temp_dir, 'single_dir')
     Dir.mkdir(source_dir)
-    expected = File.join(TestChannelLocator.temp_dir, 'single_dir', Dropcaster::CHANNEL_YML)
+    expected = File.join(@temp_dir, 'single_dir', Dropcaster::CHANNEL_YML)
     assert_equal(expected, Dropcaster::ChannelFileLocator.locate(source_dir))
   end
 
   def test_array_of_files_same_dir
     sources = Array.new
-    sources << File.join(TestChannelLocator.temp_dir, 'file1.mp3')
-    sources << File.join(TestChannelLocator.temp_dir, 'file2.mp3')
-    sources << File.join(TestChannelLocator.temp_dir, 'file3.mp3')
+    sources << File.join(@temp_dir, 'file1.mp3')
+    sources << File.join(@temp_dir, 'file2.mp3')
+    sources << File.join(@temp_dir, 'file3.mp3')
 
     assert_location(sources)
   end
 
   def test_array_of_files_different_dir
     sources = Array.new
-    sources << File.join(TestChannelLocator.temp_dir, 'foo', 'file1.mp3')
-    sources << File.join(TestChannelLocator.temp_dir, 'bar', 'file1.mp3')
-    sources << File.join(TestChannelLocator.temp_dir, 'baz', 'file1.mp3')
+    sources << File.join(@temp_dir, 'foo', 'file1.mp3')
+    sources << File.join(@temp_dir, 'bar', 'file1.mp3')
+    sources << File.join(@temp_dir, 'baz', 'file1.mp3')
 
     assert_raises Dropcaster::AmbiguousSourcesError do
       Dropcaster::ChannelFileLocator.locate(sources)
@@ -67,7 +50,7 @@ class TestChannelLocator < Test::Unit::TestCase
   end
 
   def test_array_with_one_directory
-    assert_location(File.join(TestChannelLocator.temp_dir, ['single_dir']))
+    assert_location(File.join(@temp_dir, ['single_dir']))
   end
 
   def test_array_with_more_than_a_single_directory
@@ -88,6 +71,6 @@ class TestChannelLocator < Test::Unit::TestCase
 
   def assert_location(sources)
     channel_file = Dropcaster::ChannelFileLocator.locate(sources)
-    assert_equal(File.join(TestChannelLocator.temp_dir, Dropcaster::CHANNEL_YML), channel_file)
+    assert_equal(File.join(@temp_dir, Dropcaster::CHANNEL_YML), channel_file)
   end
 end
