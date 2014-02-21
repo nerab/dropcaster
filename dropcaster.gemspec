@@ -18,19 +18,19 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'ruby-mp3info'
-  spec.add_dependency 'activesupport'
+  spec.add_dependency 'ruby-mp3info', '~> 0.8'
+  spec.add_dependency 'activesupport', '~> 3.2'
 
-  spec.add_development_dependency 'bundler', "~> 1.5"
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'libxml-ruby'
-  spec.add_development_dependency 'guard-minitest'
-  spec.add_development_dependency 'guard-bundler'
-  spec.add_development_dependency 'libnotify'
-  spec.add_development_dependency 'rb-inotify'
-  spec.add_development_dependency 'rb-fsevent'
-  spec.add_development_dependency 'pry'
-  spec.add_development_dependency 'pry-nav'
-  spec.add_development_dependency 'pry-stack_explorer'
-  spec.add_development_dependency 'rb-readline'
+  spec.add_development_dependency 'bundler', '~> 1.5'
+  spec.add_development_dependency 'rake', '~> 10.1'
+  spec.add_development_dependency 'libxml-ruby', '~> 2.7'
+  spec.add_development_dependency 'guard-minitest', '~> 2.2'
+  spec.add_development_dependency 'guard-bundler', '~> 2.0'
+  spec.add_development_dependency 'libnotify', '~> 0.8'
+  spec.add_development_dependency 'rb-inotify', '~> 0.9'
+  spec.add_development_dependency 'rb-fsevent', '~> 0.9'
+  spec.add_development_dependency 'pry', '~> 0.9'
+  spec.add_development_dependency 'pry-nav', '~> 0.2'
+  spec.add_development_dependency 'pry-stack_explorer', '~> 0.4'
+  spec.add_development_dependency 'rb-readline', '~> 0.5'
 end

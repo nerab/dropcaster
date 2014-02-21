@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     dropcaster (0.0.5)
-      activesupport
-      ruby-mp3info
+      activesupport (~> 3.2)
+      ruby-mp3info (~> 0.8)
 
 GEM
   remote: https://rubygems.org/
@@ -81,14 +81,14 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.5)
   dropcaster!
-  guard-bundler
-  guard-minitest
-  libnotify
-  libxml-ruby
-  pry
-  pry-nav
-  pry-stack_explorer
-  rake
-  rb-fsevent
-  rb-inotify
-  rb-readline
+  guard-bundler (~> 2.0)
+  guard-minitest (~> 2.2)
+  libnotify (~> 0.8)
+  libxml-ruby (~> 2.7)
+  pry (~> 0.9)
+  pry-nav (~> 0.2)
+  pry-stack_explorer (~> 0.4)
+  rake (~> 10.1)
+  rb-fsevent (~> 0.9)
+  rb-inotify (~> 0.9)
+  rb-readline (~> 0.5)
