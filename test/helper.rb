@@ -1,11 +1,7 @@
-require 'rubygems'
-require 'test/unit'
+require 'minitest/autorun'
 require 'dropcaster'
 
-$:.unshift File.join(File.dirname(__FILE__), *%w[.. test unit])
-$:.unshift File.join(File.dirname(__FILE__), *%w[.. test extensions])
-
-require 'windows'
+require_relative 'extensions/windows'
 
 module DropcasterTest
   FIXTURES_DIR = File.join(File.dirname(__FILE__), 'fixtures')

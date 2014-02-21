@@ -2,7 +2,7 @@ require 'helper'
 require 'tmpdir'
 require 'pry'
 
-class TestChannelLocator < Test::Unit::TestCase
+class TestChannelLocator < MiniTest::Test
   include DropcasterTest
 
   def setup

@@ -2,7 +2,6 @@
 
 $:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 
-require 'rubygems'
 require 'yaml'
 
 help = <<HELP
@@ -37,6 +36,12 @@ opts = OptionParser.new do |opts|
     Dropcaster.logger = Logger.new(STDERR)
     Dropcaster.logger.formatter = Dropcaster::LogFormatter.new
     Dropcaster.logger.level = Logger::INFO
+  end
+
+  opts.on("--trace", "Verbose mode - displays additional diagnostic information") do |file|
+    Dropcaster.logger = Logger.new(STDERR)
+    Dropcaster.logger.formatter = Dropcaster::LogFormatter.new
+    Dropcaster.logger.level = Logger::DEBUG
   end
 
   opts.on("--channel FILE", "Read the channel definition from FILE instead of channel.yml in the current directory.") do |file|
@@ -116,7 +121,9 @@ begin
   puts Dropcaster::Channel.new(sources, options).to_rss
 rescue
   Dropcaster.logger.error $!.message
-  Dropcaster.logger.debug $!.backtrace
+  $!.backtrace.each do |line|
+    Dropcaster.logger.debug(line)
+  end
   Dropcaster.logger.info usage
   exit(1)
 end

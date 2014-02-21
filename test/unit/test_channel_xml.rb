@@ -2,7 +2,7 @@ require 'helper'
 require 'xml/libxml'
 require 'pry'
 
-class TestChannelXML < Test::Unit::TestCase
+class TestChannelXML < MiniTest::Test
   include DropcasterTest
 
   def setup
@@ -79,7 +79,7 @@ class TestChannelXML < Test::Unit::TestCase
     assert_equal(URI.join(@options[:url], @options[:image_url]).to_s, @channel.find('itunes:image', NS_ITUNES).first['href'])
 
     categories = @channel.find('itunes:category', NS_ITUNES)
-    assert_not_nil(categories)
+    refute_nil(categories)
     assert_equal(2, categories.size)
     assert_equal('Technology', categories.first['text'])
     assert_equal('Gadgets', categories.first.find('itunes:category', NS_ITUNES).first['text'])

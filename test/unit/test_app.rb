@@ -1,8 +1,8 @@
 require 'helper'
-require 'test_channel_xml'
 require 'open3'
 require 'uri'
 require 'json'
+require_relative 'test_channel_xml'
 
 #
 # End-to-end test

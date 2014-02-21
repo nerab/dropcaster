@@ -18,11 +18,10 @@ require 'dropcaster/item'
 require 'dropcaster/channel_file_locator'
 
 module Dropcaster
-  VERSION = File.read(File.join(File.dirname(__FILE__), *%w[.. VERSION]))
   CHANNEL_YML = 'channel.yml'
-  
+
   mattr_accessor :logger
-  
+
   unless @@logger
     @@logger = Logger.new(STDERR)
     @@logger.level = Logger::WARN

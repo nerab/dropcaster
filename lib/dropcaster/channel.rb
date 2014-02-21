@@ -5,9 +5,8 @@ module Dropcaster
   #
   # Represents a podcast feed in the RSS 2.0 format
   #
-  class Channel < DelegateClass(Hash)
+  class Channel
     include ERB::Util # for h() in the ERB template
-    include HashKeys
 
     STORAGE_UNITS = %w(Byte KB MB GB TB)
     MAX_KEYWORD_COUNT = 12
@@ -23,15 +22,13 @@ module Dropcaster
     # * <tt>:description</tt> - Short description of the podcast (a few words)
     #
     def initialize(sources, attributes)
-      super(Hash.new)
-
       # Assert mandatory attributes
       [:title, :url, :description].each{|attr|
         raise MissingAttributeError.new(attr) if attributes[attr].blank?
       }
 
-      self.merge!(attributes)
-      self.explicit = yes_no_or_input(attributes[:explicit])
+      @attributes = attributes
+      @attributes[:explicit] = yes_no_or_input(attributes[:explicit])
       @source_files = Array.new
 
       # if (sources.respond_to?(:each)) # array
@@ -45,21 +42,21 @@ module Dropcaster
       end
 
       # If not absolute, prepend the image URL with the channel's base to make an absolute URL
-      unless self.image_url.blank? || self.image_url =~ /^https?:/
-        Dropcaster.logger.info("Channel image URL '#{self.image_url}' is relative, so we prepend it with the channel URL '#{self.url}'")
-        self.image_url = (URI.parse(self.url) + self.image_url).to_s
+      unless @attributes[:image_url].blank? || @attributes[:image_url] =~ /^https?:/
+        Dropcaster.logger.info("Channel image URL '#{@attributes[:image_url]}' is relative, so we prepend it with the channel URL '#{@attributes[:url]}'")
+        @attributes[:image_url] = (URI.parse(@attributes[:url]) + @attributes[:image_url]).to_s
       end
 
       # If enclosures_url is not given, take the channel URL as a base.
-      if self.enclosures_url.blank?
+      if @attributes[:enclosures_url].blank?
         Dropcaster.logger.info("No enclosure URL given, using the channel's enclosure URL")
-        self.enclosures_url = self.url
+        @attributes[:enclosures_url] = @attributes[:url]
       end
 
       # Warn if keyword count is larger than recommended
-      assert_keyword_count(self.keywords)
+      assert_keyword_count(@attributes[:keywords])
 
-      channel_template = self.channel_template || File.join(File.dirname(__FILE__), '..', '..', 'templates', 'channel.rss.erb')
+      channel_template = @attributes[:channel_template] || File.join(File.dirname(__FILE__), '..', '..', 'templates', 'channel.rss.erb')
 
       begin
         @erb_template = ERB.new(IO.read(channel_template), 0, "%<>")
@@ -90,12 +87,12 @@ module Dropcaster
         # set author and image_url from channel if empty
         if item.artist.blank?
           Dropcaster.logger.info("#{src} has no artist, using the channel's author")
-          item.tag.artist = self.author
+          item.tag.artist = @attributes[:author]
         end
 
         if item.image_url.blank?
           Dropcaster.logger.info("#{src} has no image URL set, using the channel's image URL")
-          item.image_url = self.image_url
+          item.image_url = @attributes[:image_url]
         end
 
         # construct absolute URL, based on the channel's enclosures_url attribute
@@ -138,6 +135,16 @@ module Dropcaster
 
         unit = STORAGE_UNITS[exponent]
         return storage_units_format.gsub(/%n/, number.to_i.to_s).gsub(/%u/, unit)
+      end
+    end
+
+    # delegate all unknown methods to @attributes
+    def method_missing(meth, *args)
+      m = meth.id2name
+      if /=$/ =~ m
+        @attributes[m.chop.to_sym] = (args.length < 2 ? args[0] : args)
+      else
+        @attributes[m.to_sym]
       end
     end
 

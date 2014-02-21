@@ -1,6 +1,6 @@
 require 'helper'
 
-class TestChannel < Test::Unit::TestCase
+class TestChannel < MiniTest::Test
   include DropcasterTest
 
   def setup
@@ -27,7 +27,7 @@ class TestChannel < Test::Unit::TestCase
     assert_equal(@options[:owner][:email], owner[:email])
 
     assert_equal(URI.join(@options[:url], @options[:image_url]).to_s, @channel.image_url)
-    
+
     categories = @channel.categories
     assert_equal(@options[:categories], categories)
   end
@@ -37,23 +37,23 @@ class TestChannel < Test::Unit::TestCase
     @channel = Dropcaster::Channel.new(FIXTURES_DIR, @options)
     assert_equal(@options[:url], @channel.url)
   end
-  
+
   def test_channel_explicit_yes
     assert_channel_explicit('Yes', true)
   end
-  
+
   def test_channel_explicit_no
     assert_channel_explicit('No', false)
   end
-  
+
   def test_channel_explicit_nil
     assert_channel_explicit(nil, nil)
   end
-  
+
   def test_channel_explicit_clean
     assert_channel_explicit('Clean', 'Clean')
   end
-  
+
   def assert_channel_explicit(expected, value)
     @options[:explicit] = value
     channel = Dropcaster::Channel.new(FIXTURES_DIR, @options)

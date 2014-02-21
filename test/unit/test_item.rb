@@ -1,6 +1,6 @@
 require 'helper'
 
-class TestItem < Test::Unit::TestCase
+class TestItem < MiniTest::Test
   include DropcasterTest
 
   def setup
