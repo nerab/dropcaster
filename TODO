@@ -10,5 +10,4 @@
 * It feels pretty awkward to refer to the ID3v2 frame names all the time. After all, this is an implementation detail. Maybe we can wrap the frames with a nicer name, but still allow access to the underlying mp3info library? Maybe all we need is some aliasing and / or delegation?
 * Potentially replace the ERB template with Builder::XmlMarkup, see http://builder.rubyforge.org/ (the same that Rails uses)
 * Improve handling of iTunes' normalization data. ```id3info test/fixtures/iTunes.mp3``` shows that comments do have a key, and we want to skip iTunNORM.
-* Expose strip_itunes_private as commandline parameter
 * Write up a man page so that [gem man](http://defunkt.io/gem-man/) can pick it up

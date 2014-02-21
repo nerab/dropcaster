@@ -11,7 +11,7 @@ class TestItem < MiniTest::Test
     assert_in_delta(3, @item.duration, 0.005)
     assert_equal(58119, @item.file_size)
     assert_equal('77bf84447c0f69ce4a33a18b0ae1e030b82010de', @item.uuid)
-    assert_equal(1317843146, @item.pub_date.to_i)
+    assert_equal(1392932984, @item.pub_date.to_i)
     assert_equal('test/fixtures/iTunes.mp3', @item.file_name)
   end
 
@@ -45,19 +45,7 @@ class TestItem < MiniTest::Test
     assert_equal("iTunes Lyrics Line 1\niTunes Lyrics Line 2", @item.lyrics['eng'])
   end
 
-  def test_comment_remove_itunes_crap
-    item = Dropcaster::Item.new(FIXTURE_ITUNES_MP3, {:strip_itunes_private => true})
-    assert_equal('iTunes Comments (Info Pane)', item.tag2.COM[0])
-  end
-
-  def test_comment_leave_itunes_crap
-    item = Dropcaster::Item.new(FIXTURE_ITUNES_MP3, {:strip_itunes_private => false})
-    assert_equal(' 00007032 00006EA2 0000A049 00009735 00000559 0000096E 00008000 00008000 00000017 00000017', item.tag2.COM[0])
-    assert_equal('iTunes Comments (Info Pane)', item.tag2.COM[1])
-  end
-
   def test_tag2_comment
-    assert_equal(' 00007032 00006EA2 0000A049 00009735 00000559 0000096E 00008000 00008000 00000017 00000017', @item.tag2.COM[0])
     assert_equal('iTunes Comments (Info Pane)', @item.tag2.COM[1])
   end
 end

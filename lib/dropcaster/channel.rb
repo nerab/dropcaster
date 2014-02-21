@@ -80,6 +80,7 @@ module Dropcaster
     def items
       all_items = Array.new
       @source_files.each{|src|
+
         item = Item.new(src)
 
         Dropcaster.logger.debug("Adding new item from file #{src}")
