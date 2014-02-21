@@ -1,5 +1,7 @@
 # Dropcaster - Simple Podcast Publishing with Dropbox
 
+[![Build Status](https://travis-ci.org/nerab/dropcaster.png?branch=master)](https://travis-ci.org/nerab/dropcaster)
+
 [Dropcaster](http://rubydoc.info/gems/dropcaster/file/README.md) is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other hoster.
 
 Author: Nicolas E. Rabenau <nerab@gmx.at>
