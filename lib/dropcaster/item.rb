@@ -12,6 +12,10 @@ module Dropcaster
         @tag = mp3info.tag
         @tag2 = mp3info.tag2
         @duration = mp3info.length
+        if @tag2["ULT"]
+          @lyrics = {};
+          @tag2["ULT"].split(/\x00/).drop(1).each_slice(2) { |k, v| @lyrics[k] = v }
+        end
       }
 
       @file_size = File.new(@file_name).stat.size

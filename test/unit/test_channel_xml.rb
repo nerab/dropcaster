@@ -24,7 +24,7 @@ class TestChannelXML < MiniTest::Test
   # constructing the XML string in a different way
   #
   def channel_rss
-    Dropcaster::Channel.new(FIXTURES_DIR, @options).to_rss
+    Dropcaster::Channel.new(FIXTURES_DIR, @options.dup).to_rss
   end
 
   def test_item
@@ -47,7 +47,7 @@ class TestChannelXML < MiniTest::Test
     assert_equal('false', guid['isPermaLink'])
     assert_equal('77bf84447c0f69ce4a33a18b0ae1e030b82010de', guid.content)
 
-    assert_equal('Wed, 05 Oct 2011 13:32:26 -0600', item.find('pubDate').first.content)
+    assert_equal(File.mtime(FIXTURE_ITUNES_MP3).rfc2822, item.find('pubDate').first.content)
     assert_equal('3', item.find('itunes:duration', NS_ITUNES).first.content)
   end
 
