@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/nerab/dropcaster.png?branch=master)](https://travis-ci.org/nerab/dropcaster)
 
-  _This project is developed with the [readme-driven development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html) method. This file describes the functionality that is actually implemented, whereas the [VISION](VISION.md) reflects the vision where the tool should go._
+  _This project is developed with the [readme-driven development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html) method. This file contains the vision, whereas the [README](README.md) reflects the functionality that is actually implemented._
 
 [Dropcaster](http://rubydoc.info/gems/dropcaster/file/README.md) is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other hoster.
 
@@ -137,6 +137,14 @@ As discussed above, the output of this command can be written to a file, too:
         $ dropcaster --channel-template templates/channel.html.erb > ~/Dropbox/Public/allabouteverything.html
 
 Dropcaster works exactly the same, whether it generates an RSS feed or a HTML page. Therefore, all options discussed before also apply when generating HTML.
+
+## Sidecar files
+
+You may override the meta data for any episode by providing a YAML file with the same name as the mp3 file, but with an extension of yml or yaml (ususally refered to as [sidecar file](http://en.wikipedia.org/wiki/Sidecar_file)). Any attributes specified in this file override the ID tags in the mp3 file.
+
+Dropcaster will only write the sidecar file if the appropriate command line option was passed, and it will use the information in it only for generating new files like the index.rss. It will not write back to mp3 files.
+
+Sidecar files are also useful for referencing a (remote) enclosure without re-hosting it (which, besides wasted bandwidth, could also create copyright issues). If a sidecar file is present and it points to a remote media URL, dropcaster will generate an item in the feed, even if the media is not available locally.
 
 ## A Note on iTunes
 
