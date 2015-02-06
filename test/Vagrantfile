@@ -14,7 +14,7 @@ Vagrant.configure(2) do |config|
     name = "ruby-#{version.tr('.', '-')}"
 
     config.vm.define(name) do |cfg|
-      cfg.vm.hostname =
+      cfg.vm.hostname = name
       cfg.vm.provision 'shell', inline: <<-SHELL
         sudo apt-get install software-properties-common
         sudo add-apt-repository ppa:brightbox/ruby-ng
@@ -22,6 +22,7 @@ Vagrant.configure(2) do |config|
         sudo apt-get install -y git libxml2-dev zlib1g-dev #{ruby} #{ruby}-dev
 
         sudo su -c 'echo "LC_ALL=en_US.UTF-8" >> /etc/environment'
+        touch .hushlogin
 
         sudo gem install bundler
         cd /dropcaster
