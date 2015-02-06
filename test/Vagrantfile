@@ -9,10 +9,24 @@ Vagrant.configure(2) do |config|
     vb.memory = '256'
   end
 
-  config.vm.provision 'shell', inline: <<-SHELL
-    sudo add-apt-repository ppa:brightbox/ruby-ng-experimental
-    sudo apt-get update
-    sudo apt-get install -y ruby2.2 git ruby2.2-dev libxml2-dev zlib1g-dev
-    sudo gem install bundler
-  SHELL
+  %w(1.9.1 2.0 2.1 2.2).each do |version|
+    ruby = "ruby#{version}"
+    name = "ruby-#{version.tr('.', '-')}"
+
+    config.vm.define(name) do |cfg|
+      cfg.vm.hostname =
+      cfg.vm.provision 'shell', inline: <<-SHELL
+        sudo add-apt-repository ppa:brightbox/ruby-ng-experimental
+        sudo apt-get update
+        sudo apt-get install -y git libxml2-dev zlib1g-dev #{ruby} #{ruby}-dev
+
+        sudo su -c 'echo "LC_ALL=en_US.UTF-8" >> /etc/environment'
+
+        sudo gem install bundler
+        cd /dropcaster
+        bundle
+        bundle exec rake
+      SHELL
+    end
+  end
 end

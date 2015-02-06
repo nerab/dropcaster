@@ -1,0 +1,23 @@
+#!/bin/bash
+
+echo "Fetching vagrant status ..."
+cmd=${1-'vagrant status'}
+
+for vm in $(vagrant status --machine-readable | ruby bin/vagrant-status); do
+  echo "Creating pane for $vm running $cmd"
+
+  if tmux list-windows | grep dropcaster > /dev/null; then
+    tmux split-window -h -d -t dropcaster "$cmd $vm"
+  else
+    tmux new-window -n dropcaster -d "$cmd $vm"
+  fi
+done
+
+# don't close exited panes
+tmux set-window-option remain-on-exit on -t dropcaster tiled
+
+# Arrange windows
+tmux select-layout -t dropcaster tiled
+
+echo "Activating target window"
+tmux select-window -t dropcaster
