@@ -1,0 +1,18 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = 'ubuntu/trusty64'
+  config.vm.synced_folder '..', '/dropcaster'
+
+  config.vm.provider 'virtualbox' do |vb|
+    vb.memory = '256'
+  end
+
+  config.vm.provision 'shell', inline: <<-SHELL
+    sudo add-apt-repository ppa:brightbox/ruby-ng-experimental
+    sudo apt-get update
+    sudo apt-get install -y ruby2.2 git ruby2.2-dev libxml2-dev zlib1g-dev
+    sudo gem install bundler
+  SHELL
+end

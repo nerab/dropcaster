@@ -13,3 +13,4 @@ rdoc/
 # jeweler generated
 pkg
 .DS_Store
+.vagrant
