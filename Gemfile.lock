@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dropcaster (0.0.5.rc2)
+    dropcaster (0.0.5.rc3)
       activesupport
       ruby-mp3info
 
