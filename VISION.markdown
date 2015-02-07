@@ -22,7 +22,7 @@ To get started, use RubyGems to install Dropcaster:
 
     $ gem install dropcaster
 
-With Dropcaster installed, you can use the `dropcaster` command to generate a new podcast feed document.
+Once installed, you can use the `dropcaster` command to generate a new podcast feed document.
 
 # Basic Usage
 
@@ -164,7 +164,7 @@ Modifying the sidecar file does not change the UUID, because it only affects the
 
 Dropcaster uses an ERB template to generate the XML feed. The template was written so that it is easy to understand, but not necessarily in a way that would make the output rather nice-looking. That should not be an issue, as long as the XML is correct.
 
-It you prefer a more aesthetically pleasing output, just pipe the output of Dropcaster through `xmllint`, which is part of [libxml](http://xmlsoft.org/), which in turn is one of the prerequisites of the Dropcaster gem, and, as such, installed with Dropcaster):
+It you prefer a more aesthetically pleasing output, just pipe the output of Dropcaster through `xmllint`, which is part of [libxml](http://xmlsoft.org/):
 
     dropcaster | xmllint --format -
 
