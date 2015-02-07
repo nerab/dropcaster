@@ -20,8 +20,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'ruby-mp3info'
   spec.add_dependency 'activesupport'
+  spec.add_dependency 'bundler'
 
-  spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'minitest'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'libxml-ruby'

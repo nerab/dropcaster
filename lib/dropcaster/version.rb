@@ -1,3 +1,3 @@
 module Dropcaster
-  VERSION = '0.0.5.rc3'
+  VERSION = '0.0.5.rc4'
 end
