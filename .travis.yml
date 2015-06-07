@@ -1,7 +1,14 @@
 language: ruby
-#bundler_args: --without development
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.0
-  - 2.2.0
+- 1.9.3
+- 2.0.0
+- 2.1.0
+- 2.2.0
+script:
+  - rake check
+  - rake generate
+after_success:
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash deploy.sh
+env:
+  global:
+    secure: Y4o/l7Z+8iJk0I5HEh2a9yKiIE1jfB/ChKqWfJTSXXoxTVwA5oLl4+OTR/2V8fvZKSufPr4fLdvwji0ysicDLdwlMYCCBPEZg0wGyGC6qZFHEkNB1BLXHh2Bu3srBjblw8hk12Q72MY6wHtl6ZZZ3qVTwaPVcCWSJMLJGRO9fWA=
