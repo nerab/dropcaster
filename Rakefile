@@ -11,12 +11,25 @@ end
 task :default => :test
 
 namespace :web do
-  directory '_site'
+  file 'website/index.markdown' do |f|
+    concat ['website/index.yaml', 'README.markdown'], f
+  end
 
-  file '_site/index.html' => '_site' do |f|
-    `jekyll build`
+  file 'website/vision.markdown' do |f|
+    concat ['website/vision.yaml', 'VISION.markdown'], f
   end
 
   desc "Generate web page"
-  task :generate => ['_site/index.html']
+  task :generate => ['website/index.markdown', 'website/vision.markdown'] do
+    `jekyll build`
+  end
+end
+
+def concat(sources, destination)
+  open(destination, 'a') do |f|
+    Array(sources).each do |src|
+puts "Appending #{src} to #{f}"
+      f << src
+    end
+  end
 end

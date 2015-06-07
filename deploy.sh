@@ -4,7 +4,7 @@ set -o errexit -o nounset
 
 rev=$(git rev-parse --short HEAD)
 
-cd _site
+cd website/_site
 
 git init
 git config user.name "Nicholas E. Rabenau"
