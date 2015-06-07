@@ -4,10 +4,10 @@
     <title>Dropcaster</title>
     <description>Dropcaster is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other (static file) web hoster.
 </description>
-    <link>/</link>
-    <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 07 Jun 2015 21:01:00 +0000</pubDate>
-    <lastBuildDate>Sun, 07 Jun 2015 21:01:00 +0000</lastBuildDate>
+    <link>/dropcaster/</link>
+    <atom:link href="/dropcaster/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sun, 07 Jun 2015 21:12:15 +0000</pubDate>
+    <lastBuildDate>Sun, 07 Jun 2015 21:12:15 +0000</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
   </channel>
