@@ -1,0 +1,14 @@
+# Site settings
+title: Dropcaster
+email: nerab@gmx.at
+description: > # this means to ignore newlines until "baseurl:"
+  Dropcaster is a podcast feed generator for the command line. It is most
+  simple to use with Dropbox, but works equally well with any other (static
+  file) web hoster.
+baseurl: "" # the subpath of your site, e.g. /blog/
+# url: "http://yourdomain.com" # the base hostname & protocol for your site
+# twitter_username: jekyllrb
+github_username:  nerab
+
+# Build settings
+markdown: kramdown
