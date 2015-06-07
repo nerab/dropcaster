@@ -45,19 +45,19 @@ With all required pieces in place, we could generate the podcast feed. Just befo
     $ cd ~/Dropbox/Public
     $ dropcaster
 
-(The above lines assume that you are using Dropbox, and that there is at least one mp3 file in ~/Dropbox/Public).
+(The above lines assume that you are using Dropbox, and that there is at least one mp3 file in `~/Dropbox/Public`).
 
 Dropcaster will print the feed to standard-out, without writing it to disk. When you are happy with the results, call Dropcaster again, but redirect the output to a file, this time:
 
     $ dropcaster > index.rss
 
-If all went well, you will now have a valid podcast feed in your Dropbox, listing all mp3 files as podcast episodes. Please see the section [Publish Your Feed] for details on how to find the public URL of your feed.
+If all went well, you will now have a valid podcast feed in your Dropbox, listing all mp3 files as podcast episodes. Please see the section [Publish Your Feed](#publish-your-feed) for details on how to find the public URL of your feed.
 
 # Use Cases
 
 ## Publish a New Episode
 
-1. Drop the mp3 file into the Dropbox Public folder (e.g. ~/Dropbox/Public), and then run the following command in the directory where the mp3 files reside:
+1. Drop the mp3 file into the Dropbox Public folder (e.g. `~/Dropbox/Public`), and then run the following command in the directory where the mp3 files reside:
 
         $ dropcaster > index.rss
 
