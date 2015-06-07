@@ -29,7 +29,9 @@ namespace :web do
 
   desc "Generate web page"
   task :generate => ['website/index.markdown', 'website/vision.markdown', 'website/contributing.markdown'] do
-    `jekyll build`
+    cd 'website' do
+      `jekyll build`
+    end
   end
 end
 
