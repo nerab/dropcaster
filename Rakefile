@@ -9,3 +9,14 @@ Rake::TestTask.new(:test) do |test|
 end
 
 task :default => :test
+
+namespace :web do
+  directory '_site'
+
+  file '_site/index.html' => '_site' do |f|
+    `pandoc -o #{f} README.markdown`
+  end
+
+  desc "Generate web page"
+  task :generate => ['_site/index.html']
+end

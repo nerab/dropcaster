@@ -164,6 +164,10 @@ For writing the output to a file, just redirect the ouput of the above command:
 
     dropcaster | xmllint --format - > index.rss
 
+# Web site
+
+Dropcaster uses Steve Klabnik's [approach](https://github.com/steveklabnik/automatically_update_github_pages_with_travis_example) for publishing the site with [Travis CI](http://travis-ci.org/).
+
 # Copyright
 
 Copyright (c) 2011-2014 Nicolas E. Rabenau. See [LICENSE.txt](https://raw.github.com/nerab/dropcaster/master/LICENSE.txt) for further details.
