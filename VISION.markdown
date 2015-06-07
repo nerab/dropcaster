@@ -4,7 +4,7 @@
 
   _This project is developed with the [readme-driven development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html) method. This file contains the vision, whereas the [README](README.markdown) reflects the functionality that is actually implemented._
 
-[Dropcaster](http://rubydoc.info/gems/dropcaster/file/README.md) is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other hoster.
+[Dropcaster](http://rubydoc.info/gems/dropcaster/file/README.md) is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other (static file) web hoster.
 
 Author: Nicolas E. Rabenau <nerab@gmx.at>
 
