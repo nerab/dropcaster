@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Dropcaster</title>
+    <meta name="description" content="Dropcaster is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other (static file) web hoster.
+">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="/">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Dropcaster</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/contributing.html">Contributing</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/vision.html">Vision</a>
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <article class="post-content">
+    <h1 id="dropcaster---simple-podcast-publishing-with-dropbox">Dropcaster - Simple Podcast Publishing with Dropbox</h1>
+
+<p><a href="https://travis-ci.org/nerab/dropcaster"><img src="https://travis-ci.org/nerab/dropcaster.png?branch=master" alt="Build Status" /></a></p>
+
+<p><em>This project is developed with the <a href="http://tom.preston-werner.com/2010/08/23/readme-driven-development.html">readme-driven development</a> method. This file describes the functionality that is actually implemented, whereas the <a href="VISION.markdown">VISION</a> reflects the vision where the tool should go.</em></p>
+
+<p><a href="http://rubydoc.info/gems/dropcaster/file/README.md">Dropcaster</a> is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other (static file) web hoster.</p>
+
+<p>Author: Nicolas E. Rabenau <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#110;&#101;&#114;&#097;&#098;&#064;&#103;&#109;&#120;&#046;&#097;&#116;">&#110;&#101;&#114;&#097;&#098;&#064;&#103;&#109;&#120;&#046;&#097;&#116;</a></p>
+
+<h1 id="what-is-the-problem-dropcaster-is-trying-to-solve">What is the problem Dropcaster is trying to solve?</h1>
+
+<p>You have a number of podcast episodes that you would like to publish as a feed. Nothing else - no fancy website, no stats, nothing but the pure podcast.</p>
+
+<p>With Dropcaster, you simply put the mp3 files into the Public folder of your <a href="http://www.dropbox.com/">Dropbox</a>. Then run the Dropcaster script that generates the feed, writing it to a file in your Dropbox, e.g. index.rss. All mp3 files in the Public folder of your Dropbox are already accessible via HTTP, and so will the RSS file. You can then take the RSS file’s URL and publish it (again, this is because any file in the Public folder of a Dropbox automatically gets a public, HTTP-accessible URL).</p>
+
+<p>The feed URL can be consumed by any podcatcher, e.g. <a href="http://www.apple.com/itunes/">iTunes</a> or <a href="http://juicereceiver.sourceforge.net/">Juice</a>.</p>
+
+<h1 id="installation">Installation</h1>
+
+<p>To get started, use RubyGems to install Dropcaster:</p>
+
+<pre><code>$ gem install dropcaster
+</code></pre>
+
+<p>Once installed, you can use the <code>dropcaster</code> command to generate a new podcast feed document.</p>
+
+<h1 id="basic-usage">Basic Usage</h1>
+
+<p>Once Dropcaster is installed, the only two other things you will need are a channel definition and one or more mp3 files to publish.</p>
+
+<p>Let’s start with the channel definition. It is a simple <a href="http://yaml.org/">YAML</a> file that holds the general information about your podcast channel. According to the <a href="http://feedvalidator.org/docs/rss2.html#requiredChannelElements">RSS 2.0 spec</a>, the only mandatory information that your channel absolutely needs are a title, a description and a link to a web site where the channel belongs to.</p>
+
+<p>The simplest channel file looks like this:</p>
+
+<pre><code>	:title: 'All About Everything'
+	:subtitle: 'A show about everything'
+	:url: 'http://www.example.com/podcasts/everything/index.html'
+</code></pre>
+
+<p>Store this file as channel.yml in the same directory where the mp3 files of your podcast reside. The channel definition is expected to be present in the same directory as your mp3 files, but this can be overridden using a command line switch. You can find a <a href="http://github.com/nerab/dropcaster/blob/master/doc/sample-channel.yml">more elaborate example</a> for the channel definition in the doc folder of the Dropcaster gem. You can find it by running <code>gem open dropcaster</code>.</p>
+
+<p>Now that we have the podcast channel defined, we need at least one episode (an audio file) in it. From Dropcaster’s perspective, it does not matter how the episode was produced, but the critical information is the meta data in the mp3 file, because that is the authoritative source for the episode information. Almost all audio editors can write metadata, usually called ID3 tags. Dropcaster reads these tags from the mp3 files and fills the item element in the feed (that’s how an episode is defined, technically) from it.</p>
+
+<p>With all required pieces in place, we could generate the podcast feed. Just before we do that, we will inspect the feed by running the following commands:</p>
+
+<pre><code>$ cd ~/Dropbox/Public
+$ dropcaster
+</code></pre>
+
+<p>(The above lines assume that you are using Dropbox, and that there is at least one mp3 file in <code>~/Dropbox/Public</code>).</p>
+
+<p>Dropcaster will print the feed to standard-out, without writing it to disk. When you are happy with the results, call Dropcaster again, but redirect the output to a file, this time:</p>
+
+<pre><code>$ dropcaster &gt; index.rss
+</code></pre>
+
+<p>If all went well, you will now have a valid podcast feed in your Dropbox, listing all mp3 files as podcast episodes. Please see the section <a href="#publish-your-feed">Publish Your Feed</a> for details on how to find the public URL of your feed.</p>
+
+<h1 id="use-cases">Use Cases</h1>
+
+<h2 id="publish-a-new-episode">Publish a New Episode</h2>
+
+<ol>
+  <li>
+    <p>Drop the mp3 file into the Dropbox Public folder (e.g. <code>~/Dropbox/Public</code>), and then run the following command in the directory where the mp3 files reside:</p>
+
+    <pre><code> $ dropcaster &gt; index.rss
+</code></pre>
+  </li>
+  <li>
+    <p>Dropbox will sync the updated index.rss file to its web server and any podcast client will download the new episode as soon as it has loaded the updated index.rss.</p>
+  </li>
+</ol>
+
+<h2 id="delete-an-episode">Delete an Episode</h2>
+
+<p>Remove the mp3 you want to delete from the Dropbox Public folder, and then run the following command in the directory where the remaining mp3 files reside:</p>
+
+<pre><code>  $ dropcaster &gt; index.rss
+</code></pre>
+
+<h2 id="replace-an-episode-with-an-updated-file">Replace an Episode With an Updated File</h2>
+
+<p>In the Dropbox Public folder, replace the mp3 you want to update with a new version, and then run the following command in the directory where the mp3 files reside:</p>
+
+<pre><code>  $ dropcaster &gt; index.rss
+</code></pre>
+
+<h2 id="publish-your-feed">Publish Your Feed</h2>
+
+<ol>
+  <li>
+    <p>Re-generate the feed to make sure the it is up to date (see above):</p>
+
+    <pre><code> $ dropcaster &gt; index.rss
+</code></pre>
+  </li>
+  <li>In your Dropbox Public folder, right-click the index.rss and select “Dropbox / Copy public link”. This copies the public, HTTP-addressable link to your podcast into the clipboard.</li>
+  <li>Publish this link and tell people to subscribe to it.</li>
+</ol>
+
+<h2 id="generate-a-podcast-feed-for-a-subset-of-the-available-mp3-files">Generate a Podcast Feed for a Subset of the Available MP3 Files</h2>
+
+<p>Dropcaster accepts any number of files or directories as episodes. For directories, all files ending in .mp3 will be included. For advanced filtering, you can use regular shell patterns to further specify which files will be included. These patterns will be resolved by the shell itself (e.g. bash), and not by Dropcaster.</p>
+
+<p>For example, in order to generate a feed that only publishes MP3 files where the name starts with ‘A’, call Dropcaster like this:</p>
+
+<pre><code>$ dropcaster A*.mp3 &gt; index.rss
+</code></pre>
+
+<h2 id="publish-more-than-one-feed">Publish More than One Feed</h2>
+
+<pre><code>  $ dropcaster project1 &gt; project1.rss
+  $ dropcaster project2 &gt; project2.rss
+</code></pre>
+
+<p>or</p>
+
+<pre><code>  $ cd project1
+  $ dropcaster &gt; index.rss
+  $ cd ../project2
+  $ dropcaster &gt; index.rss
+</code></pre>
+
+<h2 id="include-episodes-from-two-subdirectories-into-a-single-feed">Include Episodes From Two Subdirectories Into a Single Feed</h2>
+
+<pre><code>  $ dropcaster project1 project2 &gt; index.rss
+</code></pre>
+
+<h1 id="advanced-features">Advanced features</h1>
+
+<h2 id="overriding-defaults">Overriding defaults</h2>
+
+<p>Dropcaster is opinionated software. That means, it makes a number of assumptions about names, files, and directory structures. Dropcaster will be most simple to use if these assumptions and opinions apply to your way of using the program.</p>
+
+<p>However, it is still possible to override Dropcaster’s behavior in many ways. You can, for instance, host your episode files on a different URL than the channel. Instead of writing title, subtitle, etc. to a channel.yml, you may also spedify them on the command line.</p>
+
+<p>In order to find out about all the options, simply run</p>
+
+<pre><code>    $ dropcaster --help
+</code></pre>
+
+<h2 id="using-custom-channel-templates">Using custom channel templates</h2>
+
+<p>Dropcaster generates a feed that is suitable for most podcast clients, especially iTunes. By default, dropcaster follows <a href="http://www.apple.com/itunes/podcasts/specs.html">Apple’s podcast specs / recommendations</a>.</p>
+
+<p>It is also possible to customize the channel by supplying an alternative channel template on the command line. Start your own template by copying the default template, or look at the test directory of the dropcaster gem. You can get there by running <code>gem open dropcaster</code>.</p>
+
+<h2 id="generate-a-html-page-for-your-podcast">Generate a HTML page for your podcast</h2>
+
+<p>Besides generating an RSS feed, dropcaster can also generate HTML that can be used as a home page for your podcast. The template directory contains a sample template that can be used to get started:</p>
+
+<pre><code>    $ dropcaster --channel-template templates/channel.html.erb
+</code></pre>
+
+<p>As discussed above, the output of this command can be written to a file, too:</p>
+
+<pre><code>    $ dropcaster --channel-template templates/channel.html.erb &gt; ~/Dropbox/Public/allabouteverything.html
+</code></pre>
+
+<p>Dropcaster works exactly the same, whether it generates an RSS feed or a HTML page. Therefore, all options discussed before also apply when generating HTML.</p>
+
+<h2 id="a-note-on-itunes">A Note on iTunes</h2>
+
+<p>The generated XML file contains all elements required for iTunes. However, Dropcaster will not notify the iTunes store about new episodes.</p>
+
+<h2 id="using-dropcaster-without-dropbox">Using Dropcaster Without Dropbox</h2>
+
+<p>The whole concept of Dropcaster works perfectly fine without Dropbox. Just run the Dropcaster script in a directory of mp3 files and upload the files as well as the generated index.rss to a web server. Leave the relative position of the index and mp3 files as is, otherwise the path to the mp3 files in index.rss will become invalid.</p>
+
+<h2 id="episode-identifier-uuid">Episode Identifier (uuid)</h2>
+
+<p>Dropcaster uses a rather simple approach to uniquely identify the episodes. It simply generates a SHA1 hash of the mp3 file. If it changes, for whatever reason (even if only a tag was changed), the episode will get a new UUID, and any podcatcher will fetch the episode again (which is what you want, in most cases).</p>
+
+<p>Modifying the sidecar file does not change the UUID, because it only affects the feed and not the episode itself.</p>
+
+<h2 id="i-dont-like-the-output-format-that-dropcaster-produces">I Don’t Like the Output Format that Dropcaster produces</h2>
+
+<p>Dropcaster uses an ERB template to generate the XML feed. The template was written so that it is easy to understand, but not necessarily in a way that would make the output rather nice-looking. That should not be an issue, as long as the XML is correct.</p>
+
+<p>It you prefer a more aesthetically pleasing output, just pipe the output of Dropcaster through <code>xmllint</code>, which is part of <a href="http://xmlsoft.org/">libxml</a>:</p>
+
+<pre><code>dropcaster | xmllint --format -
+</code></pre>
+
+<p>For writing the output to a file, just redirect the ouput of the above command:</p>
+
+<pre><code>dropcaster | xmllint --format - &gt; index.rss
+</code></pre>
+
+<h1 id="web-site">Web site</h1>
+
+<p>Dropcaster uses Steve Klabnik’s <a href="https://github.com/steveklabnik/automatically_update_github_pages_with_travis_example">approach</a> for publishing the site with <a href="http://travis-ci.org/">Travis CI</a>.</p>
+
+<h1 id="copyright">Copyright</h1>
+
+<p>Copyright (c) 2011-2014 Nicolas E. Rabenau. See <a href="https://raw.github.com/nerab/dropcaster/master/LICENSE.txt">LICENSE.txt</a> for further details.</p>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Dropcaster</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <li>Dropcaster</li>
+          <li><a href="mailto:nerab@gmx.at">nerab@gmx.at</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/nerab">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">nerab</span>
+            </a>
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Dropcaster is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other (static file) web hoster.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
