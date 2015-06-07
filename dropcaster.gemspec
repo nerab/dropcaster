@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry-nav'
   spec.add_development_dependency 'pry-stack_explorer'
   spec.add_development_dependency 'rb-readline'
+  spec.add_development_dependency 'github-pages'
 end

@@ -14,7 +14,7 @@ namespace :web do
   directory '_site'
 
   file '_site/index.html' => '_site' do |f|
-    `pandoc -o #{f} README.markdown`
+    `jekyll build`
   end
 
   desc "Generate web page"
