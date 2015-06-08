@@ -138,6 +138,48 @@ As discussed above, the output of this command can be written to a file, too:
 
 Dropcaster works exactly the same, whether it generates an RSS feed or a HTML page. Therefore, all options discussed before also apply when generating HTML.
 
+## Generate a HTML page for each episode
+
+If the `--episode-pages` switch is present, dropcaster will generate a separate page for each episode. The result will not appear on STDOUT, but will be written to files that are named like he episode files, but with a file extension of `.html`.
+
+For example, let's assume the following directory structure:
+
+    channel.yml
+    episodes/episode1/AAE001 Hello World.mp3
+    episodes/episode2/AAE002 Getting started.mp3
+    episodes/episode3/AAE003 Advanced Topics.mp3
+
+With this directory structure, Dropcaster would typically be called like this:
+
+    dropcaster episodes/episode* --channel channel.yml
+
+In order to generate episode pages, the command would need to be modified to look as follows:
+
+    dropcaster episodes/episode* --channel channel.yml --episode-pages
+
+If any of the files to be generated already exist, Dropcaster will not overwrite them. Adding the `--force` option forces dropcaster to overwrite existing files.
+
+The index.html page could be written with the same command by redirecting dropcaster's output to a file:
+
+    dropcaster episodes/episode* --channel channel.yml --episode-pages --channel-template hannel.html.erb > index.html
+
+As a result, each episode will get an HTML page next to the MP3 file. The default HTML channel template will write links pointing to each episode. After calling the example command above, the esulting directory structure would look like this:
+
+        channel.yml
+        index.html
+        episodes/episode1/AAE001 Hello World.mp3
+        episodes/episode1/AAE001 Hello World.html
+        episodes/episode2/AAE002 Getting started.mp3
+        episodes/episode2/AAE002 Getting started.html
+        episodes/episode3/AAE003 Advanced Topics.mp3
+        episodes/episode3/AAE003 Advanced Topics.html
+
+Please note that the example above only deals with HTML pages. The RSS feed would still have to be generated with a second call to dropcaster (see the earlier sections of this page).
+
+Dropcaster will use its default template for generating the episode pages. It is also possible to specify a custom episode template with the `--episode-template=FILE` switch, passing the name of a custom episode template file (similar to a custom channel template).
+
+The major difference between the channel and episode HTML templates is that the episodes write out lyrics. For podcasts, lyrics are used for an in-depth description of the episode. Any text is treated as [Markdown](http://daringfireball.net/projects/markdown/) and converted to HTML.
+
 ## Sidecar files
 
 You may override the meta data for any episode by providing a YAML file with the same name as the mp3 file, but with an extension of yml or yaml (ususally refered to as [sidecar file](http://en.wikipedia.org/wiki/Sidecar_file)). Any attributes specified in this file override the ID tags in the mp3 file.
