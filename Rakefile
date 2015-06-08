@@ -24,6 +24,8 @@ namespace :web do
 
   file 'website/contributing.markdown' do |f|
     concat 'website/_front_matter/contributing.yaml', 'CONTRIBUTING.markdown', f
+    # http://www.gravatar.com/avatar/$(md5 -qs nerab@gmx.at)
+    sh "git log --pretty='* %an' | sort | uniq | grep -v Rabenau >> #{f}"
   end
   CLOBBER << 'website/contributing.markdown'
 

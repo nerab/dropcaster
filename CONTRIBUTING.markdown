@@ -1,6 +1,6 @@
 # Contributing to Dropcaster
 
-Dropcaster is hosted at [Github](http://github.com/nerab/dropcaster) and highly welcomes bug reports, documentation and code updates as well as any other contributions. Dropcaster follows the [Pull Request Hack](http://felixge.de/2013/03/11/the-pull-request-hack.html) - you might end up getting commit access to Dropcaster ;-)
+Dropcaster is hosted at [Github](http://github.com/nerab/dropcaster). We highly welcome bug reports, documentation as well as code updates and any other contributions.
 
 Please follow these guidelines if you want to start working on Dropcaster:
 
@@ -12,4 +12,7 @@ Please follow these guidelines if you want to start working on Dropcaster:
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-Thanks for contributing!
+Dropcaster follows the [Pull Request Hack](http://felixge.de/2013/03/11/the-pull-request-hack.html) - you might end up getting commit access to Dropcaster ;-)
+
+Thanks to the following awesome people for contributing to Dropcaster:
+

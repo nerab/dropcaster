@@ -14,5 +14,12 @@ rdoc/
 pkg
 .DS_Store
 .vagrant
-_site
+
+# Rake cache
 .cache_rake_t
+
+# Jekyll
+website/contributing.markdown
+website/index.markdown
+website/vision.markdown
+website/_site
