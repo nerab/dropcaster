@@ -170,4 +170,4 @@ Dropcaster uses Steve Klabnik's [approach](https://github.com/steveklabnik/autom
 
 # Copyright
 
-Copyright (c) 2011-2014 Nicolas E. Rabenau. See [LICENSE.txt](https://raw.github.com/nerab/dropcaster/master/LICENSE.txt) for further details.
+Copyright (c) 2011-2015 Nicolas E. Rabenau. See [LICENSE.txt](https://raw.github.com/nerab/dropcaster/master/LICENSE.txt) for further details.
