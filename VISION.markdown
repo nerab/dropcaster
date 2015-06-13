@@ -28,7 +28,7 @@ Once installed, you can use the `dropcaster` command to generate a new podcast f
 
 Once Dropcaster is installed, the only two other things you will need are a channel definition and one or more mp3 files to publish.
 
-Let's start with the channel definition. It is a simple [YAML](http://yaml.org/) file that holds the general information about your podcast channel. According to the [RSS 2.0 spec](http://feedvalidator.org/docs/rss2.html#requiredChannelElements), the only mandatory information that your channel absolutely needs are a title, a description and a link to a web site where the channel belongs to.
+Let's start with the channel definition. It is a simple [YAML](http://yaml.org/) file that holds the general information about your podcast channel. According to the [RSS 2.0 spec](http://blogs.law.harvard.edu/tech/rss#requiredChannelElements), the only mandatory information that your channel absolutely needs are a title, a description and a link to a web site where the channel belongs to.
 
 The simplest channel file looks like this:
 
