@@ -240,8 +240,6 @@ $ dropcaster
 
 <p>Dropcaster uses a rather simple approach to uniquely identify the episodes. It simply generates a SHA1 hash of the mp3 file. If it changes, for whatever reason (even if only a tag was changed), the episode will get a new UUID, and any podcatcher will fetch the episode again (which is what you want, in most cases).</p>
 
-<p>Modifying the sidecar file does not change the UUID, because it only affects the feed and not the episode itself.</p>
-
 <h2 id="i-dont-like-the-output-format-that-dropcaster-produces">I Don’t Like the Output Format that Dropcaster produces</h2>
 
 <p>Dropcaster uses an ERB template to generate the XML feed. The template was written so that it is easy to understand, but not necessarily in a way that would make the output rather nice-looking. That should not be an issue, as long as the XML is correct.</p>
