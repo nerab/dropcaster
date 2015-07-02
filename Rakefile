@@ -22,15 +22,15 @@ namespace :web do
   end
   CLOBBER << 'website/vision.markdown'
 
-  file 'website/contributing.markdown' do |f|
-    concat 'website/_front_matter/contributing.yaml', 'CONTRIBUTING.markdown', f
+  file 'website/contributing.md' do |f|
+    concat 'website/_front_matter/contributing.yaml', 'CONTRIBUTING.md', f
     # http://www.gravatar.com/avatar/$(md5 -qs nerab@gmx.at)
     sh "git log --pretty='* %an' | sort | uniq | grep -v Rabenau >> #{f}"
   end
-  CLOBBER << 'website/contributing.markdown'
+  CLOBBER << 'website/contributing.md'
 
   desc "Generate web page"
-  task :generate => ['website/index.markdown', 'website/vision.markdown', 'website/contributing.markdown'] do
+  task :generate => ['website/index.markdown', 'website/vision.markdown', 'website/contributing.md'] do
     cd 'website' do
       `bundle exec jekyll build`
     end
