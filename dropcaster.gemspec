@@ -35,4 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry-stack_explorer'
   spec.add_development_dependency 'rb-readline'
   spec.add_development_dependency 'github-pages'
+  spec.add_development_dependency 'octokit', '~> 3.0'
 end

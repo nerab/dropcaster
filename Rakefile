@@ -24,8 +24,7 @@ namespace :web do
 
   file 'website/contributing.md' do |f|
     concat 'website/_front_matter/contributing.yaml', 'CONTRIBUTING.md', f
-    # http://www.gravatar.com/avatar/$(md5 -qs nerab@gmx.at)
-    sh "git log --pretty='* %an' | sort | uniq | grep -v Rabenau >> #{f}"
+    concat Dropcaster.contributors, 'CONTRIBUTING.md', f
   end
   CLOBBER << 'website/contributing.md'
 

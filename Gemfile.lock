@@ -17,6 +17,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     blankslate (2.1.2.4)
@@ -32,6 +33,8 @@ GEM
     colorator (0.1)
     debug_inspector (0.0.2)
     execjs (2.5.2)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     fast-stemmer (1.0.2)
     ffi (1.9.8)
     ffi (1.9.8-x86-mingw32)
@@ -132,6 +135,7 @@ GEM
     method_source (0.8.2)
     mini_portile (0.6.2)
     minitest (5.7.0)
+    multipart-post (2.0.0)
     nenv (0.2.0)
     net-dns (0.8.0)
     nokogiri (1.6.6.2)
@@ -141,6 +145,8 @@ GEM
     notiffany (0.0.6)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    octokit (3.8.0)
+      sawyer (~> 0.6.0, >= 0.5.3)
     parslet (1.5.0)
       blankslate (~> 2.0)
     posix-spawn (0.3.11)
@@ -172,6 +178,9 @@ GEM
     ruby-mp3info (0.8.6)
     safe_yaml (1.0.4)
     sass (3.4.14)
+    sawyer (0.6.0)
+      addressable (~> 2.3.5)
+      faraday (~> 0.8, < 0.10)
     shellany (0.0.1)
     slop (3.6.0)
     terminal-table (1.4.5)
@@ -198,6 +207,7 @@ DEPENDENCIES
   libnotify
   libxml-ruby
   minitest
+  octokit (~> 3.0)
   pry
   pry-nav
   pry-stack_explorer
