@@ -4,7 +4,7 @@ rvm:
 - 2.1.0
 - 2.2.0
 script:
-  - rake web:generate
+  - bundle exec rake web:generate
 after_success:
   - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash website/deploy.sh
 env:
