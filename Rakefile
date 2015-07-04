@@ -3,6 +3,7 @@
 require 'bundler/gem_tasks'
 require 'rake/testtask'
 require 'rake/clean'
+require 'dropcaster'
 
 Rake::TestTask.new(:test) do |test|
   test.libs << 'test'
@@ -22,9 +23,14 @@ namespace :web do
   end
   CLOBBER << 'website/vision.markdown'
 
-  file 'website/contributing.md' do |f|
+  file 'website/contributors.markdown' do |f|
+    File.write('website/contributors.markdown', Dropcaster.contributors)
+  end
+  CLOBBER << 'website/contributors.markdown'
+
+  file 'website/contributing.md' => 'website/contributors.markdown' do |f|
     concat 'website/_front_matter/contributing.yaml', 'CONTRIBUTING.md', f
-    concat Dropcaster.contributors, 'CONTRIBUTING.md', f
+    concat 'website/contributors.markdown', f
   end
   CLOBBER << 'website/contributing.md'
 

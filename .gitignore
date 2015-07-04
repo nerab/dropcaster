@@ -19,7 +19,8 @@ pkg
 .cache_rake_t
 
 # Jekyll
-website/contributing.markdown
+website/contributing.md
+website/contributors.markdown
 website/index.markdown
 website/vision.markdown
 website/_site
