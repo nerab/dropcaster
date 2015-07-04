@@ -1,5 +1,4 @@
 require 'octokit'
-require 'erb'
 
 module Dropcaster
   def self.contributors
