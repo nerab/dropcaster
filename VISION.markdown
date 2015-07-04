@@ -8,7 +8,7 @@
 
 Author: Nicolas E. Rabenau <nerab@gmx.at>
 
-# What is the problem Dropcaster is trying to solve?
+# What is the problem that Dropcaster is trying to solve?
 
 You have a number of podcast episodes that you would like to publish as a feed. Nothing else - no fancy website, no stats, nothing but the pure podcast.
 
