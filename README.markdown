@@ -33,7 +33,7 @@ Let's start with the channel definition. It is a simple [YAML](http://yaml.org/)
 The simplest channel file looks like this:
 
 		:title: 'All About Everything'
-		:subtitle: 'A show about everything'
+		:description: 'A show about everything'
 		:url: 'http://www.example.com/podcasts/everything/index.html'
 
 Store this file as channel.yml in the same directory where the mp3 files of your podcast reside. The channel definition is expected to be present in the same directory as your mp3 files, but this can be overridden using a command line switch. You can find a [more elaborate example](http://github.com/nerab/dropcaster/blob/master/doc/sample-channel.yml) for the channel definition in the doc folder of the Dropcaster gem. You can find it by running `gem open dropcaster`.
