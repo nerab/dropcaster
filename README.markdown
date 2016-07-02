@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/nerab/dropcaster.png?branch=master)](https://travis-ci.org/nerab/dropcaster)
 
-  _This project is developed with the [readme-driven development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html) method. This file describes the functionality that is actually implemented, whereas the vision reflects where the tool should go._
+  _This project is developed with the [readme-driven development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html) method. This file describes the functionality that is actually implemented, whereas the [vision](VISION.markdown) reflects where the tool should go._
 
 [Dropcaster](http://nerab.github.io/dropcaster/) is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other (static file) web hoster.
 
