@@ -1,4 +1,5 @@
-* [Nicholas E. Rabenau](https://github.com/nerab) (155 contributions)
+* [Nicholas E. Rabenau](https://github.com/nerab) (156 contributions)
 * [Nathan Lee](https://github.com/X0nic) (8 contributions)
+* [Hossam Hammady](https://github.com/hammady) (1 contributions)
 * [Michael Knight](https://github.com/miknight) (1 contributions)
 * [Andrew Markle](https://github.com/andrewmarkle) (1 contributions)
