@@ -32,9 +32,9 @@ Let's start with the channel definition. It is a simple [YAML](http://yaml.org/)
 
 The simplest channel file looks like this:
 
-		:title: 'All About Everything'
-		:description: 'A show about everything'
-		:url: 'http://www.example.com/podcasts/everything/index.html'
+    :title: 'All About Everything'
+    :description: 'A show about everything'
+    :url: 'http://www.example.com/podcasts/everything/index.html'
 
 Store this file as channel.yml in the same directory where the mp3 files of your podcast reside. The channel definition is expected to be present in the same directory as your mp3 files, but this can be overridden using a command line switch. You can find a [more elaborate example](http://github.com/nerab/dropcaster/blob/master/doc/sample-channel.yml) for the channel definition in the doc folder of the Dropcaster gem. You can find it by running `gem open dropcaster`.
 
@@ -59,7 +59,7 @@ If all went well, you will now have a valid podcast feed in your Dropbox, listin
 
 1. Drop the mp3 file into the Dropbox Public folder (e.g. `~/Dropbox/Public`), and then run the following command in the directory where the mp3 files reside:
 
-        $ dropcaster > index.rss
+       $ dropcaster > index.rss
 
 1. Dropbox will sync the updated index.rss file to its web server and any podcast client will download the new episode as soon as it has loaded the updated index.rss.
 
@@ -67,19 +67,19 @@ If all went well, you will now have a valid podcast feed in your Dropbox, listin
 
 Remove the mp3 you want to delete from the Dropbox Public folder, and then run the following command in the directory where the remaining mp3 files reside:
 
-	  $ dropcaster > index.rss
+    $ dropcaster > index.rss
 
 ## Replace an Episode With an Updated File
 
 In the Dropbox Public folder, replace the mp3 you want to update with a new version, and then run the following command in the directory where the mp3 files reside:
 
-	  $ dropcaster > index.rss
+    $ dropcaster > index.rss
 
 ## Publish Your Feed
 
 1. Re-generate the feed to make sure the it is up to date (see above):
 
-        $ dropcaster > index.rss
+       $ dropcaster > index.rss
 
 1. In your Dropbox Public folder, right-click the index.rss and select "Dropbox / Copy public link". This copies the public, HTTP-addressable link to your podcast into the clipboard.
 1. Publish this link and tell people to subscribe to it.
@@ -94,19 +94,19 @@ For example, in order to generate a feed that only publishes MP3 files where the
 
 ## Publish More than One Feed
 
-	  $ dropcaster project1 > project1.rss
-	  $ dropcaster project2 > project2.rss
+    $ dropcaster project1 > project1.rss
+    $ dropcaster project2 > project2.rss
 
 or
 
-	  $ cd project1
-	  $ dropcaster > index.rss
-	  $ cd ../project2
-	  $ dropcaster > index.rss
+    $ cd project1
+    $ dropcaster > index.rss
+    $ cd ../project2
+    $ dropcaster > index.rss
 
 ## Include Episodes From Two Subdirectories Into a Single Feed
 
-	  $ dropcaster project1 project2 > index.rss
+    $ dropcaster project1 project2 > index.rss
 
 # Advanced features
 
@@ -118,7 +118,7 @@ However, it is still possible to override Dropcaster's behavior in many ways. Yo
 
 In order to find out about all the options, simply run
 
-        $ dropcaster --help
+    $ dropcaster --help
 
 ## Using custom channel templates
 
@@ -130,11 +130,11 @@ It is also possible to customize the channel by supplying an alternative channel
 
 Besides generating an RSS feed, dropcaster can also generate HTML that can be used as a home page for your podcast. The template directory contains a sample template that can be used to get started:
 
-        $ dropcaster --channel-template templates/channel.html.erb
+    $ dropcaster --channel-template templates/channel.html.erb
 
 As discussed above, the output of this command can be written to a file, too:
 
-        $ dropcaster --channel-template templates/channel.html.erb > ~/Dropbox/Public/allabouteverything.html
+    $ dropcaster --channel-template templates/channel.html.erb > ~/Dropbox/Public/allabouteverything.html
 
 Dropcaster works exactly the same, whether it generates an RSS feed or a HTML page. Therefore, all options discussed before also apply when generating HTML.
 
