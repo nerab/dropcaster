@@ -100,9 +100,9 @@
 
 <p>The simplest channel file looks like this:</p>
 
-<pre><code>	:title: 'All About Everything'
-	:description: 'A show about everything'
-	:url: 'http://www.example.com/podcasts/everything/index.html'
+<pre><code>:title: 'All About Everything'
+:description: 'A show about everything'
+:url: 'http://www.example.com/podcasts/everything/index.html'
 </code></pre>
 
 <p>Store this file as channel.yml in the same directory where the mp3 files of your podcast reside. The channel definition is expected to be present in the same directory as your mp3 files, but this can be overridden using a command line switch. You can find a <a href="http://github.com/nerab/dropcaster/blob/master/doc/sample-channel.yml">more elaborate example</a> for the channel definition in the doc folder of the Dropcaster gem. You can find it by running <code>gem open dropcaster</code>.</p>
@@ -132,7 +132,7 @@ $ dropcaster
   <li>
     <p>Drop the mp3 file into the Dropbox Public folder (e.g. <code>~/Dropbox/Public</code>), and then run the following command in the directory where the mp3 files reside:</p>
 
-    <pre><code> $ dropcaster &gt; index.rss
+    <pre><code>$ dropcaster &gt; index.rss
 </code></pre>
   </li>
   <li>
@@ -144,14 +144,14 @@ $ dropcaster
 
 <p>Remove the mp3 you want to delete from the Dropbox Public folder, and then run the following command in the directory where the remaining mp3 files reside:</p>
 
-<pre><code>  $ dropcaster &gt; index.rss
+<pre><code>$ dropcaster &gt; index.rss
 </code></pre>
 
 <h2 id="replace-an-episode-with-an-updated-file">Replace an Episode With an Updated File</h2>
 
 <p>In the Dropbox Public folder, replace the mp3 you want to update with a new version, and then run the following command in the directory where the mp3 files reside:</p>
 
-<pre><code>  $ dropcaster &gt; index.rss
+<pre><code>$ dropcaster &gt; index.rss
 </code></pre>
 
 <h2 id="publish-your-feed">Publish Your Feed</h2>
@@ -160,7 +160,7 @@ $ dropcaster
   <li>
     <p>Re-generate the feed to make sure the it is up to date (see above):</p>
 
-    <pre><code> $ dropcaster &gt; index.rss
+    <pre><code>$ dropcaster &gt; index.rss
 </code></pre>
   </li>
   <li>In your Dropbox Public folder, right-click the index.rss and select “Dropbox / Copy public link”. This copies the public, HTTP-addressable link to your podcast into the clipboard.</li>
@@ -178,21 +178,21 @@ $ dropcaster
 
 <h2 id="publish-more-than-one-feed">Publish More than One Feed</h2>
 
-<pre><code>  $ dropcaster project1 &gt; project1.rss
-  $ dropcaster project2 &gt; project2.rss
+<pre><code>$ dropcaster project1 &gt; project1.rss
+$ dropcaster project2 &gt; project2.rss
 </code></pre>
 
 <p>or</p>
 
-<pre><code>  $ cd project1
-  $ dropcaster &gt; index.rss
-  $ cd ../project2
-  $ dropcaster &gt; index.rss
+<pre><code>$ cd project1
+$ dropcaster &gt; index.rss
+$ cd ../project2
+$ dropcaster &gt; index.rss
 </code></pre>
 
 <h2 id="include-episodes-from-two-subdirectories-into-a-single-feed">Include Episodes From Two Subdirectories Into a Single Feed</h2>
 
-<pre><code>  $ dropcaster project1 project2 &gt; index.rss
+<pre><code>$ dropcaster project1 project2 &gt; index.rss
 </code></pre>
 
 <h1 id="advanced-features">Advanced features</h1>
@@ -205,7 +205,7 @@ $ dropcaster
 
 <p>In order to find out about all the options, simply run</p>
 
-<pre><code>    $ dropcaster --help
+<pre><code>$ dropcaster --help
 </code></pre>
 
 <h2 id="using-custom-channel-templates">Using custom channel templates</h2>
@@ -218,12 +218,12 @@ $ dropcaster
 
 <p>Besides generating an RSS feed, dropcaster can also generate HTML that can be used as a home page for your podcast. The template directory contains a sample template that can be used to get started:</p>
 
-<pre><code>    $ dropcaster --channel-template templates/channel.html.erb
+<pre><code>$ dropcaster --channel-template templates/channel.html.erb
 </code></pre>
 
 <p>As discussed above, the output of this command can be written to a file, too:</p>
 
-<pre><code>    $ dropcaster --channel-template templates/channel.html.erb &gt; ~/Dropbox/Public/allabouteverything.html
+<pre><code>$ dropcaster --channel-template templates/channel.html.erb &gt; ~/Dropbox/Public/allabouteverything.html
 </code></pre>
 
 <p>Dropcaster works exactly the same, whether it generates an RSS feed or a HTML page. Therefore, all options discussed before also apply when generating HTML.</p>
