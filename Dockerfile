@@ -1,4 +1,4 @@
-FROM phusion/passenger-ruby22:0.9.15
+FROM ruby
 ADD . /dropcaster
 WORKDIR /dropcaster
 RUN bundle && bundle exec rake
