@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'helper'
 require 'tmpdir'
 require 'pry'
@@ -8,6 +10,7 @@ class TestChannelLocator < MiniTest::Test
   def setup
     @temp_dir = Dir.mktmpdir
   end
+
   def teardown
     FileUtils.remove_entry_secure(@temp_dir)
   end
@@ -30,7 +33,7 @@ class TestChannelLocator < MiniTest::Test
   end
 
   def test_array_of_files_same_dir
-    sources = Array.new
+    sources = []
     sources << File.join(@temp_dir, 'file1.mp3')
     sources << File.join(@temp_dir, 'file2.mp3')
     sources << File.join(@temp_dir, 'file3.mp3')
@@ -39,7 +42,7 @@ class TestChannelLocator < MiniTest::Test
   end
 
   def test_array_of_files_different_dir
-    sources = Array.new
+    sources = []
     sources << File.join(@temp_dir, 'foo', 'file1.mp3')
     sources << File.join(@temp_dir, 'bar', 'file1.mp3')
     sources << File.join(@temp_dir, 'baz', 'file1.mp3')
@@ -54,9 +57,9 @@ class TestChannelLocator < MiniTest::Test
   end
 
   def test_array_with_more_than_a_single_directory
-    Dir.mktmpdir{|tmp_dir1|
-      Dir.mktmpdir{|tmp_dir2|
-        sources = Array.new
+    Dir.mktmpdir { |tmp_dir1|
+      Dir.mktmpdir { |tmp_dir2|
+        sources = []
         sources << File.join(tmp_dir1, 'another_dir')
         sources << File.join(tmp_dir2, 'another_dir')
 

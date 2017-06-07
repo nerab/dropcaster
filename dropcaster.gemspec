@@ -5,6 +5,7 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'dropcaster/version'
 
+# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |spec|
   spec.name          = 'dropcaster'
   spec.version       = Dropcaster::VERSION
@@ -20,9 +21,10 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'bundler'
   spec.add_dependency 'ruby-mp3info'
   spec.add_dependency 'activesupport'
-  spec.add_dependency 'bundler'
+  spec.add_dependency 'null-logger'
 
   spec.add_development_dependency 'minitest'
   spec.add_development_dependency 'rake'
@@ -34,7 +36,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rb-fsevent'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'pry-byebug'
-  spec.add_development_dependency 'rb-readline'
   spec.add_development_dependency 'github-pages'
   spec.add_development_dependency 'octokit'
   spec.add_development_dependency 'rubocop'

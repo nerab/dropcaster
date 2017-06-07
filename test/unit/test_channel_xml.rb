@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'helper'
 require 'xml/libxml'
 require 'pry'
@@ -14,7 +16,7 @@ class TestChannelXML < MiniTest::Test
   # Returnes the XML node for the channel passed as XML string
   #
   def channel_node(rss)
-    XML::Document.string(rss).find("//rss/channel").first
+    XML::Document.string(rss).find('//rss/channel').first
   end
 
   #
@@ -28,7 +30,7 @@ class TestChannelXML < MiniTest::Test
   end
 
   def test_item
-    item = @channel.find("item").first
+    item = @channel.find('item').first
     assert(item)
 
     assert_equal('iTunes Name', item.find('title').first.content)
@@ -52,11 +54,10 @@ class TestChannelXML < MiniTest::Test
   end
 
   def test_attributes_mandatory
-    options = {:title => 'Test Channel',
-               :url => 'http://www.example.com/',
-               :description => 'A test channel',
-               :enclosures_url => 'http://www.example.com/foo/bar',
-              }
+    options = { title: 'Test Channel',
+                url: 'http://www.example.com/',
+                description: 'A test channel',
+                enclosures_url: 'http://www.example.com/foo/bar', }
 
     channel = channel_node(Dropcaster::Channel.new(FIXTURES_DIR, options).to_rss)
     assert_equal('Test Channel', channel.find('title').first.content)

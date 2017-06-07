@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Dropcaster
   class ConfigurationError < StandardError
     def initialize(msg)
@@ -6,14 +8,14 @@ module Dropcaster
   end
 
   class MissingAttributeError < ConfigurationError
-    def initialize(missingAttribute)
-      super("#{missingAttribute} is a mandatory channel attribute, but it is missing.")
+    def initialize(missing_attribute)
+      super("#{missing_attribute} is a mandatory channel attribute, but it is missing.")
     end
   end
 
   class AmbiguousSourcesError < ConfigurationError
-    def initialize(ambiguousSources)
-      super("The list of sources is ambiguous. Can't derive common directory from these: #{ambiguousSources.inspect}")
+    def initialize(ambiguous_sources)
+      super("The list of sources is ambiguous. Can't derive common directory from these: #{ambiguous_sources.inspect}")
     end
   end
 

@@ -1,16 +1,20 @@
 # encoding: utf-8
+# frozen_string_literal: true
 
 require 'bundler/gem_tasks'
 require 'rake/testtask'
 require 'rake/clean'
+require 'rubocop/rake_task'
 require 'dropcaster'
+
+RuboCop::RakeTask.new
 
 Rake::TestTask.new(:test) do |test|
   test.libs << 'test'
   test.pattern = 'test/**/test_*.rb'
 end
 
-task :default => :test
+task default: %i[rubocop test]
 
 namespace :web do
   file 'website/index.markdown' do |f|
@@ -35,8 +39,8 @@ namespace :web do
   end
   CLOBBER << 'website/contributing.md'
 
-  desc "Generate web page"
-  task :generate => ['website/index.markdown', 'website/vision.markdown', 'website/contributing.md'] do
+  desc 'Generate web page'
+  task generate: ['website/index.markdown', 'website/vision.markdown', 'website/contributing.md'] do
     cd 'website' do
       `bundle exec jekyll build`
     end

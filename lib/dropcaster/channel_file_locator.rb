@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Dropcaster
   #
   # Encapsulates the strategy how to find the channel definition file
@@ -27,9 +29,9 @@ module Dropcaster
 
         if sources.respond_to?(:at)
           # More than one source given. Check that they are all in the same directory.
-          distinct_dirs = sources.collect{|source| dir_or_self(source)}.uniq
+          distinct_dirs = sources.collect { |source| dir_or_self(source) }.uniq
 
-          if 1 == distinct_dirs.size
+          if distinct_dirs.size == 1
             # If all are the in same directory, use that as source directory where channel.yml is expected.
             channel_source_dir = distinct_dirs.first
           else
@@ -40,11 +42,12 @@ module Dropcaster
           # If a single file or directory is given, use that as source directory where channel.yml is expected.
           channel_source_dir = dir_or_self(sources)
         end
-        
+
         File.join(channel_source_dir, CHANNEL_YML)
       end
-    
-    private
+
+      private
+
       def dir_or_self(source)
         if File.directory?(source)
           source

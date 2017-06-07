@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'helper'
 require 'open3'
 require 'uri'
@@ -14,24 +16,24 @@ class TestApp < TestChannelXML
   APP_SCRIPT = 'ruby bin/dropcaster'
 
   def channel_rss
-    %x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3}]
+    `#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3}`
   end
 
   def test_overwrite_title
     test_title = 'Alice and Bob in Wonderland'
-    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --title '#{test_title}'])
+    channel = channel_node(`#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --title '#{test_title}'`)
     assert_equal(test_title, channel.find('title').first.content)
   end
 
   def test_overwrite_subtitle
     test_subtitle = 'Tales from another world that is upside down'
-    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --subtitle '#{test_subtitle}'])
+    channel = channel_node(`#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --subtitle '#{test_subtitle}'`)
     assert_equal(test_subtitle, channel.find('itunes:subtitle').first.content)
   end
 
   def test_overwrite_link
     test_link = 'http://www.example.com/foo/bar'
-    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --url '#{test_link}'])
+    channel = channel_node(`#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --url '#{test_link}'`)
     assert_equal(test_link, channel.find('link').first.content)
   end
 
@@ -39,14 +41,14 @@ class TestApp < TestChannelXML
     test_link_base = 'http://www.dropbox.com/foo/bar/'
     test_link_file = 'index.html'
     test_link = "#{test_link_base}#{test_link_file}"
-    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --url '#{test_link}'])
+    channel = channel_node(`#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --url '#{test_link}'`)
     assert_equal(test_link, channel.find('link').first.content)
 
     options = YAML.load_file(File.join(FIXTURES_DIR, Dropcaster::CHANNEL_YML))
     assert_equal(URI.join(test_link_base, options[:image_url]).to_s, channel.find('itunes:image').first['href'])
 
     # check that the item URLs are correct, too
-    item = channel.find("item").first
+    item = channel.find('item').first
     assert(item)
 
     # enclosure
@@ -59,42 +61,44 @@ class TestApp < TestChannelXML
   end
 
   def test_dir_only
-    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURES_DIR}])
+    channel = channel_node(`#{APP_SCRIPT} #{FIXTURES_DIR}`)
     assert_equal(1, channel.find('item').size)
   end
 
   def test_overwrite_enclosures_url
     test_enclosures_url = 'http://www.example.com/foo/bar/episodes/'
-    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --enclosures '#{test_enclosures_url}'])
-    item = channel.find("item").first
+    channel = channel_node(`#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --enclosures '#{test_enclosures_url}'`)
+    item = channel.find('item').first
     assert(item)
     enclosure = item.find('enclosure').first
     assert(enclosure)
-    assert_equal(URI.join(test_enclosures_url,'test/fixtures/iTunes.mp3').to_s, enclosure['url'])
+    assert_equal(URI.join(test_enclosures_url, 'test/fixtures/iTunes.mp3').to_s, enclosure['url'])
   end
 
   def test_overwrite_image_url
     test_image_url = 'http://www.example.com/foo/bar/override.gif'
-    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --image '#{test_image_url}'])
+    channel = channel_node(`#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --image '#{test_image_url}'`)
     assert_equal(test_image_url, channel.find('itunes:image').first['href'])
 
     # Make sure the items pick up this URL, too
-    item = channel.find("item").first
+    item = channel.find('item').first
     assert(item)
     assert_equal(test_image_url, item.find('itunes:image').first['href'])
   end
 
   def test_overwrite_description
     test_description = 'Testing commandline apps is not that hard.'
-    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --description '#{test_description}'])
+    channel = channel_node(`#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --description '#{test_description}'`)
     assert_equal(test_description, channel.find('description').first.content)
     assert_equal(test_description, channel.find('itunes:summary', NS_ITUNES).first.content)
   end
 
   def test_no_channel_file
-    Open3.popen3(APP_SCRIPT){|stdin, stdout, stderr|
-      assert_match(/ERROR: No channel file found/, stderr.read)
-    } unless Kernel.is_windows?
+    unless Kernel.is_windows?
+      Open3.popen3(APP_SCRIPT) { |stdin, stdout, stderr|
+        assert_match(/ERROR: No channel file found/, stderr.read)
+      }
+    end
   end
 
   def test_overwrite_all
@@ -102,7 +106,7 @@ class TestApp < TestChannelXML
     test_link = 'http://www.example.com/bar/foot'
     test_description = 'Testing commandline apps is really not that hard.'
 
-    channel = channel_node(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --title '#{test_title}' --url '#{test_link}' --description '#{test_description}'])
+    channel = channel_node(`#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --title '#{test_title}' --url '#{test_link}' --description '#{test_description}'`)
 
     assert_equal(test_title, channel.find('title').first.content)
     assert_equal(test_link, channel.find('link').first.content)
@@ -111,9 +115,11 @@ class TestApp < TestChannelXML
   end
 
   def test_channel_template_not_found
-    Open3.popen3("#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --channel-template foo/bar/42"){|stdin, stdout, stderr|
-      assert_match(/Unable to load template file/, stderr.read)
-    } unless Kernel.is_windows?
+    unless Kernel.is_windows?
+      Open3.popen3("#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --channel-template foo/bar/42") { |stdin, stdout, stderr|
+        assert_match(/Unable to load template file/, stderr.read)
+      }
+    end
   end
 
   #
@@ -121,9 +127,9 @@ class TestApp < TestChannelXML
   #
   def test_overwrite_channel_template
     channel_template = File.join(FIXTURES_DIR, 'test_template.json.erb')
-    channel = JSON.parse(%x[#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --channel-template #{channel_template}])
-    assert_equal("All About Everything", channel['channel']['title'])
+    channel = JSON.parse(`#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --channel-template #{channel_template}`)
+    assert_equal('All About Everything', channel['channel']['title'])
   end
 
-  # TODO --channel
+  # TODO: --channel
 end

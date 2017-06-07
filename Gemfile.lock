@@ -4,6 +4,7 @@ PATH
     dropcaster (0.0.8)
       activesupport
       bundler
+      null-logger
       ruby-mp3info
 
 GEM
@@ -207,6 +208,7 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    null-logger (0.1.4)
     octokit (4.7.0)
       sawyer (~> 0.8.0, >= 0.5.3)
     parallel (1.11.2)
@@ -229,7 +231,6 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
-    rb-readline (0.5.4)
     rouge (1.11.1)
     rubocop (0.49.1)
       parallel (~> 1.10)
@@ -275,7 +276,6 @@ DEPENDENCIES
   rake
   rb-fsevent
   rb-inotify
-  rb-readline
   rubocop
 
 BUNDLED WITH

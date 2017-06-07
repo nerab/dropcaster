@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Returns true if we run on a windows platform
 #
 # Sample:
@@ -7,6 +9,6 @@
 # http://snippets.dzone.com/posts/show/2112
 #
 def Kernel.is_windows?
-  processor, platform, *rest = RUBY_PLATFORM.split("-")
+  _, platform, _ = RUBY_PLATFORM.split('-')
   platform == 'mingw32'
 end

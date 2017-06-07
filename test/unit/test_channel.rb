@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'helper'
 
 class TestChannel < MiniTest::Test
@@ -47,7 +49,9 @@ class TestChannel < MiniTest::Test
   end
 
   def test_channel_explicit_nil
-    assert_channel_explicit(nil, nil)
+    @options[:explicit] = nil
+    channel = Dropcaster::Channel.new(FIXTURES_DIR, @options)
+    assert_nil(channel.explicit)
   end
 
   def test_channel_explicit_clean
@@ -62,19 +66,19 @@ class TestChannel < MiniTest::Test
 
   def test_raise_on_missing_title
     assert_raises Dropcaster::MissingAttributeError do
-      Dropcaster::Channel.new(FIXTURES_DIR, {:url => 'bar', :description => 'foobar'})
+      Dropcaster::Channel.new(FIXTURES_DIR, { url: 'bar', description: 'foobar' })
     end
   end
 
   def test_raise_on_missing_url
     assert_raises Dropcaster::MissingAttributeError do
-      Dropcaster::Channel.new(FIXTURES_DIR, {:title => 'foo', :description => 'foobar'})
+      Dropcaster::Channel.new(FIXTURES_DIR, { title: 'foo', description: 'foobar' })
     end
   end
 
   def test_raise_on_missing_description
     assert_raises Dropcaster::MissingAttributeError do
-      Dropcaster::Channel.new(FIXTURES_DIR, {:title => 'foo', :url => 'bar'})
+      Dropcaster::Channel.new(FIXTURES_DIR, { title: 'foo', url: 'bar' })
     end
   end
 end
