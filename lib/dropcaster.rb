@@ -10,7 +10,6 @@ require 'active_support/core_ext/module/attribute_accessors'
 
 require 'logger'
 
-require 'dropcaster/contributors'
 require 'dropcaster/errors'
 require 'dropcaster/log_formatter'
 require 'dropcaster/channel'

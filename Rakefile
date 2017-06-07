@@ -24,6 +24,7 @@ namespace :web do
   CLOBBER << 'website/vision.markdown'
 
   file 'website/contributors.markdown' do |f|
+    require 'dropcaster/contributors'
     File.write('website/contributors.markdown', Dropcaster.contributors)
   end
   CLOBBER << 'website/contributors.markdown'
