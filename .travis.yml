@@ -1,7 +1,8 @@
 language: ruby
 rvm:
-- 2.4.1
+- 2.4.2
 script:
+  - bundle exec rake
   - bundle exec rake web:generate
 after_success:
   - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash website/deploy.sh
