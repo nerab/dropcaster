@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.4.1
+  TargetRubyVersion: 2.4.2
   Include:
     - '**/Gemfile'
     - '**/Rakefile'
@@ -15,7 +15,7 @@ AllCops:
   DisplayStyleGuide:
     Enabled: true
 
-Style/FileName:
+Naming/FileName:
   Exclude:
   - Guardfile
   - Vagrantfile
@@ -134,7 +134,7 @@ Style/Next:
 Style/NumericLiterals:
   Enabled: false
 
-Style/PredicateName:
+Naming/PredicateName:
   Enabled: false
 
 Style/RaiseArgs:

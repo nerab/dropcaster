@@ -8,6 +8,7 @@ end
 
 require 'mp3info'
 
+# rubocop:disable Lint/RescueWithoutErrorClass
 begin
   file_name = ARGV.first
 
@@ -17,12 +18,12 @@ begin
   # rubocop:disable Lint/EmptyWhen
   Mp3Info.open(file_name) do |mp3info|
     puts 'ID3v1 tags:'
-    mp3info.tag.keys.each { |key|
+    mp3info.tag.each_key { |key|
       puts "  #{key} => #{mp3info.tag.send(key)}"
     }
     puts
     puts 'ID3v2 tags:'
-    mp3info.tag2.keys.each { |key|
+    mp3info.tag2.each_key { |key|
       case key
       when 'PIC'
       when 'APIC'

@@ -50,6 +50,7 @@ OptionParser.new do |opts|
   end
 
   opts.on('--channel FILE', 'Read the channel definition from FILE instead of channel.yml in the current directory.') do |file|
+    # rubocop:disable Lint/RescueWithoutErrorClass
     begin
       logger.info "Reading channel definition from #{file}"
       options = YAML.load_file(file).merge(options)
@@ -119,7 +120,6 @@ if options[:auto_detect_channel_file]
 end
 
 logger.info "Generating the channel with these options: #{options.inspect}"
-
 begin
   puts Dropcaster::Channel.new(sources, options).to_rss
 rescue
