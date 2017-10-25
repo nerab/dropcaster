@@ -20,6 +20,7 @@ module Dropcaster
     def contributor_summary(contributor)
       "#{contributor_link(contributor)} (#{contributor.contributions} contributions)"
     end
+
     def contributor_link(contributor)
       if contributor.type == 'Anonymous'
         contributor.name.tr('[]', '()')
