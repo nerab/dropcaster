@@ -3,23 +3,30 @@
 require 'octokit'
 
 module Dropcaster
-  def self.contributors
-    octokit = if ENV.include?('GITHUB_TOKEN')
-                Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
-              else
-                Octokit::Client.new
-              end
+  class << self
+    def contributors
+      @octokit ||= if ENV.include?('GH_TOKEN')
+                     Octokit::Client.new(access_token: ENV['GH_TOKEN'])
+                   else
+                     Octokit::Client.new
+                   end
 
-    octokit.contributors('nerab/dropcaster', true)
-      .sort { |x, y| y.contributions <=> x.contributions }
-      .map { |c|
-        begin
-          "* [#{octokit.user(c.login).name}](#{c.html_url}) (#{c.contributions} contributions)"
-        rescue
-          "* #{c.tr('[]', '()')} (#{c.contributions} contributions)"
-        end
-      }
-      .compact
-      .join("\n")
+      @octokit.contributors('nerab/dropcaster', true).
+        sort { |x, y| y.contributions <=> x.contributions }.
+        map { |c| "* #{contributor_summary(c)}" }.
+        join("\n")
+    end
+
+    def contributor_summary(contributor)
+      "#{contributor_link(contributor)} (#{contributor.contributions} contributions)"
+    end
+
+    # rubocop:disable Lint/RescueWithoutErrorClass
+    def contributor_link(contributor)
+      "[#{@octokit.user(contributor.login).name}](#{contributor.html_url})"
+    rescue => e
+      warn "Error: Could not link to contributor. #{e}"
+      contributor.tr('[]', '()')
+    end
   end
 end
