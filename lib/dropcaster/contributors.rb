@@ -4,11 +4,22 @@ require 'octokit'
 
 module Dropcaster
   def self.contributors
-    cbtors = Octokit.contributors('nerab/dropcaster', true)
+    octokit = if ENV.include?('GITHUB_TOKEN')
+                Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
+              else
+                Octokit::Client.new
+              end
 
-    cbtors.sort! { |x, y| y.contributions <=> x.contributions }
-    cbtors.map! { |c| "* [#{Octokit.user(c.login).name}](#{c.html_url}) (#{c.contributions} contributions)" }
-
-    cbtors.join("\n")
+    octokit.contributors('nerab/dropcaster', true)
+      .sort { |x, y| y.contributions <=> x.contributions }
+      .map { |c|
+        begin
+          "* [#{octokit.user(c.login).name}](#{c.html_url}) (#{c.contributions} contributions)"
+        rescue
+          "* #{c.tr('[]', '()')} (#{c.contributions} contributions)"
+        end
+      }
+      .compact
+      .join("\n")
   end
 end
