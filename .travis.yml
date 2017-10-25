@@ -2,10 +2,11 @@ language: ruby
 rvm:
 - 2.4.2
 script:
-  - bundle exec rake
-  - bundle exec rake web:generate
+- bundle exec rake
+- bundle exec rake web:generate
 after_success:
-  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash website/deploy.sh
+- test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash
+  website/deploy.sh
 env:
   global:
-    secure: Y4o/l7Z+8iJk0I5HEh2a9yKiIE1jfB/ChKqWfJTSXXoxTVwA5oLl4+OTR/2V8fvZKSufPr4fLdvwji0ysicDLdwlMYCCBPEZg0wGyGC6qZFHEkNB1BLXHh2Bu3srBjblw8hk12Q72MY6wHtl6ZZZ3qVTwaPVcCWSJMLJGRO9fWA=
+    secure: DInIDj4kbZojS7oTomH5JpuJ7/czBXiYsrFygVz/K/40M+fjVbEzfd03cpPnfUx2vh1vjU/6p5/FpxNEr/ugnv3C+K48pkgvULX+K68mE8k++3heUJfMZf6yjVARJysUKd6n6gcrFDwwnrHJdvG5bzIezO/5YIda+otLViPnFQk=
