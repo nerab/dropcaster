@@ -23,10 +23,11 @@ module Dropcaster
 
     # rubocop:disable Lint/RescueWithoutErrorClass
     def contributor_link(contributor)
-      "[#{@octokit.user(contributor.login).name}](#{contributor.html_url})"
-    rescue => e
-      warn "Error: Could not link to contributor. #{e}"
-      contributor.tr('[]', '()')
+      if contributor.type == 'Anonymous'
+        contributor.name.tr('[]', '()')
+      else
+        "[#{@octokit.user(contributor.login).name}](#{contributor.html_url})"
+      end
     end
   end
 end
