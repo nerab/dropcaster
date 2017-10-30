@@ -28,9 +28,9 @@ module Dropcaster
 
       if tag2.TDR.blank?
         logger.info("#{file_path} has no pub date set, using the file's modification time")
-        @pub_date = DateTime.parse(File.new(file_name).mtime.to_s)
+        @pub_date = Time.parse(File.new(file_name).mtime.to_s)
       else
-        @pub_date = DateTime.parse(tag2.TDR)
+        @pub_date = Time.parse(tag2.TDR)
       end
     end
   end

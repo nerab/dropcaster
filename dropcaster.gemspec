@@ -20,22 +20,22 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'bundler'
-  spec.add_dependency 'ruby-mp3info'
   spec.add_dependency 'activesupport'
+  spec.add_dependency 'bundler'
   spec.add_dependency 'null-logger'
+  spec.add_dependency 'ruby-mp3info'
 
-  spec.add_development_dependency 'minitest'
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'libxml-ruby'
-  spec.add_development_dependency 'guard-minitest'
+  spec.add_development_dependency 'github-pages'
   spec.add_development_dependency 'guard-bundler'
+  spec.add_development_dependency 'guard-minitest'
   spec.add_development_dependency 'libnotify'
-  spec.add_development_dependency 'rb-inotify'
-  spec.add_development_dependency 'rb-fsevent'
+  spec.add_development_dependency 'libxml-ruby'
+  spec.add_development_dependency 'minitest'
+  spec.add_development_dependency 'octokit'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'pry-byebug'
-  spec.add_development_dependency 'github-pages'
-  spec.add_development_dependency 'octokit'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rb-fsevent'
+  spec.add_development_dependency 'rb-inotify'
   spec.add_development_dependency 'rubocop'
 end
