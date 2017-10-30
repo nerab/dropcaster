@@ -87,9 +87,8 @@
 
 <p>To get started, use RubyGems to install Dropcaster:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ gem install dropcaster
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install dropcaster
+</code></pre></div></div>
 
 <p>Once installed, you can use the <code class="highlighter-rouge">dropcaster</code> command to generate a new podcast feed document.</p>
 
@@ -101,11 +100,10 @@
 
 <p>The simplest channel file looks like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>	:title: 'All About Everything'
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	:title: 'All About Everything'
 	:subtitle: 'A show about everything'
 	:url: 'http://www.example.com/podcasts/everything/index.html'
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Store this file as channel.yml in the same directory where the mp3 files of your podcast reside. The channel definition is expected to be present in the same directory as your mp3 files, but this can be overridden using a command line switch. You can find a <a href="http://github.com/nerab/dropcaster/blob/master/doc/sample-channel.yml">more elaborate example</a> for the channel definition in the doc folder of the Dropcaster gem. You can find it by running <code class="highlighter-rouge">gem open dropcaster</code>.</p>
 
@@ -113,18 +111,16 @@
 
 <p>With all required pieces in place, we could generate the podcast feed. Just before we do that, we will inspect the feed by running the following commands:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ cd ~/Dropbox/Public
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd ~/Dropbox/Public
 $ dropcaster
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>(The above lines assume that you are using Dropbox, and that there is at least one mp3 file in <code class="highlighter-rouge">~/Dropbox/Public</code>).</p>
 
 <p>Dropcaster will print the feed to standard-out, without writing it to disk. When you are happy with the results, call Dropcaster again, but redirect the output to a file, this time:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ dropcaster &gt; index.rss
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ dropcaster &gt; index.rss
+</code></pre></div></div>
 
 <p>If all went well, you will now have a valid podcast feed in your Dropbox, listing all mp3 files as podcast episodes. Please see the section <a href="#publish-your-feed">Publish Your Feed</a> for details on how to find the public URL of your feed.</p>
 
@@ -136,9 +132,8 @@ $ dropcaster
   <li>
     <p>Drop the mp3 file into the Dropbox Public folder (e.g. <code class="highlighter-rouge">~/Dropbox/Public</code>), and then run the following command in the directory where the mp3 files reside:</p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code> $ dropcaster &gt; index.rss
-</code></pre>
-    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ dropcaster &gt; index.rss
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Dropbox will sync the updated index.rss file to its web server and any podcast client will download the new episode as soon as it has loaded the updated index.rss.</p>
@@ -149,17 +144,15 @@ $ dropcaster
 
 <p>Remove the mp3 you want to delete from the Dropbox Public folder, and then run the following command in the directory where the remaining mp3 files reside:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  $ dropcaster &gt; index.rss
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $ dropcaster &gt; index.rss
+</code></pre></div></div>
 
 <h2 id="replace-an-episode-with-an-updated-file">Replace an Episode With an Updated File</h2>
 
 <p>In the Dropbox Public folder, replace the mp3 you want to update with a new version, and then run the following command in the directory where the mp3 files reside:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  $ dropcaster &gt; index.rss
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $ dropcaster &gt; index.rss
+</code></pre></div></div>
 
 <h2 id="publish-your-feed">Publish Your Feed</h2>
 
@@ -167,9 +160,8 @@ $ dropcaster
   <li>
     <p>Re-generate the feed to make sure the it is up to date (see above):</p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code> $ dropcaster &gt; index.rss
-</code></pre>
-    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ dropcaster &gt; index.rss
+</code></pre></div>    </div>
   </li>
   <li>In your Dropbox Public folder, right-click the index.rss and select “Dropbox / Copy public link”. This copies the public, HTTP-addressable link to your podcast into the clipboard.</li>
   <li>Publish this link and tell people to subscribe to it.</li>
@@ -181,31 +173,27 @@ $ dropcaster
 
 <p>For example, in order to generate a feed that only publishes MP3 files where the name starts with ‘A’, call Dropcaster like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ dropcaster A*.mp3 &gt; index.rss
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ dropcaster A*.mp3 &gt; index.rss
+</code></pre></div></div>
 
 <h2 id="publish-more-than-one-feed">Publish More than One Feed</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  $ dropcaster project1 &gt; project1.rss
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $ dropcaster project1 &gt; project1.rss
   $ dropcaster project2 &gt; project2.rss
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>or</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  $ cd project1
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $ cd project1
   $ dropcaster &gt; index.rss
   $ cd ../project2
   $ dropcaster &gt; index.rss
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="include-episodes-from-two-subdirectories-into-a-single-feed">Include Episodes From Two Subdirectories Into a Single Feed</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  $ dropcaster project1 project2 &gt; index.rss
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $ dropcaster project1 project2 &gt; index.rss
+</code></pre></div></div>
 
 <h1 id="advanced-features">Advanced features</h1>
 
@@ -217,9 +205,8 @@ $ dropcaster
 
 <p>In order to find out about all the options, simply run</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    $ dropcaster --help
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    $ dropcaster --help
+</code></pre></div></div>
 
 <h2 id="using-custom-channel-templates">Using custom channel templates</h2>
 
@@ -231,15 +218,13 @@ $ dropcaster
 
 <p>Besides generating an RSS feed, dropcaster can also generate HTML that can be used as a home page for your podcast. The template directory contains a sample template that can be used to get started:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    $ dropcaster --channel-template templates/channel.html.erb
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    $ dropcaster --channel-template templates/channel.html.erb
+</code></pre></div></div>
 
 <p>As discussed above, the output of this command can be written to a file, too:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    $ dropcaster --channel-template templates/channel.html.erb &gt; ~/Dropbox/Public/allabouteverything.html
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    $ dropcaster --channel-template templates/channel.html.erb &gt; ~/Dropbox/Public/allabouteverything.html
+</code></pre></div></div>
 
 <p>Dropcaster works exactly the same, whether it generates an RSS feed or a HTML page. Therefore, all options discussed before also apply when generating HTML.</p>
 
@@ -249,36 +234,32 @@ $ dropcaster
 
 <p>For example, let’s assume the following directory structure:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>channel.yml
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>channel.yml
 episodes/episode1/AAE001 Hello World.mp3
 episodes/episode2/AAE002 Getting started.mp3
 episodes/episode3/AAE003 Advanced Topics.mp3
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>With this directory structure, Dropcaster would typically be called like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>dropcaster episodes/episode* --channel channel.yml
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dropcaster episodes/episode* --channel channel.yml
+</code></pre></div></div>
 
 <p>In order to generate episode pages, the command would need to be modified to look as follows:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>dropcaster episodes/episode* --channel channel.yml --episode-pages
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dropcaster episodes/episode* --channel channel.yml --episode-pages
+</code></pre></div></div>
 
 <p>If any of the files to be generated already exist, Dropcaster will not overwrite them. Adding the <code class="highlighter-rouge">--force</code> option forces dropcaster to overwrite existing files.</p>
 
 <p>The index.html page could be written with the same command by redirecting dropcaster’s output to a file:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>dropcaster episodes/episode* --channel channel.yml --episode-pages --channel-template hannel.html.erb &gt; index.html
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dropcaster episodes/episode* --channel channel.yml --episode-pages --channel-template hannel.html.erb &gt; index.html
+</code></pre></div></div>
 
 <p>As a result, each episode will get an HTML page next to the MP3 file. The default HTML channel template will write links pointing to each episode. After calling the example command above, the esulting directory structure would look like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    channel.yml
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    channel.yml
     index.html
     episodes/episode1/AAE001 Hello World.mp3
     episodes/episode1/AAE001 Hello World.html
@@ -286,8 +267,7 @@ episodes/episode3/AAE003 Advanced Topics.mp3
     episodes/episode2/AAE002 Getting started.html
     episodes/episode3/AAE003 Advanced Topics.mp3
     episodes/episode3/AAE003 Advanced Topics.html
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Please note that the example above only deals with HTML pages. The RSS feed would still have to be generated with a second call to dropcaster (see the earlier sections of this page).</p>
 
@@ -323,15 +303,13 @@ episodes/episode3/AAE003 Advanced Topics.mp3
 
 <p>It you prefer a more aesthetically pleasing output, just pipe the output of Dropcaster through <code class="highlighter-rouge">xmllint</code>, which is part of <a href="http://xmlsoft.org/">libxml</a>:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>dropcaster | xmllint --format -
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dropcaster | xmllint --format -
+</code></pre></div></div>
 
 <p>For writing the output to a file, just redirect the ouput of the above command:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>dropcaster | xmllint --format - &gt; index.rss
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dropcaster | xmllint --format - &gt; index.rss
+</code></pre></div></div>
 
 <h1 id="web-site">Web site</h1>
 
