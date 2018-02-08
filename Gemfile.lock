@@ -217,7 +217,7 @@ GEM
       html-pipeline (~> 2.2)
       jekyll (>= 3.0)
     kramdown (1.16.2)
-    libnotify (0.9.3)
+    libnotify (0.9.4)
       ffi (>= 1.0.11)
     libxml-ruby (3.1.0)
     liquid (4.0.0)
