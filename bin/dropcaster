@@ -50,16 +50,13 @@ OptionParser.new do |opts|
   end
 
   opts.on('--channel FILE', 'Read the channel definition from FILE instead of channel.yml in the current directory.') do |file|
-    # rubocop:disable Lint/RescueWithoutErrorClass
-    begin
-      logger.info "Reading channel definition from #{file}"
-      options = YAML.load_file(file).merge(options)
-      options[:auto_detect_channel_file] = false
-    rescue
-      logger.error "Could not load channel definition. #{$ERROR_INFO.message}"
-      logger.info $ERROR_INFO.backtrace
-      exit(1)
-    end
+    logger.info "Reading channel definition from #{file}"
+    options = YAML.load_file(file).merge(options)
+    options[:auto_detect_channel_file] = false
+  rescue StandardError
+    logger.error "Could not load channel definition. #{$ERROR_INFO.message}"
+    logger.info $ERROR_INFO.backtrace
+    exit(1)
   end
 
   opts.on('--title STRING', "Use STRING as the channel's title. Overrides settings read from channel definition file.") do |title|
@@ -102,6 +99,8 @@ OptionParser.new do |opts|
     exit 0
   end
 end.parse!
+# rubocop:enable Metrics/BlockLength
+
 sources = ARGV.blank? ? '.' : ARGV
 
 if options[:auto_detect_channel_file]
@@ -122,7 +121,7 @@ end
 logger.info "Generating the channel with these options: #{options.inspect}"
 begin
   puts Dropcaster::Channel.new(sources, options).to_rss
-rescue
+rescue StandardError
   logger.error $ERROR_INFO.message
   $ERROR_INFO.backtrace.each do |line|
     logger.debug(line)

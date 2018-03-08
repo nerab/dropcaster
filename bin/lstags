@@ -7,8 +7,6 @@ unless ARGV.size == 1
 end
 
 require 'mp3info'
-
-# rubocop:disable Lint/RescueWithoutErrorClass
 begin
   file_name = ARGV.first
 
@@ -46,8 +44,11 @@ begin
       end
     }
   end
+  # rubocop:enable Metrics/BlockLength
+  # rubocop:enable Lint/EmptyWhen
+
   puts "Modification date: #{File.new(file_name).mtime}"
-rescue
+rescue StandardError
   puts "Error: #{$ERROR_INFO.message}"
   exit(1)
 end

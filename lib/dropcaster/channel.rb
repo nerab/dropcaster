@@ -151,6 +151,7 @@ module Dropcaster
         @attributes[m.to_sym]
       end
     end
+    # rubocop:enable Style/MethodMissing
 
     def respond_to_missing?(meth, *)
       /=$/.match?(meth.id2name) || super
