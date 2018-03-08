@@ -57,7 +57,7 @@ class TestChannelXML < MiniTest::Test
     options = { title: 'Test Channel',
                 url: 'http://www.example.com/',
                 description: 'A test channel',
-                enclosures_url: 'http://www.example.com/foo/bar', }
+                enclosures_url: 'http://www.example.com/foo/bar' }
 
     channel = channel_node(Dropcaster::Channel.new(FIXTURES_DIR, options).to_rss)
     assert_equal('Test Channel', channel.find('title').first.content)

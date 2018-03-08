@@ -13,7 +13,7 @@ HEADERS = [
   'type',
   # is zero or more comma-separated values associated with the prior type. The exact amount and meaning of this data is
   # type-dependent, so you must read the documentation associated with the type to understand fully.
-  'data',
+  'data'
 ].freeze
 
 TYPES = [
