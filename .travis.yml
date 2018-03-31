@@ -1,12 +1,20 @@
 language: ruby
+
 rvm:
 - 2.5.1
+
+before_install:
+ # https://github.com/travis-ci/travis-ci/issues/8978#issuecomment-377680126
+ - gem install bundler
+
 script:
 - bundle exec rake
 - bundle exec rake web:generate
+
 after_success:
 - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash
   website/deploy.sh
+
 env:
   global:
     secure: DInIDj4kbZojS7oTomH5JpuJ7/czBXiYsrFygVz/K/40M+fjVbEzfd03cpPnfUx2vh1vjU/6p5/FpxNEr/ugnv3C+K48pkgvULX+K68mE8k++3heUJfMZf6yjVARJysUKd6n6gcrFDwwnrHJdvG5bzIezO/5YIda+otLViPnFQk=
