@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-- 2.5.0
+- 2.5.1
 script:
 - bundle exec rake
 - bundle exec rake web:generate
