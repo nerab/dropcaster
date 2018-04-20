@@ -22,9 +22,9 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'activesupport'
   spec.add_dependency 'bundler'
+  spec.add_dependency 'nokogiri', '~> 1.8.2'
   spec.add_dependency 'null-logger'
   spec.add_dependency 'ruby-mp3info'
-  spec.add_dependency 'nokogiri', '~> 1.8.2'
 
   spec.add_development_dependency 'github-pages'
   spec.add_development_dependency 'guard-bundler'
