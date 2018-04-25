@@ -25,7 +25,11 @@ module Dropcaster
       if contributor.type == 'Anonymous'
         contributor.name.tr('[]', '()')
       else
-        "[#{@octokit.user(contributor.login).name}](#{contributor.html_url})"
+        begin
+          "[#{@octokit.user(contributor.login).name}](#{contributor.html_url})"
+        rescue
+          contributor.login
+        end
       end
     end
   end
