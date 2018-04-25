@@ -25,11 +25,13 @@ module Dropcaster
       if contributor.type == 'Anonymous'
         contributor.name.tr('[]', '()')
       else
+        # rubocop:disable Style/RescueStandardError
         begin
           "[#{@octokit.user(contributor.login).name}](#{contributor.html_url})"
         rescue
           contributor.login
         end
+        # rubocop:enable Style/RescueStandardError
       end
     end
   end
