@@ -5,5 +5,6 @@
 * [Hossam Hammady](https://github.com/hammady) (1 contributions)
 * [Michael Knight](https://github.com/miknight) (1 contributions)
 * [Steffen Uhlig](https://github.com/suhlig) (1 contributions)
+* [Stephen Wade](https://github.com/stephenwade) (1 contributions)
 * [Vítor Galvão](https://github.com/vitorgalvao) (1 contributions)
 * [Andrew Markle](https://github.com/andrewmarkle) (1 contributions)
