@@ -16,7 +16,7 @@ class TestApp < TestChannelXML
   APP_SCRIPT = 'ruby bin/dropcaster'
 
   def channel_rss
-    `#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3}`
+    `#{APP_SCRIPT} #{FIXTURES_DIR}`
   end
 
   def test_overwrite_title
@@ -61,8 +61,7 @@ class TestApp < TestChannelXML
   end
 
   def test_dir_only
-    channel = channel_node(`#{APP_SCRIPT} #{FIXTURES_DIR}`)
-    assert_equal(1, channel.find('item').size)
+    assert_equal(2, @channel.find('item').size)
   end
 
   def test_overwrite_enclosures_url

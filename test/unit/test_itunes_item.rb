@@ -2,7 +2,7 @@
 
 require 'helper'
 
-class TestItem < MiniTest::Test
+class TestItunesItem < MiniTest::Test
   include DropcasterTest
 
   def setup
@@ -14,7 +14,7 @@ class TestItem < MiniTest::Test
     assert_equal(58119, @item.file_size)
     assert_equal('77bf84447c0f69ce4a33a18b0ae1e030b82010de', @item.uuid)
     assert_equal(File.mtime(FIXTURE_ITUNES_MP3).to_i, @item.pub_date.to_i)
-    assert_equal('test/fixtures/iTunes.mp3', @item.file_name)
+    assert_equal('test/fixtures/iTunes.mp3', @item.file_path.to_s)
   end
 
   def test_tag

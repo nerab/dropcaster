@@ -11,7 +11,7 @@ class TestChannel < MiniTest::Test
   end
 
   def test_item_count
-    assert_equal(1, @channel.items.size)
+    assert_equal(2, @channel.items.size)
   end
 
   def test_channel
