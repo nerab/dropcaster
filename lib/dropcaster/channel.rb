@@ -161,7 +161,7 @@ module Dropcaster
 
     def add_files(src)
       if File.directory?(src)
-        @source_files.concat(Dir.glob(File.join(src, '*.mp3')))
+        @source_files.concat(Dir.glob(File.join(src, '*.mp3'), File::FNM_CASEFOLD))
       else
         @source_files << src
       end

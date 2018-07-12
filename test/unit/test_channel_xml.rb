@@ -63,6 +63,15 @@ class TestChannelXML < MiniTest::Test
     assert_equal('http://www.example.com/podcasts/everything/test/fixtures/special%20%26.mp3', enclosure['url'])
   end
 
+  def test_uppercase_extension_item
+    item = @channel.find('item[title = "test/fixtures/extension.MP3"]').first
+    assert(item)
+
+    enclosure = item.find('enclosure').first
+    assert(enclosure)
+    assert_equal('http://www.example.com/podcasts/everything/test/fixtures/extension.MP3', enclosure['url'])
+  end
+
   def test_attributes_mandatory
     options = { title: 'Test Channel',
                 url: 'http://www.example.com/',

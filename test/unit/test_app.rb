@@ -61,7 +61,7 @@ class TestApp < TestChannelXML
   end
 
   def test_dir_only
-    assert_equal(2, @channel.find('item').size)
+    assert_equal(NUMBER_OF_MP3_FILES, @channel.find('item').size)
   end
 
   def test_overwrite_enclosures_url
