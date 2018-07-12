@@ -100,7 +100,7 @@ module Dropcaster
         end
 
         # construct absolute URL, based on the channel's enclosures_url attribute
-        item.url = URI.parse(enclosures_url) + item.file_name
+        item.url = URI.parse(enclosures_url) + item.file_path.each_filename.map { |p| url_encode(p) }.join('/')
 
         # Warn if keyword count is larger than recommended
         assert_keyword_count(item.keywords)

@@ -45,7 +45,7 @@
   <% end %>
   <% items.each{|item| %>
     <item>
-      <title><%= item.tag.title || item.tag2.TIT2 || item.file_name%></title>
+      <title><%= h(item.tag.title || item.tag2.TIT2 || item.file_path.to_s) %></title>
       <itunes:author><%= h(item.tag2.TP1 || item.tag2.TPE1) %></itunes:author>
     <% unless item.tag2.TT3.blank? %>
       <itunes:subtitle><%= h(truncate(item.tag2.TT3, 50)) %></itunes:subtitle>
