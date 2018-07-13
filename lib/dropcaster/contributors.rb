@@ -18,7 +18,8 @@ module Dropcaster
     end
 
     def contributor_summary(contributor)
-      "#{contributor_link(contributor)} (#{contributor.contributions} contributions)"
+      contributions = contributor.contributions
+      "#{contributor_link(contributor)} (#{contributions} contribution#{contributions == 1 ? '' : 's'})"
     end
 
     def contributor_link(contributor)
