@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dropcaster (0.0.8)
+    dropcaster (1.0.0)
       activesupport
       bundler
       nokogiri (~> 1.8.2)
