@@ -146,6 +146,13 @@ The generated XML file contains all elements required for iTunes. However, Dropc
 
 The whole concept of Dropcaster works perfectly fine without Dropbox. Just run the Dropcaster script in a directory of mp3 files and upload the files as well as the generated index.rss to a web server. Leave the relative position of the index and mp3 files as is, otherwise the path to the mp3 files in index.rss will become invalid.
 
+## Using Dropcaster With S3 or Digital Ocean Spaces
+
+If you set up an S3 bucket or Digital Ocean Space (or any other s3 compatible static asset host), you can easily sync your local podcast directory using a command line tool like [s3cmd](https://github.com/s3tools/s3cmd).
+
+After installing s3cmd, make sure you have the right credentials to write to your bucket/space. Add your mp3 files to your folder, run `dropcaster > index.rss` and then `s3cmd sync  ./  s3://$your-bucket-name --acl public-read`. S3cmd will now upload any new or changed files to your bucket.
+
+
 ## Episode Identifier (uuid)
 
 Dropcaster uses a rather simple approach to uniquely identify the episodes. It simply generates a SHA1 hash of the mp3 file. If it changes, for whatever reason (even if only a tag was changed), the episode will get a new UUID, and any podcatcher will fetch the episode again (which is what you want, in most cases).
