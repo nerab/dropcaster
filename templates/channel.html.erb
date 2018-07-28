@@ -27,9 +27,6 @@
   <% items.each{|item| %>
     <div class="item" id="<%= h(item.uuid) %>">
       <h1><%= h(item.tag.title || item.tag2.TIT2 || item.file_path.to_s) %></h1>
-    <% unless item.tag2.SUBTITLE.blank? %>
-      <h2><%= h(item.tag2.SUBTITLE) %></h2>
-    <% end %>
     <% unless item.tag2.TT3.blank? %>
       <p><%= h(item.tag2.TT3) %></p>
     <% end %>
