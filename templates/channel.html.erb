@@ -26,9 +26,9 @@
   <h1>Episodes</h1>
   <% items.each{|item| %>
     <div class="item" id="<%= h(item.uuid) %>">
-      <h1><%= h(item.tag.title || item.tag2.TIT2 || item.file_path.to_s) %></h1>
-    <% unless item.tag2.TT3.blank? %>
-      <p><%= h(item.tag2.TT3) %></p>
+      <h1><%= h(item.tag.title || item.file_path.to_s) %></h1>
+    <% unless item.tag2.TT3.blank? && item.tag2.TIT3.blank? %>
+      <p><%= h(item.tag2.TT3 || item.tag2.TIT3) %></p>
     <% end %>
       <img src="<%= item.image_url %>"/>
       <p>Download: <a href="<%= item.url %>">MP3</a> (<%= humanize_time(item.duration.to_i) %>, <%= humanize_size(item.file_size) %>)</p>
