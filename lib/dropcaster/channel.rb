@@ -89,7 +89,7 @@ module Dropcaster
         logger.debug("Adding new item from file #{src}")
 
         # set author and image_url from channel if empty
-        if item.artist.blank?
+        if item.tag.artist.blank?
           logger.info("#{src} has no artist, using the channel's author")
           item.tag.artist = @attributes[:author]
         end
