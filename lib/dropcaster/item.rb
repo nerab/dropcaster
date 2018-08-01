@@ -10,7 +10,7 @@ module Dropcaster
     include Logging
 
     attr_reader :file_path, :tag, :tag2, :duration, :file_size, :uuid, :pub_date, :lyrics
-    attr_accessor :artist, :image_url, :url, :keywords
+    attr_accessor :image_url, :url, :keywords
 
     def initialize(file_path, options=nil)
       Mp3Info.open(file_path) { |mp3info|

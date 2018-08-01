@@ -40,14 +40,11 @@ class TestItunesItem < MiniTest::Test
     assert_equal('iTunes Grouping', @item.tag2.TT1)
     assert_equal('iTunes Description (Video Pane)', @item.tag2.TT3)
     assert_equal('iTunes Composer', @item.tag2.TCM)
+    assert_equal('iTunes Comments (Info Pane)', @item.tag2.COM[1])
   end
 
   def test_lyrics
     assert_equal(1, @item.lyrics.size)
     assert_equal("iTunes Lyrics Line 1\niTunes Lyrics Line 2", @item.lyrics['eng'])
-  end
-
-  def test_tag2_comment
-    assert_equal('iTunes Comments (Info Pane)', @item.tag2.COM[1])
   end
 end

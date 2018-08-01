@@ -19,10 +19,9 @@
     "categories": ["<% categories.join('\",\"') %>"],
     "explicit" : "<%= explicit %>",
     "items" : [<% items.collect{|item| %>{
-        "title" : "<%= item.tag.title || item.tag2.TIT2 %>",
-        "author" : "<%= item.tag2.TP1 || item.tag2.TPE1 %>",
-        "subtitle" : "<%= item.tag2.SUBTITLE %>",
-        "summary" : "<%= item.tag2.TT3 %>",
+        "title" : "<%= item.tag.title %>",
+        "author" : "<%= item.tag.artist %>",
+        "summary" : "<%= item.tag2.TT3 || item.tag2.TIT3 %>",
         "image" : "<%= item.image_url %>",
         "enclosure" : {
           "url" : "<%= item.url %>",
