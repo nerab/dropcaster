@@ -1,6 +1,6 @@
 * [Nicholas E. Rabenau](https://github.com/nerab) (182 contributions)
-* [Dependabot](https://github.com/dependabot-bot) (24 contributions)
-* [](https://github.com/apps/dependabot) (14 contributions)
+* [Dependabot](https://github.com/dependabot-bot) (25 contributions)
+* [](https://github.com/apps/dependabot) (15 contributions)
 * [Nathan Lee](https://github.com/X0nic) (8 contributions)
 * [Stephen Wade](https://github.com/stephenwade) (8 contributions)
 * [Hossam Hammady](https://github.com/hammady) (1 contribution)
