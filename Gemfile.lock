@@ -4,7 +4,7 @@ PATH
     dropcaster (1.0.0)
       activesupport
       bundler
-      nokogiri (~> 1.8.2)
+      nokogiri (>= 1.8.2, < 1.10.0)
       null-logger
       ruby-mp3info
 
@@ -237,7 +237,7 @@ GEM
     lumberjack (1.0.13)
     mercenary (0.3.6)
     method_source (0.9.2)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.4.0)
     minima (2.5.0)
       jekyll (~> 3.5)
       jekyll-feed (~> 0.9)
@@ -245,10 +245,10 @@ GEM
     minitest (5.11.3)
     multipart-post (2.0.0)
     nenv (0.3.0)
-    nokogiri (1.8.5)
-      mini_portile2 (~> 2.3.0)
-    nokogiri (1.8.5-x86-mingw32)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.9.0)
+      mini_portile2 (~> 2.4.0)
+    nokogiri (1.9.0-x86-mingw32)
+      mini_portile2 (~> 2.4.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
