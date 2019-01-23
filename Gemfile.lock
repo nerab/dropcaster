@@ -120,7 +120,7 @@ GEM
     http_parser.rb (0.6.0)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
-    jaro_winkler (1.5.1)
+    jaro_winkler (1.5.2)
     jekyll (3.7.4)
       addressable (~> 2.4)
       colorator (~> 1.0)
@@ -255,8 +255,8 @@ GEM
     null-logger (0.1.5)
     octokit (4.13.0)
       sawyer (~> 0.8.0, >= 0.5.3)
-    parallel (1.12.1)
-    parser (2.5.3.0)
+    parallel (1.13.0)
+    parser (2.6.0.0)
       ast (~> 2.4.0)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
@@ -274,7 +274,7 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     rouge (2.2.1)
-    rubocop (0.61.1)
+    rubocop (0.63.1)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.5, != 2.5.1.1)
@@ -306,7 +306,7 @@ GEM
       ethon (>= 0.9.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    unicode-display_width (1.4.0)
+    unicode-display_width (1.4.1)
 
 PLATFORMS
   ruby
