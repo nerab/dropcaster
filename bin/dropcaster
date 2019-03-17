@@ -50,13 +50,15 @@ OptionParser.new do |opts|
   end
 
   opts.on('--channel FILE', 'Read the channel definition from FILE instead of channel.yml in the current directory.') do |file|
-    logger.info "Reading channel definition from #{file}"
-    options = YAML.load_file(file).merge(options)
-    options[:auto_detect_channel_file] = false
-  rescue StandardError
-    logger.error "Could not load channel definition. #{$ERROR_INFO.message}"
-    logger.info $ERROR_INFO.backtrace
-    exit(1)
+    begin
+      logger.info "Reading channel definition from #{file}"
+      options = YAML.load_file(file).merge(options)
+      options[:auto_detect_channel_file] = false
+    rescue StandardError
+      logger.error "Could not load channel definition. #{$ERROR_INFO.message}"
+      logger.info $ERROR_INFO.backtrace
+      exit(1)
+    end
   end
 
   opts.on('--title STRING', "Use STRING as the channel's title. Overrides settings read from channel definition file.") do |title|
