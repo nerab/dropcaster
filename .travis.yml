@@ -1,11 +1,12 @@
 language: ruby
 
 rvm:
-- 2.5.1
+- 2.5.5
+- 2.6.2
 
 before_install:
- # https://github.com/travis-ci/travis-ci/issues/8978#issuecomment-377680126
- - gem install bundler
+# https://github.com/travis-ci/travis-ci/issues/8978#issuecomment-377680126
+- gem install bundler
 
 script:
 - bundle exec rake
