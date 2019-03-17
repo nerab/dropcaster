@@ -145,7 +145,7 @@ module Dropcaster
     # rubocop:disable Style/MethodMissing
     def method_missing(meth, *args)
       m = meth.id2name
-      if /=$/.match?(m)
+      if m =~ /=$/
         @attributes[m.chop.to_sym] = (args.length < 2 ? args[0] : args)
       else
         @attributes[m.to_sym]
@@ -154,7 +154,7 @@ module Dropcaster
     # rubocop:enable Style/MethodMissing
 
     def respond_to_missing?(meth, *)
-      /=$/.match?(meth.id2name) || super
+      (meth.id2name =~ /=$/) || super
     end
 
     private
