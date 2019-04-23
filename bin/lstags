@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 unless ARGV.size == 1
-  STDERR.puts "#{File.basename(__FILE__)}: Missing required parameter for the mp3 file to process"
+  warn "#{File.basename(__FILE__)}: Missing required parameter for the mp3 file to process"
   exit(1)
 end
 
