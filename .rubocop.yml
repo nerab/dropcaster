@@ -65,7 +65,7 @@ Metrics/PerceivedComplexity:
 Performance/Casecmp:
   Enabled: false
 
-Performance/Sample:
+Style/Sample:
   Enabled: false
 
 Style/Alias:
@@ -107,10 +107,10 @@ Style/GuardClause:
 Style/IfUnlessModifier:
   Enabled: false
 
-Layout/IndentArray:
+Layout/IndentFirstArrayElement:
   EnforcedStyle: consistent
 
-Layout/IndentHash:
+Layout/IndentFirstHashElement:
   Enabled: false
 
 Style/Lambda:
