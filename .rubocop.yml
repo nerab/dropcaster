@@ -62,9 +62,6 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Enabled: false
 
-Performance/Casecmp:
-  Enabled: false
-
 Style/Sample:
   Enabled: false
 
