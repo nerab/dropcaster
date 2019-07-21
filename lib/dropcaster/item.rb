@@ -27,7 +27,7 @@ module Dropcaster
       @file_size = File.new(file_path).stat.size
       @uuid = Digest::SHA1.hexdigest(File.read(file_path))
 
-      if tag2.TDR.blank?
+      if tag2.TRD.blank?
         logger.info("#{file_path} has no pub date set, using the file's modification time")
         @pub_date = Time.parse(File.new(file_path).mtime.to_s)
       else
