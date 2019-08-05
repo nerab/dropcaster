@@ -3,7 +3,7 @@
 * [](https://github.com/apps/dependabot) (29 contributions)
 * [Stephen Wade](https://github.com/stephenwade) (23 contributions)
 * [Nathan Lee](https://github.com/X0nic) (8 contributions)
-* [](https://github.com/apps/dependabot-preview) (4 contributions)
+* [](https://github.com/apps/dependabot-preview) (6 contributions)
 * [Hossam Hammady](https://github.com/hammady) (1 contribution)
 * [Hugo Veeger](https://github.com/dkhgh) (1 contribution)
 * [Michael Knight](https://github.com/miknight) (1 contribution)
