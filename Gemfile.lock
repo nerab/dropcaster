@@ -243,7 +243,7 @@ GEM
       jekyll (~> 3.5)
       jekyll-feed (~> 0.9)
       jekyll-seo-tag (~> 2.1)
-    minitest (5.11.3)
+    minitest (5.12.0)
     multipart-post (2.1.1)
     nenv (0.3.0)
     nokogiri (1.10.4)
