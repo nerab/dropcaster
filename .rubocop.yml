@@ -169,3 +169,6 @@ Style/WordArray:
 
 Style/ZeroLengthPredicate:
   Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
