@@ -29,7 +29,7 @@ Metrics/BlockLength:
 Lint/AmbiguousRegexpLiteral:
   Enabled: false
 
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Enabled: true
 
 Lint/UnusedBlockArgument:
@@ -68,7 +68,7 @@ Style/Sample:
 Style/Alias:
   EnforcedStyle: prefer_alias_method
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Enabled: false
 
 Style/BlockDelimiters:
@@ -104,10 +104,10 @@ Style/GuardClause:
 Style/IfUnlessModifier:
   Enabled: false
 
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
   Enabled: false
 
 Style/Lambda:
