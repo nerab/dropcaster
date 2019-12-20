@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     dropcaster (1.0.0)
-      activesupport
+      activesupport (< 6.0)
       bundler
       nokogiri (~> 1.10.4)
       null-logger
@@ -328,4 +328,4 @@ DEPENDENCIES
   rubocop
 
 BUNDLED WITH
-   2.0.1
+   2.1.2

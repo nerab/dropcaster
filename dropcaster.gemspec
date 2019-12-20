@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'activesupport'
+  spec.add_dependency 'activesupport', '< 6.0'  # this restriction required to keep compatibility with Ruby 2.4
   spec.add_dependency 'bundler'
   spec.add_dependency 'nokogiri', '~> 1.10.4'
   spec.add_dependency 'null-logger'
