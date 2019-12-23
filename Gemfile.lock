@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     dropcaster (1.0.0)
-      activesupport (< 6.0)
+      activesupport (< 7.0)
       bundler
       nokogiri (~> 1.10.4)
       null-logger
@@ -11,11 +11,12 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (5.2.4.1)
+    activesupport (6.0.2.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+      zeitwerk (~> 2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.0)
@@ -302,6 +303,7 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
+    zeitwerk (2.2.2)
 
 PLATFORMS
   ruby
