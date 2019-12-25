@@ -32,6 +32,8 @@ Once installed, you can use the `dropcaster` command to generate a new podcast f
 $ gem install --no-document libxml-ruby -- --with-xml2-config="$(brew --prefix libxml2)/bin/xml2-config"
 ```
 
+For Ruby 2.5, add `-v '3.1.0'`.
+
 # Basic Usage
 
 Once Dropcaster is installed, the only two other things you will need are a channel definition and one or more mp3 files to publish.

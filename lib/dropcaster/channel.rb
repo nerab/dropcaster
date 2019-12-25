@@ -63,7 +63,7 @@ module Dropcaster
       channel_template = @attributes[:channel_template] || File.join(File.dirname(__FILE__), '..', '..', 'templates', 'channel.rss.erb')
 
       begin
-        @erb_template = ERB.new(IO.read(channel_template), trim_mode: '%<>')
+        @erb_template = ERB.new(IO.read(channel_template))
       rescue Errno::ENOENT => e
         raise TemplateNotFoundError.new(e.message)
       end
