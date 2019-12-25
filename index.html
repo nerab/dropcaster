@@ -92,6 +92,13 @@
 
 <p>Once installed, you can use the <code class="highlighter-rouge">dropcaster</code> command to generate a new podcast feed document.</p>
 
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<p><code class="highlighter-rouge">libxml-ruby</code> is a frequent offender with installation problems. As usual, <a href="https://stackoverflow.com/questions/38129330/libxml-ruby-failed-to-build-gem-native-extension#comment98572516_55162900">Stack Overflow</a> has the answer (at least for macOS with Homebrew):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install --no-document libxml-ruby -- --with-xml2-config="$(brew --prefix libxml2)/bin/xml2-config"
+</code></pre></div></div>
+
 <h1 id="basic-usage">Basic Usage</h1>
 
 <p>Once Dropcaster is installed, the only two other things you will need are a channel definition and one or more mp3 files to publish.</p>
