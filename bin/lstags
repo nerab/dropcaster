@@ -16,12 +16,12 @@ begin
   # rubocop:disable Lint/EmptyWhen
   Mp3Info.open(file_name) do |mp3info|
     puts 'ID3v1 tags:'
-    mp3info.tag.each_key { |key|
+    mp3info.tag.each_key do |key|
       puts "  #{key} => #{mp3info.tag.send(key)}"
-    }
+    end
     puts
     puts 'ID3v2 tags:'
-    mp3info.tag2.each_key { |key|
+    mp3info.tag2.each_key do |key|
       case key
       when 'PIC'
       when 'APIC'
@@ -29,20 +29,22 @@ begin
       when 'ULT'
         print '  ULT => '
         block_counter = 0
-        mp3info.tag2.ULT.bytes { |b|
-          print sprintf('0x%02x ', b.to_i)
+        mp3info.tag2.ULT.bytes do |b|
+          # rubocop:disable Style/FormatStringToken
+          print format('0x%02x ', b.to_i)
+          # rubocop:enable Style/FormatStringToken
           print b > 31 ? " '#{b.chr}' " : ' ' * 5
           if (block_counter += 1) > 7 # display in blocks of 8 bytes
             puts
             print ' ' * 9
             block_counter = 0
           end
-        }
+        end
         puts
       else
         puts "  #{key} => #{mp3info.tag2.send(key)}"
       end
-    }
+    end
   end
   # rubocop:enable Metrics/BlockLength
   # rubocop:enable Lint/EmptyWhen

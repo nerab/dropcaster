@@ -41,24 +41,22 @@ end
 OptionParser.new do |opts|
   opts.banner = help
 
-  opts.on('--verbose', 'Verbose mode - displays additional diagnostic information') do |file|
+  opts.on('--verbose', 'Verbose mode - displays additional diagnostic information') do
     logger.level = Logger::INFO
   end
 
-  opts.on('--trace', 'Verbose mode - displays additional diagnostic information') do |file|
+  opts.on('--trace', 'Verbose mode - displays additional diagnostic information') do
     logger.level = Logger::DEBUG
   end
 
   opts.on('--channel FILE', 'Read the channel definition from FILE instead of channel.yml in the current directory.') do |file|
-    begin
-      logger.info "Reading channel definition from #{file}"
-      options = YAML.load_file(file).merge(options)
-      options[:auto_detect_channel_file] = false
-    rescue StandardError
-      logger.error "Could not load channel definition. #{$ERROR_INFO.message}"
-      logger.info $ERROR_INFO.backtrace
-      exit(1)
-    end
+    logger.info "Reading channel definition from #{file}"
+    options = YAML.load_file(file).merge(options)
+    options[:auto_detect_channel_file] = false
+  rescue StandardError
+    logger.error "Could not load channel definition. #{$ERROR_INFO.message}"
+    logger.info $ERROR_INFO.backtrace
+    exit(1)
   end
 
   opts.on('--title STRING', "Use STRING as the channel's title. Overrides settings read from channel definition file.") do |title|
