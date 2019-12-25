@@ -24,4 +24,9 @@ Naming/FileName:
 
 Metrics/BlockLength:
   Exclude:
-    - spec/**/*
+    - test/**/*
+
+Layout/LineLength:
+  Max: 180
+  Exclude:
+    - test/**/*
