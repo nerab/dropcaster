@@ -24,6 +24,14 @@ To get started, use RubyGems to install Dropcaster:
 
 Once installed, you can use the `dropcaster` command to generate a new podcast feed document.
 
+## Troubleshooting
+
+`libxml-ruby` is a frequent offender with installation problems. As usual, [Stack Overflow](https://stackoverflow.com/questions/38129330/libxml-ruby-failed-to-build-gem-native-extension#comment98572516_55162900) has the answer (at least for macOS with Homebrew):
+
+```
+$ gem install --no-document libxml-ruby -- --with-xml2-config="$(brew --prefix libxml2)/bin/xml2-config"
+```
+
 # Basic Usage
 
 Once Dropcaster is installed, the only two other things you will need are a channel definition and one or more mp3 files to publish.
@@ -151,7 +159,6 @@ The whole concept of Dropcaster works perfectly fine without Dropbox. Just run t
 If you set up an S3 bucket or Digital Ocean Space (or any other s3 compatible static asset host), you can easily sync your local podcast directory using a command line tool like [s3cmd](https://github.com/s3tools/s3cmd).
 
 After installing s3cmd, make sure you have the right credentials to write to your bucket/space. Add your mp3 files to your folder, run `dropcaster > index.rss` and then `s3cmd sync  ./  s3://$your-bucket-name --acl public-read`. S3cmd will now upload any new or changed files to your bucket.
-
 
 ## Episode Identifier (uuid)
 
