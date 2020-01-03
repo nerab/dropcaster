@@ -305,6 +305,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (>= 2.1)
   dropcaster!
   faraday (~> 0.15, < 0.17)
   github-pages

@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'ruby-mp3info'
 
 
+  spec.add_development_dependency 'bundler', '>= 2.1'
   # temp. fix for octokit vs. faraday
   # https://github.com/DannyBen/madman/commit/26b921e4fdae5a7b3f5ff6842b06df6048499e00
   spec.add_development_dependency 'faraday', '~> 0.15', '< 0.17'
