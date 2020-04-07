@@ -28,9 +28,7 @@ Gem::Specification.new do |spec|
 
 
   spec.add_development_dependency 'bundler', '>= 2.1'
-  # temp. fix for octokit vs. faraday
-  # https://github.com/DannyBen/madman/commit/26b921e4fdae5a7b3f5ff6842b06df6048499e00
-  spec.add_development_dependency 'faraday', '~> 1.0', '< 1.1'
+  spec.add_development_dependency 'faraday'
   spec.add_development_dependency 'github-pages'
   spec.add_development_dependency 'guard-bundler'
   spec.add_development_dependency 'guard-minitest'
