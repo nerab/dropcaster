@@ -310,7 +310,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (>= 2.1)
   dropcaster!
-  faraday (~> 1.0, < 1.1)
+  faraday
   github-pages
   guard-bundler
   guard-minitest
