@@ -13,7 +13,6 @@ begin
   puts "Listing tags for file: #{file_name}"
 
   # rubocop:disable Metrics/BlockLength
-  # rubocop:disable Lint/EmptyWhen
   Mp3Info.open(file_name) do |mp3info|
     puts 'ID3v1 tags:'
     mp3info.tag.each_key do |key|
@@ -47,7 +46,6 @@ begin
     end
   end
   # rubocop:enable Metrics/BlockLength
-  # rubocop:enable Lint/EmptyWhen
 
   puts "Modification date: #{File.new(file_name).mtime}"
 rescue StandardError
