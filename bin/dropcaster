@@ -32,7 +32,7 @@ require 'dropcaster/log_formatter'
 options = {}
 options[:auto_detect_channel_file] = true
 
-logger = Logger.new(STDERR).tap do |l|
+logger = Logger.new($stderr).tap do |l|
   l.level = Logger::WARN
   l.formatter = Dropcaster::LogFormatter.new
 end
