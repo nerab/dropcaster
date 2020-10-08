@@ -9,4 +9,4 @@
 * [Michael Knight](https://github.com/miknight) (1 contribution)
 * [Steffen Uhlig](https://github.com/suhlig) (1 contribution)
 * [Vítor Galvão](https://github.com/vitorgalvao) (1 contribution)
-* [Andrew Markle](https://github.com/andrewmarkle) (1 contribution)
+* andrewmarkle (1 contribution)
