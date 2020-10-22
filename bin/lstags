@@ -29,9 +29,7 @@ begin
         print '  ULT => '
         block_counter = 0
         mp3info.tag2.ULT.bytes do |b|
-          # rubocop:disable Style/FormatStringToken
           print format('0x%02x ', b.to_i)
-          # rubocop:enable Style/FormatStringToken
           print b > 31 ? " '#{b.chr}' " : ' ' * 5
           if (block_counter += 1) > 7 # display in blocks of 8 bytes
             puts
