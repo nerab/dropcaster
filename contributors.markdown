@@ -1,5 +1,5 @@
 * [Nicholas E. Rabenau](https://github.com/nerab) (194 contributions)
-* [](https://github.com/apps/dependabot-preview) (154 contributions)
+* [](https://github.com/apps/dependabot-preview) (156 contributions)
 * dependabot(bot) (48 contributions)
 * [Stephen Wade](https://github.com/stephenwade) (37 contributions)
 * [](https://github.com/apps/dependabot) (29 contributions)
@@ -8,5 +8,6 @@
 * [Hugo Veeger](https://github.com/dkhgh) (1 contribution)
 * [Michael Knight](https://github.com/miknight) (1 contribution)
 * [Steffen Uhlig](https://github.com/suhlig) (1 contribution)
+* [Tero Tilus](https://github.com/terotil) (1 contribution)
 * [Vítor Galvão](https://github.com/vitorgalvao) (1 contribution)
 * andrewmarkle (1 contribution)
