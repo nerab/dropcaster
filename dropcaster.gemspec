@@ -41,6 +41,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rb-fsevent'
   spec.add_development_dependency 'rb-inotify'
+  spec.add_development_dependency 'rubocop-minitest'
+  spec.add_development_dependency 'rubocop-rake'
   spec.add_development_dependency 'rubocop'
 end
 # rubocop:enable Metrics/BlockLength
