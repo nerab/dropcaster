@@ -38,7 +38,7 @@ class TestApp < TestChannelXML
   end
 
   def test_overwrite_link_without_ending_slash
-    test_link_base = 'http://www.dropbox.com/foo/bar/'
+    test_link_base = 'http://www.example.org/foo/bar/'
     test_link_file = 'index.html'
     test_link = "#{test_link_base}#{test_link_file}"
     channel = channel_node(`#{APP_SCRIPT} #{FIXTURE_ITUNES_MP3} --url '#{test_link}'`)

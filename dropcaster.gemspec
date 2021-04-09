@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.version       = Dropcaster::VERSION
   spec.authors       = ['Nicholas E. Rabenau']
   spec.email         = ['nerab@gmx.at']
-  spec.summary       = 'Simple Podcast Publishing with Dropbox'
-  spec.description   = 'Dropcaster is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other hoster.'
+  spec.summary       = 'Simple Podcast Publishing'
+  spec.description   = 'Dropcaster is a podcast feed generator for the command line. It  works with any (static file) web hoster.'
   spec.homepage      = 'https://github.com/nerab/dropcaster'
   spec.license       = 'MIT'
 

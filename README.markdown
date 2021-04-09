@@ -1,10 +1,10 @@
-# Dropcaster - Simple Podcast Publishing with Dropbox
+# Dropcaster - Simple Podcast Publishing
 
 [![Build Status](https://travis-ci.org/nerab/dropcaster.png?branch=master)](https://travis-ci.org/nerab/dropcaster)
 
   _This project is developed with the [readme-driven development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html) method. This file describes the functionality that is actually implemented, whereas the [vision](VISION.markdown) reflects where the tool should go._
 
-[Dropcaster](http://nerab.github.io/dropcaster/) is a podcast feed generator for the command line. It is most simple to use with Dropbox, but works equally well with any other (static file) web hoster.
+[Dropcaster](http://nerab.github.io/dropcaster/) is a podcast feed generator for the command line. It  works with any (static file) web hoster.
 
 Author: Nicolas E. Rabenau <nerab@gmx.at>
 
@@ -12,7 +12,7 @@ Author: Nicolas E. Rabenau <nerab@gmx.at>
 
 You have a number of podcast episodes that you would like to publish as a feed. Nothing else - no fancy website, no stats, nothing but the pure podcast.
 
-With Dropcaster, you simply put the mp3 files into the Public folder of your [Dropbox](http://www.dropbox.com/). Then run the Dropcaster script that generates the feed, writing it to a file in your Dropbox, e.g. index.rss. All mp3 files in the Public folder of your Dropbox are already accessible via HTTP, and so will the RSS file. You can then take the RSS file's URL and publish it (again, this is because any file in the Public folder of a Dropbox automatically gets a public, HTTP-accessible URL).
+With Dropcaster, you simply put the mp3 files into the `public_html` folder of your web host. Then run `dropcaster` - it generates the feed and writes it to a file, e.g. `index.rss`. You can then take the RSS file's URL and publish it as the feed URL.
 
 The feed URL can be consumed by any podcatcher, e.g. [iTunes](http://www.apple.com/itunes/) or [Juice](http://juicereceiver.sourceforge.net/).
 
@@ -52,47 +52,42 @@ Now that we have the podcast channel defined, we need at least one episode (an a
 
 With all required pieces in place, we could generate the podcast feed. Just before we do that, we will inspect the feed by running the following commands:
 
-    $ cd ~/Dropbox/Public
+    $ cd ~/public_html
     $ dropcaster
 
-(The above lines assume that you are using Dropbox, and that there is at least one mp3 file in `~/Dropbox/Public`).
+(The above lines assume that `public_html` is the web server's document root, and that there is at least one mp3 file in `public_html`).
 
 Dropcaster will print the feed to standard-out, without writing it to disk. When you are happy with the results, call Dropcaster again, but redirect the output to a file, this time:
 
     $ dropcaster > index.rss
 
-If all went well, you will now have a valid podcast feed in your Dropbox, listing all mp3 files as podcast episodes. Please see the section [Publish Your Feed](#publish-your-feed) for details on how to find the public URL of your feed.
+If all went well, you will now have a valid podcast feed in `public_html`, listing all mp3 files as podcast episodes. Please see the section [Publish Your Feed](#publish-your-feed) for details on how to find the public URL of your feed.
 
 # Use Cases
 
 ## Publish a New Episode
 
-1. Drop the mp3 file into the Dropbox Public folder (e.g. `~/Dropbox/Public`), and then run the following command in the directory where the mp3 files reside:
+1. Drop the mp3 file into the `public_html` folder, and then run the following command in that directory:
 
        $ dropcaster > index.rss
 
-1. Dropbox will sync the updated index.rss file to its web server and any podcast client will download the new episode as soon as it has loaded the updated index.rss.
+1. Sync the updated index.rss file to the public web server, and any podcast client will download the new episode as soon as it has loaded the updated index.rss.
 
 ## Delete an Episode
 
-Remove the mp3 you want to delete from the Dropbox Public folder, and then run the following command in the directory where the remaining mp3 files reside:
+1. Remove the mp3 you want to delete from the `public_html` folder, and then run the following command in the directory where the remaining mp3 files reside:
 
     $ dropcaster > index.rss
+
+1. Sync the updated index.rss file to the public web server. Podcast clients will no longer download the removed episode.
 
 ## Replace an Episode With an Updated File
 
-In the Dropbox Public folder, replace the mp3 you want to update with a new version, and then run the following command in the directory where the mp3 files reside:
+1. In the `public_html` folder, replace the mp3 you want to update with a new version, and then run the following command in the directory where the mp3 files reside:
 
     $ dropcaster > index.rss
 
-## Publish Your Feed
-
-1. Re-generate the feed to make sure the it is up to date (see above):
-
-       $ dropcaster > index.rss
-
-1. In your Dropbox Public folder, right-click the index.rss and select "Dropbox / Copy public link". This copies the public, HTTP-addressable link to your podcast into the clipboard.
-1. Publish this link and tell people to subscribe to it.
+1. Sync the updated index.rss file to the public web server. Podcast clients detect the change and download the updated episode.
 
 ## Generate a Podcast Feed for a Subset of the Available MP3 Files
 
@@ -144,17 +139,13 @@ Besides generating an RSS feed, dropcaster can also generate HTML that can be us
 
 As discussed above, the output of this command can be written to a file, too:
 
-    $ dropcaster --channel-template templates/channel.html.erb > ~/Dropbox/Public/allabouteverything.html
+    $ dropcaster --channel-template templates/channel.html.erb > ~/public_html/allabouteverything.html
 
 Dropcaster works exactly the same, whether it generates an RSS feed or a HTML page. Therefore, all options discussed before also apply when generating HTML.
 
 ## A Note on iTunes
 
 The generated XML file contains all elements required for iTunes. However, Dropcaster will not notify the iTunes store about new episodes.
-
-## Using Dropcaster Without Dropbox
-
-The whole concept of Dropcaster works perfectly fine without Dropbox. Just run the Dropcaster script in a directory of mp3 files and upload the files as well as the generated index.rss to a web server. Leave the relative position of the index and mp3 files as is, otherwise the path to the mp3 files in index.rss will become invalid.
 
 ## Using Dropcaster With S3 or Digital Ocean Spaces
 
