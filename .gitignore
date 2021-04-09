@@ -1,26 +1,14 @@
-# rcov generated
-coverage
-
-# rdoc generated
-rdoc/
-
-# yard generated
-.yardoc
-
-# bundler
-.bundle
-
-# jeweler generated
-pkg
 .DS_Store
-.vagrant
-
-# Rake cache
+.bundle
 .cache_rake_t
-
-# Jekyll
+.rake_tasks
+.vagrant
+.yardoc
+coverage
+pkg
+rdoc/
+website/_site
 website/contributing.md
 website/contributors.markdown
 website/index.markdown
 website/vision.markdown
-website/_site
