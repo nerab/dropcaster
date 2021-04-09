@@ -20,7 +20,9 @@ The feed URL can be consumed by any podcatcher, e.g. [iTunes](http://www.apple.c
 
 To get started, use RubyGems to install Dropcaster:
 
-    $ gem install dropcaster
+```command
+$ gem install dropcaster
+```
 
 Once installed, you can use the `dropcaster` command to generate a new podcast feed document.
 
@@ -28,7 +30,7 @@ Once installed, you can use the `dropcaster` command to generate a new podcast f
 
 `libxml-ruby` is a frequent offender with installation problems. As usual, [Stack Overflow](https://stackoverflow.com/questions/38129330/libxml-ruby-failed-to-build-gem-native-extension#comment98572516_55162900) has the answer (at least for macOS with Homebrew):
 
-```
+```command
 $ gem install --no-document libxml-ruby -- --with-xml2-config="$(brew --prefix libxml2)/bin/xml2-config"
 ```
 
@@ -42,9 +44,11 @@ Let's start with the channel definition. It is a simple [YAML](http://yaml.org/)
 
 The simplest channel file looks like this:
 
-    :title: 'All About Everything'
-    :description: 'A show about everything'
-    :url: 'http://www.example.com/podcasts/everything/index.html'
+```yaml
+:title: 'All About Everything'
+:description: 'A show about everything'
+:url: 'http://www.example.com/podcasts/everything/index.html'
+```
 
 Store this file as channel.yml in the same directory where the mp3 files of your podcast reside. The channel definition is expected to be present in the same directory as your mp3 files, but this can be overridden using a command line switch. You can find a [more elaborate example](http://github.com/nerab/dropcaster/blob/master/doc/sample-channel.yml) for the channel definition in the doc folder of the Dropcaster gem. You can find it by running `gem open dropcaster`.
 
@@ -52,14 +56,18 @@ Now that we have the podcast channel defined, we need at least one episode (an a
 
 With all required pieces in place, we could generate the podcast feed. Just before we do that, we will inspect the feed by running the following commands:
 
-    $ cd ~/public_html
-    $ dropcaster
+```command
+$ cd ~/public_html
+$ dropcaster
+```
 
 (The above lines assume that `public_html` is the web server's document root, and that there is at least one mp3 file in `public_html`).
 
 Dropcaster will print the feed to standard-out, without writing it to disk. When you are happy with the results, call Dropcaster again, but redirect the output to a file, this time:
 
-    $ dropcaster > index.rss
+```command
+$ dropcaster > index.rss
+```
 
 If all went well, you will now have a valid podcast feed in `public_html`, listing all mp3 files as podcast episodes. Please see the section [Publish Your Feed](#publish-your-feed) for details on how to find the public URL of your feed.
 
@@ -69,7 +77,9 @@ If all went well, you will now have a valid podcast feed in `public_html`, listi
 
 1. Drop the mp3 file into the `public_html` folder, and then run the following command in that directory:
 
-       $ dropcaster > index.rss
+   ```command
+   $ dropcaster > index.rss
+   ```
 
 1. Sync the updated index.rss file to the public web server, and any podcast client will download the new episode as soon as it has loaded the updated index.rss.
 
@@ -77,7 +87,9 @@ If all went well, you will now have a valid podcast feed in `public_html`, listi
 
 1. Remove the mp3 you want to delete from the `public_html` folder, and then run the following command in the directory where the remaining mp3 files reside:
 
-    $ dropcaster > index.rss
+   ```command
+   $ dropcaster > index.rss
+   ```
 
 1. Sync the updated index.rss file to the public web server. Podcast clients will no longer download the removed episode.
 
@@ -85,7 +97,9 @@ If all went well, you will now have a valid podcast feed in `public_html`, listi
 
 1. In the `public_html` folder, replace the mp3 you want to update with a new version, and then run the following command in the directory where the mp3 files reside:
 
-    $ dropcaster > index.rss
+   ```command
+   $ dropcaster > index.rss
+   ```
 
 1. Sync the updated index.rss file to the public web server. Podcast clients detect the change and download the updated episode.
 
@@ -95,23 +109,31 @@ Dropcaster accepts any number of files or directories as episodes. For directori
 
 For example, in order to generate a feed that only publishes MP3 files where the name starts with 'A', call Dropcaster like this:
 
-    $ dropcaster A*.mp3 > index.rss
+```command
+$ dropcaster A*.mp3 > index.rss
+```
 
 ## Publish More than One Feed
 
-    $ dropcaster project1 > project1.rss
-    $ dropcaster project2 > project2.rss
+```command
+$ dropcaster project1 > project1.rss
+$ dropcaster project2 > project2.rss
+```
 
 or
 
-    $ cd project1
-    $ dropcaster > index.rss
-    $ cd ../project2
-    $ dropcaster > index.rss
+```command
+$ cd project1
+$ dropcaster > index.rss
+$ cd ../project2
+$ dropcaster > index.rss
+```
 
 ## Include Episodes From Two Subdirectories Into a Single Feed
 
-    $ dropcaster project1 project2 > index.rss
+```command
+$ dropcaster project1 project2 > index.rss
+```
 
 # Advanced features
 
@@ -123,7 +145,9 @@ However, it is still possible to override Dropcaster's behavior in many ways. Yo
 
 In order to find out about all the options, simply run
 
-    $ dropcaster --help
+```command
+$ dropcaster --help
+```
 
 ## Using custom channel templates
 
@@ -135,11 +159,15 @@ It is also possible to customize the channel by supplying an alternative channel
 
 Besides generating an RSS feed, dropcaster can also generate HTML that can be used as a home page for your podcast. The template directory contains a sample template that can be used to get started:
 
-    $ dropcaster --channel-template templates/channel.html.erb
+```
+$ dropcaster --channel-template templates/channel.html.erb
+```
 
 As discussed above, the output of this command can be written to a file, too:
 
-    $ dropcaster --channel-template templates/channel.html.erb > ~/public_html/allabouteverything.html
+```command
+$ dropcaster --channel-template templates/channel.html.erb > ~/public_html/allabouteverything.html
+```
 
 Dropcaster works exactly the same, whether it generates an RSS feed or a HTML page. Therefore, all options discussed before also apply when generating HTML.
 
@@ -163,11 +191,15 @@ Dropcaster uses an ERB template to generate the XML feed. The template was writt
 
 It you prefer a more aesthetically pleasing output, just pipe the output of Dropcaster through `xmllint`, which is part of [libxml](http://xmlsoft.org/):
 
-    dropcaster | xmllint --format -
+```command
+$ dropcaster | xmllint --format -
+```
 
 For writing the output to a file, just redirect the ouput of the above command:
 
-    dropcaster | xmllint --format - > index.rss
+```command
+$ dropcaster | xmllint --format - > index.rss
+```
 
 # Web site
 
