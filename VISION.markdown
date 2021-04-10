@@ -18,10 +18,11 @@ The feed URL can be consumed by any podcatcher, e.g. [iTunes](http://www.apple.c
 
 # Installation
 
-To get started, use RubyGems to install Dropcaster:
+## As a Ruby Gem
 
 ```command
 $ gem install dropcaster
+$ dropcaster --help
 ```
 
 Once installed, you can use the `dropcaster` command to generate a new podcast feed document.
@@ -34,7 +35,26 @@ Once installed, you can use the `dropcaster` command to generate a new podcast f
 $ gem install --no-document libxml-ruby -- --with-xml2-config="$(brew --prefix libxml2)/bin/xml2-config"
 ```
 
-For Ruby 2.5, add `-v '3.1.0'`.
+## Docker
+
+If you prefer Docker over a local installation, use
+
+```command
+$ docker run -it --rm nerab/dropcaster dropcaster --help
+```
+
+The container will need access to the mp3 files on your workstation [with a bind mount](https://docs.docker.com/storage/bind-mounts/). For instance, running `dropcaster` with the [test fixtures](test/fixtures) will look like this:
+
+```command
+$ docker \
+    run \
+      -it \
+      --rm \
+      --mount type=bind,source="$(pwd)"/test/fixtures,target=/public_html \
+    nerab/dropcaster
+```
+
+Replace `"$(pwd)"/test/fixtures` with your own folder of mp3s, and you can run the command above without even installing Ruby.
 
 # Basic Usage
 
@@ -259,4 +279,4 @@ Dropcaster uses Steve Klabnik's [approach](https://github.com/steveklabnik/autom
 
 # Copyright
 
-Copyright (c) 2011-2015 Nicolas E. Rabenau. See [LICENSE.txt](https://raw.github.com/nerab/dropcaster/master/LICENSE.txt) for further details.
+Copyright (c) 2011-2021 Nicolas E. Rabenau. See [LICENSE.txt](https://raw.github.com/nerab/dropcaster/master/LICENSE.txt) for further details.
