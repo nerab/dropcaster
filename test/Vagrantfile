@@ -2,6 +2,11 @@
 
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+require 'yaml'
+
+def ruby_versions
+  YAML.load(File.read '../.travis.yml')['rvm']
+end
 
 Vagrant.configure(2) do |config|
   config.vm.box = 'ubuntu/trusty64'
@@ -11,7 +16,7 @@ Vagrant.configure(2) do |config|
     vb.memory = '256'
   end
 
-  %w[1.9.1 2.0 2.1 2.2].each do |version|
+  ruby_versions.each do |version|
     ruby = "ruby#{version}"
     name = "ruby-#{version.tr('.', '-')}"
 
@@ -34,3 +39,4 @@ Vagrant.configure(2) do |config|
     end
   end
 end
+
