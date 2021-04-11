@@ -3,10 +3,14 @@
 require 'bundler/gem_tasks'
 require 'rake/testtask'
 require 'rake/clean'
-require 'rubocop/rake_task'
 require 'dropcaster'
 
-RuboCop::RakeTask.new
+begin
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
+rescue LoadError
+  warn 'Rubocop tasks not available.'
+end
 
 Rake::TestTask.new(:test) do |test|
   test.libs << 'test'
