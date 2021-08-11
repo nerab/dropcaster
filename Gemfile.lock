@@ -263,7 +263,7 @@ GEM
     minitest (5.14.4)
     multipart-post (2.1.1)
     nenv (0.3.0)
-    nokogiri (1.12.2)
+    nokogiri (1.12.3)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     notiffany (0.1.3)
