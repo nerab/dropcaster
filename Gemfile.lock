@@ -272,7 +272,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     null-logger (0.1.7)
-    octokit (4.21.0)
+    octokit (4.22.0)
       faraday (>= 0.9)
       sawyer (~> 0.8.0, >= 0.5.3)
     parallel (1.21.0)
