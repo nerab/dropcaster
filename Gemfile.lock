@@ -235,7 +235,7 @@ GEM
       kramdown (~> 2.0)
     libnotify (0.9.4)
       ffi (>= 1.0.11)
-    libxml-ruby (3.2.4)
+    libxml-ruby (4.0.0)
     liquid (4.0.3)
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
