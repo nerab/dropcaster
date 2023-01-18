@@ -11,7 +11,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.0.6)
+    activesupport (6.0.6.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
@@ -324,7 +324,7 @@ GEM
       unf_ext
     unf_ext (0.0.8.2)
     unicode-display_width (2.3.0)
-    zeitwerk (2.6.0)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby
