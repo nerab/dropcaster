@@ -248,7 +248,7 @@ GEM
       jekyll (>= 3.5, < 5.0)
       jekyll-feed (~> 0.9)
       jekyll-seo-tag (~> 2.1)
-    minitest (5.16.3)
+    minitest (5.18.0)
     nenv (0.3.0)
     nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
